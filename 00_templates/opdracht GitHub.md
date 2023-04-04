@@ -2,18 +2,17 @@
 
 
 ## Key-terms
-GitHub: een plek om al je code die je maakt op te slaan. Je kan deze code bewerken zonder de voorgaande geschiedenis te verliezen. Ook kan je mensen mee laten kijken in je code. Zij kunnen ook aanpassingen doen in je code.
+GitHub: een plek om al je code die je maakt op te slaan in de cloud. Je kan deze code bewerken zonder de voorgaande geschiedenis te verliezen. Ook kan je andere mee laten kijken in je code. Zij kunnen ook aanpassingen doen in je code. Alle wijzigingen worden opgeslagen in de cloud. Alle wijzigingen kan je terugdraaien door naar een eerder opgeslagen versie te gaan. Ook files met codes die je verwijderd kan je weer opnieuw terughalen. 
 
 Repository: De plek waar je alle project in opslaat. 
 
-Git en clonen: Je kan op je eigen computer een kopie van de GitHub projecten die in de cloud staan opslaan. Je synchroniseerd beide bestanden via Git. 
+Clonen: Je kan op je eigen computer een kopie van de GitHub projecten die in de cloud staan opslaan. Je synchroniseerd beide bestanden via GitHub desktop of via de Git CLI.
 
-push:
+push: Het uploaden van wijzigingen in je document naar de GitHub cloud repsository via de GitHub desktop.
 
-pull:
+pull: Het downloaden van wijzigingen via de GitHub desktop
 
-
-
+Git: Is de CLI voor GitHub. Je kan aanpassingen in een script hiermee uploaden of je kan scripst downloaden. Dan maak je geen gebruik van GitHub desktop.
 
 
 ## Opdracht
