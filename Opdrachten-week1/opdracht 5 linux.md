@@ -24,3 +24,8 @@ https://linuxize.com/post/linux-chown-command/
 Ik wist niet zeker of het toevoegen van de nieuwe gebruiker in de sudo groep hetzelfde is als admin group. Die uiteindelijk gevonden doordat ik naar de etc folder ging en daar cat group commando uitvoerde. 
 
 ### Resultaat
+
+![owner and permissions](https://user-images.githubusercontent.com/123589199/230192318-c605764f-6ee6-41d1-a0a6-1cefdabc7506.png)
+![permissions](https://user-images.githubusercontent.com/123589199/230192483-1b2e7a17-dec3-46f7-b5df-cb260b92ad5d.png)
+![permission denied](https://user-images.githubusercontent.com/123589199/230192527-4fa63333-2265-4907-b258-1c9f7aded71f.png)
+![group ownership](https://user-images.githubusercontent.com/123589199/230192565-282abb38-a055-42aa-844d-b7cc8f5782b3.png)
