@@ -24,3 +24,6 @@ Foutmelding ivm beginnen naam met hoofdletter.
 ![add new user to sudo group](https://user-images.githubusercontent.com/123589199/230168708-184c7a03-b3a7-4388-bed8-cad08b8e8ae1.png)
 
 
+
+
+![users](https://user-images.githubusercontent.com/123589199/230170513-aa637616-6aab-46a9-a087-819eeb4ea540.png)
