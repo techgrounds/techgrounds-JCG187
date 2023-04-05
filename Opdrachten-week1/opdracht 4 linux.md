@@ -14,9 +14,10 @@
 
 ### Gebruikte bronnen
 https://phoenixnap.com/kb/how-to-create-sudo-user-on-ubuntu
+https://phoenixnap.com/kb/how-to-list-users-linux
 
 ### Ervaren problemen
-Foutmelding ivm beginnen naam met hoofdletter.
+Foutmelding ivm beginnen naam met hoofdletter. 
 
 ### Resultaat
 
