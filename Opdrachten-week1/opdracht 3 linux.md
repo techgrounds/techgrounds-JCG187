@@ -2,7 +2,7 @@
 
 
 ## Key-terms
-
+Tekst waarin het woord techgrounds staat, is in een aparte file geplaatst wat techgrounds.txt is genoemd via grep > techgrounds.txt
 
 
 
