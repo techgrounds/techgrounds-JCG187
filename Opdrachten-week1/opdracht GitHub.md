@@ -34,3 +34,6 @@ Ik heb een repository aangemaakt en daar document naar geupload. Ik heb de medes
 
 ![repository oefening](https://user-images.githubusercontent.com/123589199/230001776-24144eea-263a-4856-8d37-afe8c9d6f4a8.png)
 
+
+![Oefening collaborator](https://user-images.githubusercontent.com/123589199/230002537-91a3129e-60ee-477d-8d77-49a05077e9f6.png)
+
