@@ -24,3 +24,9 @@ Ik heb de eerste dag ingelogd via putty. De tweede dag via de CLI. Het lukte mij
 
 ### Resultaat
 Het is gelukt om in te loggen en als antwoord op whoami kreeg ik de melding jennifer
+
+
+![remote login Linux server](https://user-images.githubusercontent.com/123589199/230011940-235a7dcf-f8a9-4475-8c20-8f59bacbeb80.png)
+
+
+![whoami](https://user-images.githubusercontent.com/123589199/230011993-419e9f45-8b55-4b4f-a1ca-d37aa90ba839.png)
