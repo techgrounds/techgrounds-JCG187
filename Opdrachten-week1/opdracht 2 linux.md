@@ -29,3 +29,10 @@ Ik had ook problemen met de permissions waardoor ik geen nieuwe folder en tekst 
 ### Resultaat
 
 
+![mkdir techgrounds](https://user-images.githubusercontent.com/123589199/230025068-50a88394-126d-45f9-baae-5a1681566ac5.png)
+
+
+![aangemaakt directory en txt met inhoud toegevoegd](https://user-images.githubusercontent.com/123589199/230025135-0a026a47-a93a-432c-9c39-6c303a9480ab.png)
+
+
+![relative en absolute paht](https://user-images.githubusercontent.com/123589199/230025168-fb3b6839-601c-4089-8923-7c854244af23.png)
