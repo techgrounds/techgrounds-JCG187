@@ -19,3 +19,8 @@ https://phoenixnap.com/kb/how-to-create-sudo-user-on-ubuntu
 Foutmelding ivm beginnen naam met hoofdletter.
 
 ### Resultaat
+
+
+![add new user to sudo group](https://user-images.githubusercontent.com/123589199/230168708-184c7a03-b3a7-4388-bed8-cad08b8e8ae1.png)
+
+
