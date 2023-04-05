@@ -10,7 +10,9 @@ Clonen: Je kan op je eigen computer een kopie van de GitHub projecten die in de 
 
 push: Het uploaden van wijzigingen in je document naar de GitHub cloud repsository via de GitHub desktop.
 
-pull: Het downloaden van wijzigingen via de GitHub desktop
+
+pull reques: Laat andere weten wat voor veranderingen je hebt aangemaakt in een document. De veranderingen kunnen dan bekeken worden door 
+andere en bij akkoord wordt het bestand samengevoegd in de branche.
 
 Git: Is de CLI voor GitHub. Je kan aanpassingen in een script hiermee uploaden of je kan scripst downloaden. Dan maak je geen gebruik van GitHub desktop.
 

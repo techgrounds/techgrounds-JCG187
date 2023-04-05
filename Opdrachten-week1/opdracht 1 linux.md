@@ -17,10 +17,10 @@ https://quickref.me/ssh.html om via CLI in te loggen in linux
 
 
 
+
+
 ### Ervaren problemen
 Ik heb de eerste dag ingelogd via putty. De tweede dag via de CLI. Het lukte mij in eerste instantie niet om in te loggen met het wachtwoord. 
-
-Omdat er in de omschrijving stond dat de mappen 
 
 ### Resultaat
 Het is gelukt om in te loggen en als antwoord op whoami kreeg ik de melding jennifer
