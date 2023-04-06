@@ -55,22 +55,21 @@ https://ubuntu.com/tutorials/install-and-configure-apache#1-overview
 
 ### Ervaren problemen
 #### oefening 1
-Ik ben nieuw met het schrijven van scripts. Het aanmaken van een nieuwe folder en file ging goed. Wat niet goed ging was de folder in de variabel van $PATH zetten. Ik heb links gekregen hoe ik het moest doen. En ik wou de variabel ook vastzetten zodat die er niet komt te vervallen als ik de connectie met de server verbreek. En dat is mijn grootste probleem. Ik snap niet goed hoe ik de syntax moet lezen/gebruiken. Het heeft lang geduurd voordat het mij lukte om de de code export PATH="/scripts/:$PATH" erin te krijgen. Ik begrijp nu nog steeds niet waarom het persé in hoofdletters moet wezen de variabel PATH. Ik dacht aanvankelijk ook dat als je de folder in één van de folders deed die al in de route van de PATH variabel zit, dat het dan al voldoende was. Maar dat bleek niet zo te zijn. 
-
+Ik ben nieuw met het schrijven van scripts. Het aanmaken van een nieuwe folder en file ging goed. Wat niet goed ging was de folder in de variabel van $PATH zetten. Ik heb links gekregen hoe ik het moest doen. En ik wou de variabel ook vastzetten zodat die er niet komt te vervallen als ik de connectie met de server verbreek. En dat is mijn grootste probleem. Ik snap niet goed hoe ik de syntax moet lezen/gebruiken. Het heeft lang geduurd voordat het mij lukte om de de code export PATH="/scripts/:$PATH" erin te krijgen. Ik begrijp nu nog steeds niet waarom het persé in hoofdletters moet wezen de variabel PATH. Ik dacht aanvankelijk ook dat als je de folder in één van de folders deed die al in de route van de PATH variabel zit, dat het dan al voldoende was. Maar dat bleek niet zo te zijn.   
 Ik ben nog verder gaan zoeken naar een manier om de variabel vast te zetten in de .profile folder zoals aangeven werd. 
-Ik heb dat gedaan door de volgende toevoeging:
-fi
-#add script to PATH
-export PATH="/scripts:$PATH"
---insert--
+Ik heb dat gedaan door de volgende toevoeging:  
+fi  
+#add script to PATH  
+export PATH="/scripts:$PATH"  
+--insert--  
 Ik weet nog niet of dit zo gelukt is.
 
 Toen heb ik een klein testscript geschreven om te testen of ik de script abc.sh in verschillende directories uit kon voeren.
 echo "hello world" en dat lukte. Daarna heb ik de code gemaakt:
-echo "hello world">>/home/jennifer/file1.txt 
-cat -n /home/jennifer/file1.txt
-Zie printscreen 1. (de # voor de scripst even wegdenken)
-En daarna de script uit laten voeren.
+echo "hello world">>/home/jennifer/file1.txt  
+cat -n /home/jennifer/file1.txt   
+Zie printscreen 1. (de # voor de scripst even wegdenken)  
+En daarna de script uit laten voeren.  
 Zie printscreen 2.
 
 De volgende deelopdracht geeft de volgende vraag. Hoe installeer ik httpd . Dit moet ik opzoeken. Ik zoek op httpd install ubuntu distro. Ik krijg als resultaten alleen hoe ik Apache web server kan installeren. Daarna gezocht naar uitleg over hoe te installeren. 
