@@ -58,3 +58,9 @@ Zie printscreen 1.
 
 
 ### Resultaat
+
+printscreen1
+![printscreen1](https://user-images.githubusercontent.com/123589199/230458061-1f453706-256e-49e0-8008-23b652f37849.png)
+
+
+
