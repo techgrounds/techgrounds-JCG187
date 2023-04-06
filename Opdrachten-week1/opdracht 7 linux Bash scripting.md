@@ -88,8 +88,12 @@ printscreen2
 
 printscreen script-install-http
 
+![script-install-httpd](https://user-images.githubusercontent.com/123589199/230482602-63388761-62fc-4c49-8a2e-36b8ed2bdf7f.png)
 
 printscreen uitvoer-script-http
+
+![uitvoer-script-httpd](https://user-images.githubusercontent.com/123589199/230482700-52b10dd0-e514-4586-9078-7f3e6ddefdea.png)
+
 
 
 
