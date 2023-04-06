@@ -72,7 +72,8 @@ Zie printscreen 1. (de # voor de scripst even wegdenken)
 En daarna de script uit laten voeren.  
 Zie printscreen 2.
 
-De volgende deelopdracht geeft de volgende vraag. Hoe installeer ik httpd . Dit moet ik opzoeken. Ik zoek op httpd install ubuntu distro. Ik krijg als resultaten alleen hoe ik Apache web server kan installeren. Daarna gezocht naar uitleg over hoe te installeren. 
+De volgende deelopdracht geeft de volgende vraag. Hoe installeer ik httpd . Dit moet ik opzoeken. Ik zoek op httpd install ubuntu distro. Ik krijg als resultaten alleen hoe ik Apache web server kan installeren. Daarna gezocht naar uitleg over hoe te installeren. En toen de script gemaakt voor de uitvoer.  
+Ik had een probleem met de uitvoer van de commando sudo systemctl status apache2. Ik dacht dat daar httpd moest staan ipv apache2. En dat er echo voor moest staan. Ook nog een variabel met de systemctl status apache2 als input. Dit met cat uitgevoerd. Lukte ook niet. En het bleek helemaal niet ingewikkeld te zijn. Ik moest alleen de syntax systemctl status apache2 intypen. Dat op zich is al de commando. Alles wat je in nano zet wordt uitgevoerd. Dat deed het ook bij de andere opdrachten. Omdat er bij de laatse stond dat het in de terminal uitgeprint moest worden, ben ik te ver gaan zoeken. Zie schermprint script-install-http en uitvoer-script-http. 
 
 
 ### Resultaat
@@ -84,6 +85,11 @@ printscreen1
 printscreen2
 
 ![screenshot2](https://user-images.githubusercontent.com/123589199/230471268-b8175f00-bb73-471c-ae85-c07930e0b55e.png)
+
+printscreen script-install-http
+
+
+printscreen uitvoer-script-http
 
 
 
