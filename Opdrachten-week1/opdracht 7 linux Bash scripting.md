@@ -3,17 +3,24 @@
 
 ## Key-terms
  $PATH : Is een omgevings variabel die het wordt gebruikt voor het uitvoeren van een script. Voor het uitvoeren van een code moet het systeem de weg weten naar de folders waar (de) script(s) zich bevindt(en). Anders kan het systeem het programma/code niet gebruiken om de script uit te voeren. Deze variabel wordt niet alleen voor het systeem gebruikt, ook gebruikt door programmeurs om informatie op te  op te slaan die door hun app's worden gebruikt. 
- PATH: zijn diverse folders die via : gescheiden zijn van elkaar. Executable files die in een van die folders zitten kunnen uitgevoerd worden zonder dat je aan hoeft welke route het programma moet gaan om in de correcte folder te komen waar de code zit. Het systeem begint bij de eerste folder en gaat zo alle folders langs totdat het systeem een script gevonden heeft wat hoort bij de uitvoer die is ingevoerd door de gebruiker. Dan voert het systeem de code in die script uit. Heb je een script nodig wat altijd in dezelfde folder moet worden uitgevoerd, dan hoef je de PATH variabel er niet aan te geven. 
+
+ PATH: zijn diverse folders die via het ':' teken gescheiden zijn van elkaar. Executable files die in een van die folders zitten kunnen uitgevoerd worden zonder dat je aan hoeft welke route het programma moet gaan om in de correcte folder te komen waar de code zit. Het systeem begint bij de eerste folder en gaat zo alle folders langs totdat het systeem een script gevonden heeft wat hoort bij de uitvoer die is ingevoerd door de gebruiker. Dan voert het systeem de code in die script uit. Heb je een script nodig wat altijd in dezelfde folder moet worden uitgevoerd, dan hoef je de PATH variabel er niet aan te geven. 
   
  .profile : folder in de gebruikers folder waarje de variabel PATH die je hebt aangemaakt kan vastleggen zodat het de route vastligt, ook al sluit je de verbinding naar het systeem. 
+
  nano: text editor in de terminal
+
  shebang: #!/bin/bash. Dit is de taal die gebruikt wordt voor coderen. Hier wordt aangeven dat BASH gebruikt wordt. 
+
  ./ : hiermee zeg je tegen de bash vertaler dat de script die je geschreven hebt in de huidige folder zit, van waaruit je de commando geeft om het script uit te voeren.
- chmod +x "filenamescript.sh": geeft aan dat iedereen toestemming heeft om de script uit te voeren
- which "filenaamscript.sh":
+
+ chmod +x "filenamescript.sh": zorgt ervoor dat iedereen toestemming heeft om de script uit te voeren.
+
  BASH: Born Again Shell
 
-Apache2 is de http server voor Debian based distro's zoals ubuntu. Het is Apache HTTP server. 
+Apache2: is de http server voor Debian based distro's zoals ubuntu. Het is Apache HTTP server.   
+
+
 
 route vraag 1:
 Ik heb eerste een nieuwe folder aangemaakt via mkdir script aangemaakt in de root directory.
@@ -44,13 +51,17 @@ Daarna gezocht hoe ik de folder in de variabel $PATH kon krijgen en deze ook per
 
 ### Gebruikte bronnen
 uitleg over $PATH
-https://janelbrandon.medium.com/understanding-the-path-variable-6eae0936e976
+https://janelbrandon.medium.com/understanding-the-path-variable-6eae0936e976  
 
-uitleg over httpd in linux en apache2 voor debian based distro's zoals ubuntu. 
+uitleg over httpd in linux en apache2 voor debian based distro's zoals ubuntu.  
 https://askubuntu.com/questions/248404/is-there-any-difference-between-apache2-and-httpd
 
-uitleg over hoe apache te installeren
-https://ubuntu.com/tutorials/install-and-configure-apache#1-overview
+uitleg over hoe apache te installeren  
+https://ubuntu.com/tutorials/install-and-configure-apache#1-overview  
+
+random nummer genereren uitleg  
+https://linuxhint.com/generate-random-number-bash/
+
 
 
 ### Ervaren problemen
@@ -72,11 +83,19 @@ Zie printscreen 1. (de # voor de scripst even wegdenken)
 En daarna de script uit laten voeren.  
 Zie printscreen 2.
 
-De volgende deelopdracht geeft de volgende vraag. Hoe installeer ik httpd . Dit moet ik opzoeken. Ik zoek op httpd install ubuntu distro. Ik krijg als resultaten alleen hoe ik Apache web server kan installeren. Daarna gezocht naar uitleg over hoe te installeren. En toen de script gemaakt voor de uitvoer.  
-Ik had een probleem met de uitvoer van de commando sudo systemctl status apache2. Ik dacht dat daar httpd moest staan ipv apache2. En dat er echo voor moest staan. Ook nog een variabel met de systemctl status apache2 als input. Dit met cat uitgevoerd. Lukte ook niet. En het bleek helemaal niet ingewikkeld te zijn. Ik moest alleen de syntax systemctl status apache2 intypen. Dat op zich is al de commando. Alles wat je in nano zet wordt uitgevoerd. Dat deed het ook bij de andere opdrachten. Omdat er bij de laatse stond dat het in de terminal uitgeprint moest worden, ben ik te ver gaan zoeken. Zie schermprint script-install-http en uitvoer-script-http. 
+De volgende deelopdracht geeft de volgende vraag. Hoe installeer ik httpd . Dit moet ik opzoeken. Ik zoek op httpd install ubuntu distro. Ik krijg als resultaten alleen hoe ik Apache web server kan installeren. Ik heb mijn mede teamgenoten daarover gehoord. Daarna gezocht naar uitleg over hoe te installeren. En toen de script gemaakt voor de uitvoer.  
+Ik had een probleem met de uitvoer van de commando sudo systemctl status apache2. Ik dacht dat daar httpd moest staan ipv apache2. En dat er echo voor moest staan. Ook nog een variabel met de systemctl status apache2 als input geprobeerd. Dit met cat uitgevoerd. Lukte ook niet. En het bleek helemaal niet ingewikkeld te zijn. Ik moest alleen de syntax systemctl status apache2 intypen als commando. Dat op zich is al de commando. Alles wat je in nano zet wordt uitgevoerd. Dat deed het ook bij de andere opdrachten. Omdat er bij de laatse stond dat het in de terminal uitgeprint moest worden, ben ik te ver gaan zoeken. Zie schermprint script-install-http en uitvoer-script-http. 
+
+#### oefening 2
+Hoe maak je een random output en  hoe stop ik dit in een variabel? De random formule snel gevonden. Deze eerst getest in de terminal en toen in nano gezet. Nadat ik het hele script geschreven had uitgevoerd in de terminal. Daar kreeg ik steeds een foutmelding. De formule/script voor het genereren van een random nummer ging niet goed. Hulp gevraagd bij de collega's. Uiteindelijk gevonden dat de script goed was. Het bleek om de invoer te gaan die ik deed om het script aan te roepen. Ik voerde sh randomnr.sh in. Dat vond Bash niet goed. Het lukte namelijk wel met de invoer randomnr.sh.
+
+#### oefening 3
+Ik krijg een foutmelding bij mijn script: unexptected end of file bash. Dit houdt in dat ik ergens iets vergeten ben. Ik heb daarom maar een nieuwe file.sh aangemaakt. Daar kreeg ik de error token is "5". Dit aan chatgpt gevraagd en die gaf aan dat er een spatie moest zitten tussen de [ ] en de formule die erin zit. 
 
 
-### Resultaat
+### Resultaat  
+
+#### oefening 1
 
 printscreen1
 
@@ -92,7 +111,27 @@ printscreen script-install-http
 
 printscreen uitvoer-script-http
 
-![uitvoer-script-httpd](https://user-images.githubusercontent.com/123589199/230482700-52b10dd0-e514-4586-9078-7f3e6ddefdea.png)
+![uitvoer-script-httpd](https://user-images.githubusercontent.com/123589199/230482700-52b10dd0-e514-4586-9078-7f3e6ddefdea.png)  
+
+#### oefening 2  
+
+printscreen script  
+
+
+
+printscreen uitvoer script  
+
+  
+
+#### oefening 3   
+
+printscreen script  
+
+
+printscreen uitvoer script
+
+
+
 
 
 
