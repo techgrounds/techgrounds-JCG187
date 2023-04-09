@@ -43,7 +43,7 @@ gezocht op youtube naar korte tutorial cronjobs
 https://www.youtube.com/watch?v=7MFMnsnfBJs    
   
 website met info over cron  
-https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/
+https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/  
 
 gezocht naar available disk space linux  
 https://www.hostinger.com/tutorials/vps/how-to-check-and-manage-disk-space-via-terminal 
