@@ -58,12 +58,33 @@ In eerste instantie dacht ik dat ik geen log.file zelf aan kon maken via touch. 
 
 ### Resultaat
 #### deel 1  
+schermprint van script date. 
+
+![script date](https://user-images.githubusercontent.com/123589199/230885109-1957cbfe-5dcb-4497-8f28-8b20e1993f59.png)
 
 
+Schermprint werkende cronjob date.
 
-
-
-
+![werkende date cronjob](https://user-images.githubusercontent.com/123589199/230885441-9d4efa03-44aa-464a-b86e-f26dadad7214.png)
 
 
 #### deel 2
+
+schermprint van df -h (geheugen)
+
+![output terminal df -h](https://user-images.githubusercontent.com/123589199/230885930-06ceb62b-9bb4-469e-a11f-bf6f61f4deea.png)
+
+schermprint beide cronjobs
+
+
+![Beide cronjobs](https://user-images.githubusercontent.com/123589199/230886206-93695209-697e-4655-8c2a-7419b2e9c2e6.png)
+
+Opties crontab
+
+![opties crontab](https://user-images.githubusercontent.com/123589199/230886269-af80c14b-02c6-4b33-baec-27dd893650db.png)
+
+
+
+
+
+
