@@ -1,5 +1,5 @@
 # NW-01 OSI stack  
-**OSI**: referentiemodel voor een open communicatie tussen verschillende technische systemen. Staat voor Open Systems Interconnection Model. 
+**OSI**: referentiemodel voor een open communicatie tussen verschillende technische systemen. Staat voor Open Systems Interconnection Model. Helpt met het troubleshooten van problemen in een netwerk. 
 **Pleas Do Not Throw Sausage Pizza Away**
 7 **Application layer**: Zorgt ervoor dat een applicatie/toepassing kan communiceren met andere applicaties/toepassing op andere computers en netwerken. Het is geen applicatie. Op deze laag vindt de data input en output plaats. Het is verantwoordelijk voor het laten zien van de ontvangen en verzonde data aan de gebruikers via de interface.
 prococollen die gebruikt worden: DNS, FTP, HTTP, HTTPS, IMAP, Telnet, SSH, POP3. 
@@ -13,22 +13,28 @@ protocollen die gebruikt worden: TCP, UDP IL, RDP, DCCP.
 protocollen die gebruikt worden: ICMP, IPv4, IPv6, IPSEC, MPLS.
 **2 Data link layer**:  Deze laag is verantwoordelijk voor een goede transmissie van frames. Het voegd de source en destination MAC address toe aan de data. 
 protocollen die gebruikt worden: ARP, 
-**1 Physical layer**: Is verantwoordelijk voor de transport van data over de fysieke verbindingen. Het zijn de bits en de bytes. 
+**1 Physical layer**: Is verantwoordelijk voor de transport van data over de fysieke verbindingen. Het zijn de bits en de bytes.  
+protocollen die gebruikt worden: USB, Bluetooth, Ethernet
 
-
+**TCP/IP model**  
+Dit model is bijna hetzelfde als de OSI model maar de bovenste drie lagen zijn samengevoegd in een Application laag. Vanaf de transport laag heeft het niets meer met het netwerk te maken maar met de applicatie. Ook zijn de laatste twee lagen samen gevoegd. Data link en Physical zijn samengevoegd in de network interface. 
 
 ## Key-terms
  
 
 
-## Opdracht
-.
+## Opdracht  
+
+●	The OSI model and its uses.
+●	The TCP/IP model and its uses.  
 
 ### Gebruikte bronnen
 **application layer explained**
 https://osi-model.com/application-layer/  
-https://www.strato.nl/server/wat-is-het-osi-model/
-https://nl.wikipedia.org/wiki/OSI-model  
+
+https://nl.wikipedia.org/wiki/OSI-model    
+
+https://www.guru99.com/layers-of-osi-model.html
 
 **list of network protocols (OSI)**  
 https://en.wikipedia.org/wiki/List_of_network_protocols_(OSI_model)
