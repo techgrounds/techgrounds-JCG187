@@ -21,6 +21,7 @@ getest door elke minuut te laten lopen.
 schedule aangepast naar wekelijks. 
 
 
+
 ## Key-terms
 cron jobs: script wat automatisch opstart en op gespecificeerde tijden de opdracht uitvoert.   
 
