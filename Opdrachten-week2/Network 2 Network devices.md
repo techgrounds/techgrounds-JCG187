@@ -46,5 +46,9 @@ geen
 
 
 **vraag**: Waar staat je DHCP server op jouw netwerk? Wat zijn de configuraties hiervan?
+
 **antwoord**:  De DHCP server is de router. Het netwerk is 192.168.2.0/24 netwerk. De op adressen 192.168.2.1 tot en met 192.168.1.200 kunnen verstrekt worden aan apparaten in de LAN. Zie schermprint:
+
+![DHCP](https://user-images.githubusercontent.com/123589199/231160488-b2bcfe3b-ac18-432a-a721-2649f38c425c.png)
+
 
