@@ -4,13 +4,13 @@ Network devices zijn: Hardware devices that are used to connect computers, print
 modem: modulator demodulator  
 router: koppelt verschillende netwerken aan elkaar. Het routeerd data pakketjes adhv ip adressen. Kan data pakketjes routeren naar de externe netwerken.    
 Switch: doorgeefluik voor datapakketjes naar andere gerichte netwerkapparaten in de LAN. In tegenstelling tot de hub is de switch wel intelligent. De switch onthoudt welk apparaat aan welke port is gekoppeld. Hiermee Het stuurt pakketjes door adhv de MAC adres. Er zijn ook layer 3 switches die ook kunnen doorsturen advh IP adressen.   
-Hub: stuurt pakketjes door naar alle aangesloten apparaten aan het netwerk. Een hub weet niet welk apparaat welke MAC heeft. 
-Hotspot   
-Gateways  
-Repeater  
-Bridges   
-Firewall   
-Ethernetcard 
+Hub: broadcast data pakketjes door naar alle aangesloten apparaten aan het netwerk. Een hub weet niet welk apparaat welke MAC heeft. Dit zorgt voor opstoppingen in het netwerk.
+Hotspot: Een accesspoint om met wifi verbonden apparaten te verbinden met internet.  
+Gateways: Het is een single access point om verschillende  type netwerken met elkaar te verbinden en de verschillende protocollen te vertalen en door te geven.   
+Repeater: herhaalt het datapakket bij verzwakking van het signaal.  
+Bridges: Verbindt meerderde LAN's samen om zo een grotere LAN te vormen. Het voegt meerdere verzamelingen of groepen tot een groot geheel.  Het verbindt verschillende componenten zodat het net lijkt alsof het een netwerk is. Het wordt gebruikt om een frame, niet de packet naar de bestemming te vervoeren door gebruik te maken van de meest efficiente route
+Firewall: Is een beveiligingsapparaat om ongeoorloofde toegang tot een prive netwerkt tegen te houden of te verminderen.    
+Ethernetcard: Zorgt dat een apparaat kan verbinden met het netwerk. Zowel een wificard als een Ethernetcard kan data klaarmaken voor transport en het beheerd de stroom aan dat verzonden wordt en controleerd de datastroom.  
 
 
 
