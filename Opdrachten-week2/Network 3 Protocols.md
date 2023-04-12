@@ -25,8 +25,11 @@
 **bluetooth**: is een draadloze technologie dat gebruik maakt van radio frequenties om kleine stukjes data over een korte afstand te sturen.
   
 ## opdracht 2
-  
+Het internet is een wereldwijd openbaar netwerk van computernetwerken, waarvan de afspraken worden beschreven in de Request for Comments die worden beheerd door de Internet Engineering Task Force. Om het internet goed te laten werken, zijn afspraken gemaakt over protocollen voor gegevensuitwisseling tussen computers. Een van die protocollen is het Internetprotocol (IP).
 
+De oorsprong van het internet is terug te voeren tot ARPANET, een in 1969 in de Verenigde Staten gebouwd netwerk. Inmiddels is het internet een mondiaal fenomeen, dat het karakter van massamedium heeft gekregen. Als een van de succesfactoren wordt wel genoemd dat het **volledige internet eigendom van niemand** is, terwijl de fysieke onderdelen wel degelijk een eigenaar hebben.
+
+In het dagelijkse spraakgebruik wordt met internet vaak het wereldwijde web bedoeld, maar dat is slechts een van de vele diensten die kunnen worden gebruikt via het internet. Andere bekende diensten zijn e-mail, IP-telefonie, FTP en Usenet. 
 
 
 ## opdracht 3
@@ -74,6 +77,9 @@ https://www.top10vpn.com/what-is-a-vpn/vpn-protocols/
 SCTP  
 https://www.scaler.com/topics/computer-network/transport-layer-protocols/
 
+Wie beheert protocollen  
+https://nl.wikipedia.org/wiki/Internet  
+https://nl.wikipedia.org/wiki/Netwerkprotocol
 
 
 ### Ervaren problemen
