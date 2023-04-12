@@ -29,7 +29,11 @@
 
 
 
-## opracht 2
+## opdracht 3
+
+
+![wireshark](https://user-images.githubusercontent.com/123589199/231421611-a5c46ca7-2dd0-4d06-aa56-8fa894e162cb.png)
+
 
 Een voorbeeld van een wireshark capture.
 Te zien is het volgende:
@@ -38,11 +42,6 @@ Hier zie je dat de transmission control protocol wordt gebruikt. De source poort
 Daarboven staat de IPv4 adressen van mij en van de destination node.
 Daarboven staat de mac adressen van mij en van de destinatione node
 En helemaal boven aan, dat is laag 1 de physical laag staat hoeveel bits er in deze data transmissie zitten. 
-
-
-
-
-
 
 
 ## Opdracht
