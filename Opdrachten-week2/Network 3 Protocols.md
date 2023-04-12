@@ -35,12 +35,12 @@
 ![wireshark](https://user-images.githubusercontent.com/123589199/231421611-a5c46ca7-2dd0-4d06-aa56-8fa894e162cb.png)
 
 
-Een voorbeeld van een wireshark capture.
-Te zien is het volgende:
-Wat geopend is, is laag 4 van de OSI model, de netwerk laag. 
-Hier zie je dat de transmission control protocol wordt gebruikt. De source poort is 49963 en de destination poort is 443. 
-Daarboven staat de IPv4 adressen van mij en van de destination node.
-Daarboven staat de mac adressen van mij en van de destinatione node
+Een voorbeeld van een wireshark capture.  
+Te zien is het volgende:  
+Wat geopend is, is laag 4 van de OSI model, de netwerk laag.   
+Hier zie je dat de transmission control protocol wordt gebruikt. De source poort is 49963 en de destination poort is 443.   
+Daarboven staat de IPv4 adressen van mij en van de destination node.  
+Daarboven staat de mac adressen van mij en van de destinatione node.  
 En helemaal boven aan, dat is laag 1 de physical laag staat hoeveel bits er in deze data transmissie zitten. 
 
 
