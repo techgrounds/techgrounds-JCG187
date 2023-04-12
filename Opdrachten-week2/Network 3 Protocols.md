@@ -1,7 +1,7 @@
 # Network 3 Protocols
 
 
-## Key-terms
+## opdracht 1
 **Application layer protocols**:  
 **POP3 (TCP 110)**: Staat voor Post Office Protocol versie 3.Een verouderd protocol dat alleen een download synchronizatie van e-mail toestaat vanaf de e-mail server naar één client. Dit houdt in dat als e-mail op één apparaat wordt gewonload en gelezen, het bij het volgende apparaat waarop het gedownload wordt, het weer als ongelezen wordt gemarkeerd. Ook kan je niet vanaf verschillende apparaten mailen. Deze mailtjes worden niet gesynchroniseerd. Mailtjes worden ook niet automatisch gepushed naar je apparaat. Je moet deze zelf ophalen van de e-mail server. Dit kan allemaal wel met het protocol **IMAP (TCP poort 143)**. IMAP staat voor Internet Message Acess Protocol. Beide protocollen zijn om e-mails op te halen van de mail server. 
 **SMTP (TCP 25)** : Staat voor Simple Is een protocol om mail te versturen. 
@@ -13,7 +13,35 @@
 **PPTP (TCP 1723)**: Staat voor Point-To-Point Tunneling protocol.  Deze protocol wordt gebruikt binnen een VPN. Dit is een van de oudste protocollen voor een VPN verbinding en ook het minst veilige. Daarom niet te gebruiken bij de overdracht van gevoelige informatie. Er wordt een verbinding gemaakt via het internet  en alle communicatie is encrypted. De veiligste VPN verbinding is nu **Open VPN**. Deze protocol is compatibel met verschillende encryptie mogelijkheden die nog niet zijn gekraakt. Dit protocol is langzamer dan PPTP. 
 
 **Transport layer protocols**:  
-**SCTP (**: Staat voor Stream Control Transmission Protocol. Het zorgt ervoor dat er een betrouwbaar transport van dat is op volgorde van verzenden. 
+**SCTP (132)**: Staat voor Stream Control Transmission Protocol. Stream Control Transmission Protocol (SCTP) is a transport-layer protocol that ensures reliable, in-sequence transport of data. SCTP provides multihoming support where one or both endpoints of a connection can consist of more than one IP address. This enables transparent failover between redundant network paths.
+
+**Network layer protocols**:  
+**ICMP**:Internet Control Message Protocol: Dit protocol bekijkt of er een connectie is met het netwerk en of er problemen zijn met transmissie van data tussen twee apparaten.     
+
+**Data link layer protocols**:  
+**Token ring**: Is een topology op de LAN dat data in een richting stuurt langs verschillende nodes met een token.  Door de token heeft die data versturing recht om het netwerk te gebruiken. Andere pakketjes mogen niet gestuurd worden. 
+
+**Physical layer protocols**:    
+**bluetooth**: is een draadloze technologie dat gebruik maakt van radio frequenties om kleine stukjes data over een korte afstand te sturen.
+  
+## opdracht 2
+  
+
+
+
+## opracht 2
+
+Een voorbeeld van een wireshark capture.
+Te zien is het volgende:
+Wat geopend is, is laag 4 van de OSI model, de netwerk laag. 
+Hier zie je dat de transmission control protocol wordt gebruikt. De source poort is 49963 en de destination poort is 443. 
+Daarboven staat de IPv4 adressen van mij en van de destination node.
+Daarboven staat de mac adressen van mij en van de destinatione node
+En helemaal boven aan, dat is laag 1 de physical laag staat hoeveel bits er in deze data transmissie zitten. 
+
+
+
+
 
 
 
