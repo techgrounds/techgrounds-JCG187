@@ -1,5 +1,5 @@
 # Network 3 Protocols
-
+Network protocols are a set of rules outlining how connected devices communicate across a network to exchange information easily and safely. Protocols serve as a common language for devices to enable communication irrespective of differences in software, hardware, or internal processes.
 
 ## opdracht 1
 **Application layer protocols**:  
