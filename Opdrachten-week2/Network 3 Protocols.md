@@ -1,6 +1,20 @@
 # Network 3 Protocols
 Network protocols are a set of rules outlining how connected devices communicate across a network to exchange information easily and safely. Protocols serve as a common language for devices to enable communication irrespective of differences in software, hardware, or internal processes.
 
+
+**Een netwerkprotocol bevat afspraken omtrent**
+
+    identificatie van de verschillende communicerende componenten,  
+    het onderhandelen over het tot stand komen van de communicatie,  
+    de betekenis van de over en weer gezonden gegevens en informatieblokken,  
+    het tot stand brengen en afbreken van de communicatiestroom.
+
+**Request for Comments**
+
+RFC-documenten – voluit Request for Comments – zijn documenten die de protocollen en andere aspecten van het internet beschrijven. De RFC-documenten komen tot stand door een discussie- en publicatieproces dat wordt georganiseerd door de RFC Editor. Ze worden uiteindelijk als standaard bekrachtigd door de Internet Engineering Task Force.
+
+De RFC-documenten zijn doorzoekbaar op de website van de RFC Editor. Op deze site is ook allerlei informatie te vinden over de totstandkoming van RFC's en Internet-standaarden.     
+
 ## opdracht 1
 **Application layer protocols**:  
 **POP3 (TCP 110)**: Staat voor Post Office Protocol versie 3.Een verouderd protocol dat alleen een download synchronizatie van e-mail toestaat vanaf de e-mail server naar één client. Dit houdt in dat als e-mail op één apparaat wordt gewonload en gelezen, het bij het volgende apparaat waarop het gedownload wordt, het weer als ongelezen wordt gemarkeerd. Ook kan je niet vanaf verschillende apparaten mailen. Deze mailtjes worden niet gesynchroniseerd. Mailtjes worden ook niet automatisch gepushed naar je apparaat. Je moet deze zelf ophalen van de e-mail server. Dit kan allemaal wel met het protocol **IMAP (TCP poort 143)**. IMAP staat voor Internet Message Acess Protocol. Beide protocollen zijn om e-mails op te halen van de mail server. 
@@ -79,7 +93,10 @@ https://www.scaler.com/topics/computer-network/transport-layer-protocols/
 
 Wie beheert protocollen  
 https://nl.wikipedia.org/wiki/Internet  
-https://nl.wikipedia.org/wiki/Netwerkprotocol
+https://nl.wikipedia.org/wiki/Netwerkprotocol  
+
+nog meer info  
+https://en.wikipedia.org/wiki/Communication_protocol
 
 
 ### Ervaren problemen
