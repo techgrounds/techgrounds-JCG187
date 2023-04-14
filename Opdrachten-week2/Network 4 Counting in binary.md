@@ -16,3 +16,7 @@ https://www.binaryhexconverter.com/hex-to-decimal-converter
 Geen problemen ervaart. Alleen voor de berekening van de hexadecimaal naar de decimaal een converter gebruikt. 
 
 ### Resultaat
+
+Ingevulde oefening:
+
+
