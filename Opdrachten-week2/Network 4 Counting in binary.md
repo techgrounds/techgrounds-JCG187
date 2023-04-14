@@ -20,3 +20,4 @@ Geen problemen ervaart. Alleen voor de berekening van de hexadecimaal naar de de
 Ingevulde oefening:
 
 
+[NTW-04 Counting in binary _ hex.docx](https://github.com/techgrounds/techgrounds-Jennifer-Govaart/files/11230101/NTW-04.Counting.in.binary._.hex.docx)
