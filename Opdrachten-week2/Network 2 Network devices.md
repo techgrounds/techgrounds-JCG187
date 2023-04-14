@@ -1,17 +1,16 @@
 # Network 2 Network devices  
 Network devices zijn: Hardware devices that are used to connect computers, printers, fax machines and other electronic devices to a network.
   
-modem: modulator demodulator  
-router: koppelt verschillende netwerken aan elkaar. Het routeerd data pakketjes adhv ip adressen. Kan data pakketjes routeren naar de externe netwerken.    
-Switch: doorgeefluik voor datapakketjes naar andere gerichte netwerkapparaten in de LAN. In tegenstelling tot de hub is de switch wel intelligent. De switch onthoudt welk apparaat aan welke port is gekoppeld. Hiermee Het stuurt pakketjes door adhv de MAC adres. Er zijn ook layer 3 switches die ook kunnen doorsturen advh IP adressen.   
-Hub: broadcast data pakketjes door naar alle aangesloten apparaten aan het netwerk. Een hub weet niet welk apparaat welke MAC heeft. Dit zorgt voor opstoppingen in het netwerk.
-Hotspot: Een accesspoint om met wifi verbonden apparaten te verbinden met internet.  
-Gateways: Het is een single access point om verschillende  type netwerken met elkaar te verbinden en de verschillende protocollen te vertalen en door te geven.   
-Repeater: herhaalt het datapakket bij verzwakking van het signaal.  
-Bridges: Verbindt meerderde LAN's samen om zo een grotere LAN te vormen. Het voegt meerdere verzamelingen of groepen tot een groot geheel.  Het verbindt verschillende componenten zodat het net lijkt alsof het een netwerk is. Het wordt gebruikt om een frame, niet de packet naar de bestemming te vervoeren door gebruik te maken van de meest efficiente route
-Firewall: Is een beveiligingsapparaat om ongeoorloofde toegang tot een prive netwerkt tegen te houden of te verminderen.    
-Ethernetcard: Zorgt dat een apparaat kan verbinden met het netwerk. Zowel een wificard als een Ethernetcard kan data klaarmaken voor transport en het beheerd de stroom aan dat verzonden wordt en controleerd de datastroom.  
-
+**modem**: modulator demodulator. Het is een apparaat wat een computer of router aansluit op het internet. Het converteerd de digitale data van de pc naar analoge data zodat het over een telfoonlijn verstuurd kan worden.   
+**router**: koppelt verschillende netwerken aan elkaar. Het routeerd data pakketjes adhv ip adressen. Kan data pakketjes routeren van de LAN (prive netwerk) naar de public netwerken.    
+**Switch**: doorgeefluik voor data pakketjes naar andere netwerkapparaten in de LAN. In tegenstelling tot de hub is de switch wel intelligent. De switch onthoudt welk apparaat aan welke port is gekoppeld. Het stuurt pakketjes door adhv de MAC adres. Er zijn ook layer 3 switches die ook kunnen doorsturen advh IP adressen.   
+**Hub**: broadcast data pakketjes door naar alle aangesloten apparaten aan het netwerk. Een hub weet niet welk apparaat welke MAC adres of ip adres heeft en stuurt daarom alle data pakketjes door naar alle apparaten aangesloten op de hub. Dit zorgt voor opstoppingen in het netwerk, waardoor de verbinding langzaam wordt. 
+**Hotspot**: Een accesspoint om met wifi verbonden apparaten te verbinden met internet.  
+**Gateways**: Het is een apparaat wat verschillende netwerken met elkaar verbind die verschillende type netwerken protocollen gebruiken of architectuur. De gateway vertaald de communicatie.   
+**Repeater**: herhaalt het datapakket bij verzwakking van het signaal.  
+**Bridges**: Verbindt meerderde netwerken met elkaar die ver uit elkaar liggen, om zo een grotere netwerk te vormen. Het voegt meerdere verzamelingen of groepen tot een groot geheel.  Het verbindt verschillende componenten zodat het net lijkt alsof het een netwerk is. Het wordt gebruikt om een data frame, niet de data packet naar de bestemming te vervoeren door gebruik te maken van de meest efficiente route. Het werkt op de data link layer. Net als een hub of een switch. 
+**Firewall**: Is een beveiligingsapparaat om ongeoorloofde toegang tot een prive netwerkt tegen te houden of te verminderen. Dit doet het door het data pakketje te onderzoeken. Aan de hand van vooraf gestelde regels mag een data pakket door of niet.    
+**Ethernetcard**: Zorgt dat een apparaat kan verbinden met het netwerk dat gebruik maakt van de Ethernet technologie. 
 
 
 

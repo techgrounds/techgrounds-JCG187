@@ -35,6 +35,6 @@ antwoord: er gebeurde niks. Ik kon gewoon op internet sites opzoeken en bekijken
 ### Ervaren problemen
 Ik heb geen wifi op mijn computer. Daarom heb ik de wifi van de telefoon aangedaan en verbinding met de router gemaakt waarmee mijn computer ook verbonden is. 
 
-Ik had in eerste instantie op mijn mobiel een ip adres wat niet in de 192.168.2.0 range zat. Dit kwam omdat ik verbonden was met het gastnetwerk van de wifi. De router gebruikt een ander netwerk voor de gastnetwerk. 
+Ik had in eerste instantie op mijn mobiel een ip adres wat niet in de 192.168.2.0 netwerk zat. Dit kwam omdat ik verbonden was met het gastnetwerk van de wifi. De router gebruikt een ander netwerk voor het gastnetwerk. 
 
 ### Resultaat
