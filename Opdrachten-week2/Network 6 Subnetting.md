@@ -2,7 +2,7 @@
 
 
 ## Key-terms
- 
+Subnetting: Is het proces van het verdelen van grotere netwerken in meerdere kleinere netwerken. Hiervoor gebruik je het subnetmask en de CIDR notatie. Een IP adres laat met behulp van het subnet
 
 
 ## Opdracht
@@ -24,6 +24,6 @@ uitleg over hoe te subnetten
 https://www.youtube.com/watch?v=mJ_5qeqGOaI&list=PLIhvC56v63IKrRHh3gvZZBAGvsvOhwrRF&index=9
 
 ### Ervaren problemen
-Ik dacht dat we variable subnet masking moesten toepassen, maar dat bleek niet zo te zijn. Het duurde 
+Ik dacht dat we variable subnet masking moesten toepassen, maar dat bleek niet zo te zijn. De opdracht was daardoor moeilijker dan gedacht.
 
 ### Resultaat
