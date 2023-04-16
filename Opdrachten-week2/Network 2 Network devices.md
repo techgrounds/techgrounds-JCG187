@@ -1,5 +1,9 @@
 # Network 2 Network devices  
-Network devices zijn: Hardware devices that are used to connect computers, printers, fax machines and other electronic devices to a network.
+
+
+
+## Key-terms
+ **Network devices**: Hardware devices that are used to connect computers, printers, fax machines and other electronic devices to a network.
   
 **modem**: modulator demodulator. Het is een apparaat wat een computer of router aansluit op het internet. Het converteerd de digitale data van de pc naar analoge data zodat het over een telfoonlijn verstuurd kan worden.   
 **router**: koppelt verschillende netwerken aan elkaar. Het routeerd data pakketjes adhv ip adressen. Kan data pakketjes routeren van de LAN (prive netwerk) naar de public netwerken.    
@@ -11,12 +15,7 @@ Network devices zijn: Hardware devices that are used to connect computers, print
 **Bridges**: Verbindt meerderde netwerken met elkaar die ver uit elkaar liggen, om zo een grotere netwerk te vormen. Het voegt meerdere verzamelingen of groepen tot een groot geheel.  Het verbindt verschillende componenten zodat het net lijkt alsof het een netwerk is. Het wordt gebruikt om een data frame, niet de data packet naar de bestemming te vervoeren door gebruik te maken van de meest efficiente route. Het werkt op de data link layer. Net als een hub of een switch. 
 **Firewall**: Is een beveiligingsapparaat om ongeoorloofde toegang tot een prive netwerkt tegen te houden of te verminderen. Dit doet het door het data pakketje te onderzoeken. Aan de hand van vooraf ingestelde regels mag een data pakket door of niet.    
 **Ethernetcard**: Zorgt dat een apparaat kan verbinden met het netwerk dat gebruik maakt van de Ethernet technologie. Het heeft een MAC adres waarmee het zich identificeert. Het converteerd de binaire data in electrische signalen zodat ze over de netwerkkabel verstuurd kunnen worden. 
-
-
-
-## Key-terms
  
-DHCP: Dynamic Host Configuration Protocol: geeft automatisch het IP adres aan alle apparaten in de LAN. 
 
 ## Opdracht
 -	Benoem en beschrijf de functies van veel voorkomend netwerkapparatuur
