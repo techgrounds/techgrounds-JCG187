@@ -7,7 +7,7 @@ Subnetting: Is het proces van het verdelen van grotere netwerken in meerdere kle
 CIDR notatie: Staat voor Clasless Inter-Domain Routing. Het wordt gebruikt om IP adressen aan te duiden. Met CIDR kan op elke bit nivo aangegeven worden welk gedeelte van het IP adres gebruikt wordt voor het netwerk.   
 
 In je interne netwerk kan je gebruik maken van onderstaande prive IP adressen om toe te kennen aan al je apparatuur. Deze IP adressen zijn niet routeerbaar op het publieke netwerk.   
-Het IP adres 127.0.0.0
+Het IP adres 127.0.0.0 heeft een loopback functie en wordt niet gebruikt. 
 
 Private address range:   
 10.0.0.0/8 IP addresses: 10.0.0.0 – 10.255.255.255  
