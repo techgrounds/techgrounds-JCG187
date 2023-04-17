@@ -31,3 +31,5 @@ Ik ben aan het twijfelen of ik de switch na de tweede firewall weg moet halen.
 ### Resultaat
 Diagram: 
 
+
+![Opdracht 7 Network Case Study](https://user-images.githubusercontent.com/123589199/232506309-1a8eee37-0fec-4007-8dc5-498b78b2fda4.png)
