@@ -42,3 +42,7 @@ Ik dacht dat we variable subnet masking moesten toepassen, maar dat bleek niet z
 ### Resultaat  
 
 In de diagram heeft de router het netwerk 192.168.0.0/24. Het netwerk is opgesplitst in 4 netwerken, maar er zijn er maar 3 nodig voor de opdracht. De nieuwe netwerken krijgen een /26 als CIDR notatie. Hierdoor kan je 2 bits stelen van de host gedeelte. Daarmee creeer je 4 subnets. Alle subnetten zijn verbonden met de router. Alle subnetten hebben genoeg IP adressen om aan hosts te geven. Per subnet zijn  er 62 IP adressen beschikbaar om uit te delen. Genoeg voor wat is gespecificeerd in de opracht. De router vertaald via NAT het interne IP adres naar een externe IP adres. Dit zorgt ervoor dat de interne netwerk met het exteren netwerk kan communiceren. De router is de gateway naar het public internet. 
+
+
+![netwerk 6 opdracht](https://user-images.githubusercontent.com/123589199/232451648-d8e08495-c537-45f1-9f78-e1fea6d50103.png)
+
