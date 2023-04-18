@@ -48,7 +48,7 @@ https://www.youtube.com/watch?v=_kYAzJG_68s
 
 ### Ervaren problemen
 Ik weet niet zeker of ik "links" nodig heb om de browser the zien in de ubuntu cli, die in apache standaard zit.   
-Het bleek achteraf ook dat ik de browser in mij eigen pc moest openen. Niet in ubuntu. Dus weer verder zoeken.
+Het bleek achteraf ook dat ik de webpagina in de browser van mijn eigen pc moest openen. Niet in ubuntu. Dus weer verder zoeken.
 Ik moest hiervoor eerst de firewall activeren. Ik vergat ondanks de waarschuwing dat ik ook poort 22 toe moest openen op de firewall. Hierdoor kon ik niet meer in mijn vm komen en moest de firewall worden uitgezet door Casepr.  
 En om alles nog leuker te maken had ik helaas ook niet begrepen dat ik de poort 58004 moest gebruiken om via de host toegang te krijgen via een browser naar de default webpagina van apache in de vm. Daarom de hele ochtend lopen zoeken hoe ik de default pagina moest openen via de browser van mijn pc. Toen ik dat uiteindelijk gevraagd had en ingevoerd had, was de rest makkelijk. 
 
