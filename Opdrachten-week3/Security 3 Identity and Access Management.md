@@ -25,7 +25,7 @@ Ook is een extra app zoals Microsoft Authenticator een goede beveiliging. Deze h
 
 De melding op de smartphone kan ook beveiligd worden met biometrie. 
 
-**Least Privilege** Het geven van toegang van een user account. Je geeft alleen toegang tot wat nodig is om de werkzaamheden uit te voeren. Niks extra's. 
+**Least Privilege**: Dit houdt in dat een gebruikersaccount of proces alleen die privileges krijgt die essentieel zijn om de bedoelde functie uit te voeren.
 
 
 ## Opdracht
