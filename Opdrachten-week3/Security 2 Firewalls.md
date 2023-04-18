@@ -53,3 +53,20 @@ Ik moest hiervoor eerst de firewall activeren. Ik vergat ondanks de waarschuwing
 En om alles nog leuker te maken had ik helaas ook niet begrepen dat ik de poort 58004 moest gebruiken om via de host toegang te krijgen via een browser naar de default webpagina van apache in de vm. Daarom de hele ochtend lopen zoeken hoe ik de default pagina moest openen via de browser van mijn pc. Toen ik dat uiteindelijk gevraagd had en ingevoerd had, was de rest makkelijk. 
 
 ### Resultaat
+
+Drie maal default webpage van apache2:
+
+
+![default webpage in cli ubuntu via curl](https://user-images.githubusercontent.com/123589199/232802037-4c9db8dc-ba10-40a5-9324-e8483101797e.png)
+
+
+![default webpage in cli ubuntu via de app links](https://user-images.githubusercontent.com/123589199/232802080-159f1eab-f650-4df7-8b63-ac4480682a82.png)
+
+
+![default webpage in cli ubuntu via eigen browser](https://user-images.githubusercontent.com/123589199/232802120-e8a9493b-4c24-405b-b43f-2372456e3fda.png)
+
+Gesloten poort 80 via firewall
+
+![deny poort 80 firewall](https://user-images.githubusercontent.com/123589199/232802377-41d06018-1ba6-4ede-a726-c7979799cdd2.png)
+
+
