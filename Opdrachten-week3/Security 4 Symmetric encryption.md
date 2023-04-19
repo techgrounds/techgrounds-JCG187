@@ -2,7 +2,10 @@
 
 
 ## Key-terms
-**Symmetric encryption**: Je gebruikt dezelfde sleutel om te encrypten en decrypten. Wordt ook geheime sleutel encryptie genoemd. Het is de sleutel die je geheim moet houden voor derden. 
+**Symmetric encryption**: Je gebruikt dezelfde sleutel om te encrypten en decrypten. Wordt ook geheime sleutel encryptie genoemd. Het is de sleutel die je geheim moet houden voor derden.Voorbeelden van symmetric encrypties zijn Blowfish, AES, RC4, DES, RC5, en RC6. Veel gebruikte algoritmes zijn AES-128, AES-192, en AES-256.  
+
+**algoritme**: Is een aantal stappen die je zet om een doel te berijken. Dat kan een rekensom zijn, maar ook de stappen die je volgt in het bereiden van een recept van een maaltijd.  
+**Encryptie, of versleuteling**: is een manier om gegevens te coderen. Dit zorgt ervoor dat niet iedereen deze gegevens zomaar te zien krijgt. Dit coderen gaat op basis van een algoritme, zodat men de gegevens later weer kan ontsleutelen en lezen. Dit proces van ontsleuteling heet decryptie.
 
 **Steganograhpy** hiding message in plain sight. 
 
@@ -19,9 +22,32 @@
 
 ### Gebruikte bronnen
 Andere oude encryptie:
-https://interestingengineering.com/innovation/11-cryptographic-methods-that-marked-history-from-the-caesar-cipher-to-enigma-code-and-beyond
+https://interestingengineering.com/innovation/11-cryptographic-methods-that-marked-history-from-the-caesar-cipher-to-enigma-code-and-beyond  
+
+Meer info over d Steganograhpy:  
+https://www.simplilearn.com/what-is-steganography-article  
+
+symmetric encryption voorbeelden:
+https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences    
+https://www.vpngids.nl/veilig-internet/surfen/wat-is-encryptie/
+
+info over algoritme:
+https://decorrespondent.nl/10306/wat-is-een-algoritme/54438c86-fc17-06a7-3884-2b5ed2910ae2   
+
+tool voor encryptie en sleutel:
+https://cryptotools.net/aes
 
 ### Ervaren problemen
 
 
 ### Resultaat
+encrypted tekst:  
+U2FsdGVkX1+ggqHPxIo85eSLfoulHG2NtuYXbIkcNVIvoYl8yL9WQUx0WWmpyxvmUSSiTinYtnvW/B+QBCiaTg==  
+
+sleutelwoord: sleutel
+
+Tekst die encyrpted is: Yeah! Je hebt het geheim gevonden!
+
+website om te decripten: https://cryptotools.net/aes 
+
+
