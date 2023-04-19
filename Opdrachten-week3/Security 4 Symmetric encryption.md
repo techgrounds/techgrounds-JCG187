@@ -35,7 +35,10 @@ info over algoritme:
 https://decorrespondent.nl/10306/wat-is-een-algoritme/54438c86-fc17-06a7-3884-2b5ed2910ae2   
 
 tool voor encryptie en sleutel:
-https://cryptotools.net/aes
+https://cryptotools.net/aes  
+
+tool voor steganograph:  
+https://www.mobilefish.com/services/steganography/steganography.php
 
 ### Ervaren problemen
 
