@@ -2,15 +2,19 @@
 
 
 ## Key-terms
-**Symmetric encryption**: Je gebruikt dezelfde sleutel om te encrypten en decrypten. Wordt ook geheime sleutel encryptie genoemd. Het is de sleutel die je geheim moet houden voor derden.Voorbeelden van symmetric encrypties zijn Blowfish, AES, RC4, DES, RC5, en RC6. Veel gebruikte algoritmes zijn AES-128, AES-192, en AES-256.  
+**Symmetric encryption**: Je gebruikt dezelfde sleutel om te encrypten en decrypten. Wordt ook geheime sleutel encryptie genoemd. Het is de sleutel die je geheim moet houden voor derden.Voorbeelden van symmetric encrypties zijn Blowfish, AES, RC4, DES, RC5, DES, 3DES, IDEA en RC6. Veel gebruikte algoritmes zijn AES-128, AES-192, en AES-256.  
 
 **algoritme**: Is een aantal stappen die je zet om een doel te berijken. Dat kan een rekensom zijn, maar ook de stappen die je volgt in het bereiden van een recept van een maaltijd.  
-**Encryptie, of versleuteling**: is een manier om gegevens te coderen. Dit zorgt ervoor dat niet iedereen deze gegevens zomaar te zien krijgt. Dit coderen gaat op basis van een algoritme, zodat men de gegevens later weer kan ontsleutelen en lezen. Dit proces van ontsleuteling heet decryptie.
+**Encryptie, of versleuteling**: is een manier om gegevens te coderen. Dit zorgt ervoor dat niet iedereen deze gegevens zomaar te zien krijgt. Dit coderen gaat op basis van een algoritme, zodat men de gegevens later weer kan ontsleutelen en lezen. Dit proces van ontsleuteling heet decryptie.  
+**Ciphertext**: De gewone door mensen te lezen tekst die geconverteerd is naar een tekst die eruit ziet als onzin. 
 
 **Steganograhpy** hiding message in plain sight. 
 
 **digital cypher**: DES Data Encryption Standard.  Public-key encryption. RSA encryption algorithm. AES:Advanced encryption standards
 
+**End-to-end encryption**: Het bericht wat ik verstuur via whatsapp, versleutel ik met de openbare sleutel van degene die het bericht ontvangt. Degene die het bericht ontvangt kan het bericht openen met de prive sleutel. Hierdoor kan de server die het bericht doorstuurd het bericht niet ontcijferen.   
+
+**Point-to-point encryption**: Versleuteling loopt tot aan de eerst volgende ontvanger of server. 
 
 
 ## Opdracht
