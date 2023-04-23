@@ -4,7 +4,7 @@
 ## Key-terms
 **Authentication**: Hierbij wordt er gekeken of de gebruikers daadwerkelijk zijn wie ze beweren te zijn. Dit wordt gedaan door:   
 * wachtwoorden  
-* pincoders  
+* pincode 
 * authenticatie apps  
 * biometrie   
 
