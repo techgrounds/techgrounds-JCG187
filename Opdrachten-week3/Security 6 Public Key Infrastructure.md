@@ -30,6 +30,17 @@ https://phoenixnap.com/kb/how-to-set-or-change-timezone-date-time-ubuntu
 ### Ervaren problemen
 
 
-### Resultaat
+### Resultaat  
+
+Certificaat Yahoo:
+![certificaat yahoo](https://user-images.githubusercontent.com/123589199/233854999-298f4dfd-bb94-4b42-bacc-afeec14f4977.png)
+
+
+CA firefox:
+
+![CA in firefox](https://user-images.githubusercontent.com/123589199/233855021-c5095654-0a5b-4e86-b8a1-5e094e708445.png)
+
+
+
 
 
