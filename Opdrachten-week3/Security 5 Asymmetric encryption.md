@@ -21,3 +21,8 @@ Ik vond het moeilijk om iets te verzinnen waarmee ik een bericht kon versturen i
 Uiteindelijk gekozen voor https://www.mobilefish.com/services/steganography/steganography.php . Getest en het werkte. 
 
 ### Resultaat
+
+Het plaatje wat ik op slack gezet heb.
+
+
+![googleboth](https://user-images.githubusercontent.com/123589199/233857216-564223c6-a1ba-43f2-825d-89ba18510d38.png)
