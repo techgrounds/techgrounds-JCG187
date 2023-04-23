@@ -12,7 +12,9 @@ PKI: Public Key Infrastructure. Dit zorgt er in het kort voor dat je website vei
 
 
 ## Opdracht
-.
+●	Create a self-signed certificate on your VM.
+●	Analyze some certification paths of known websites (ex. techgrounds.nl / google.com / ing.nl).
+●	Find the list of trusted certificate roots on your system (bonus points if you also find it in your VM).
 
 ### Gebruikte bronnen
 https://ubuntu.com/server/docs/security-certificates 
@@ -29,3 +31,5 @@ https://phoenixnap.com/kb/how-to-set-or-change-timezone-date-time-ubuntu
 
 
 ### Resultaat
+
+
