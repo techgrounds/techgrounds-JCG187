@@ -45,7 +45,9 @@ Andere artikelen schrijven het volgende:
  **Pepper**: Is een korte willekeurige reeks of karakters die voor elk wachtwoord anders zijn. De computer gaat langs alle mogelijkheden die er zijn van alle peppers. Stel alle peppers zijn het alfabet in kleine letters en hoofdletter. Stel het wachtwoord is Mijnhondislief. Dan wordt daar een hoofdletter M aan toegevoegd. En dan wordt er een hash van gemaakt.  Als de gebruiker inlogt zal de computer eerst zoeken naar Mijnhondisliefa, gevolgd door Mijnhondisliefb etc. Dit maakt het moeilijker voor de hacker om de hash te kraken. 
 
 
-A users password is hashed at login. This hash is compared to the hash in the database. When the same, the user gets access. If someone gets a hold of the passwords of a database, they cannot use the hash as it cannot be decripted. Een paswoord wat encrypted is, kan wel decrypt worden. Daarom geeft een hash meer beveiliging. Hoe Moeilijker het wachtwoord hoe minder de kans dat de hash bekend is en in een rainbow table staat. 
+A users password is hashed at login. This hash is compared to the hash in the database. When the same, the user gets access. If someone gets a hold of the passwords of a database, they cannot use the hash as it cannot be decripted.  
+
+Een paswoord wat encrypted is, kan wel decrypt worden. Daarom geeft een hash meer beveiliging. Hoe Moeilijker het wachtwoord hoe minder de kans dat de hash bekend is en in een rainbow table staat. 
 
 
 ## Opdracht
