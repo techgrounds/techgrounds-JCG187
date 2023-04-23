@@ -56,7 +56,9 @@ Response strategie:
 
 **System hardening**: is een proces voor het beveiligen van computersystemen voor cyberaanvallen en beveiligings dreigingen door de kwetsbaarheid te verminderen van het computer systeem. Dit wordt gedaan door een combinatie van hardware, software en ingestelde policies zo in te richten dat het moeilijk wordt voor een hacker om het systeem binnen te komen.  
 
-RPO en RTO:
+**RPO**: Recovery Point Objective: Is de tijd vanaf een goede volledige backup naar het moment van de storing. De tijd hiertussen is het verlies van data. Deze data krijg je niet meer terug. Die ben je kwijt. Je moet dus bij het maken van een netwerk gaan bedenken hoe lang hoeveel data kan je verliezen zonder in problemen te raken. Dit is iets wat je je per applicatie af moet vragen. Emails zijn belangrijk en daar moet vaak een backup of snapshot van gemaakt worden. Je  hoeft niet zo vaak van een file een backup te maken. Eens in de 24 uur kan voldoende zijn. Het is een kosten en baten afweging. Hoe meer backups of snapshots je maakt hoe meer het kost qua apparaten.  
+
+**RTO**: Recovery Time Objective: Dit is het moment waarop je weer volledig up and running bent vanaf de storing. Hoe lang ben je down vanaf de storing totdat je weer volledig operationeel bent. Dit heeft niks te maken met data wat je verlies. Het heeft te maken met hoe snel je weer operationeel zijn. Heb ik een reserve server of data center? Welke downtime kan ik me veroorloven? Dit is ook iets wat je voor elke appliatie moet afvragen. Je internet kan cruciaal zijn voor de bedrijfsvoering en die moet dus snel weer actief zijn. Dan kan je denken aan DNS servers die het niet meer doen. Een fileserver hoeft misschien niet zo snel weer online te zijn. Het gaat hier om redundancy. Kan ik snel een nieuwe vm opstarten?
 
 
 ## Opdracht  
