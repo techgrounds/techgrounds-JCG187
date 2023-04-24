@@ -12,7 +12,7 @@ Ik moest de firewall eerst nog activeren en de toegangsregels toepassen.
 Na lang zoeken niet gevonden hoe het moest. Navraag gedaan bij collega's. Het bleek dat ik de webpoort moest gebruiken die in de lijst op de cloud stond. Ik moest eerst door de "poort" van de host om bij de vm van mij te komen.  
 
 ## Key-terms
- Statefull: Hierbij wordt al het verkeer gemonitoord. Aan de hand van het bekijken van het verkeer kan de status van het verkeer gemonitoord, gevolgd en beschermd worden aan de hand van patronen en bewegingen.
+ Statefull: Hierbij wordt al het verkeer gemonitoord. Aan de hand van het bekijken van het verkeer kan de status van het verkeer gemonitoord, gevolgd en beschermd worden aan de hand van patronen en bewegingen. Alle uitgaande en binnenkomende pakketjes worden gevolgd en onthouden waar ze vandaan komen, waar ze naar toe moeten gaan,  welke protocol ze gebruikt hebben etc. 
  
  Stateless: Is het filteren van verkeer door de firewall wat door mag gaan door middel van accesslists en poortnummers. Deze vorm van filteren kijkt naar elk pakketje afzonderlijk en checkt dat pakketje tegen vooraf ingestelde regels.   
   

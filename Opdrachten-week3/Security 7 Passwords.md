@@ -42,13 +42,14 @@ Andere artikelen schrijven het volgende:
 
  **Salts**: Zijn korte willekeurige rijtjes van tekens die toegevoegd zijn aan het wachtwoord voordat deze een hash krijgen. Als de gebruiker zijn wachtwoord invoert dan wordt dit automatisch toegevoegd en daarna wordt het omgezet naar een hash en vergeleken met de hash in de database. Deze salts worden vaak in 'plain text' bewaard, samen met de hash uitkomst. Zo weet de website welke 'salt' deze moet gebruiken om het wachtwoord en de 'salt' om te zetten naar de hash als er ingelogd wordt. Dit laatste maakt het wel mogelijk om de hash te kraken zolang de aanvaller weet waar de salt geplaatst is in het wachtwoord. Maar rainbow tables kunnen hier niet gebruikt worden waardoor het moeilijker is om te kraken.   
 
- **Pepper**: Is een korte willekeurige reeks of karakters die voor elk wachtwoord anders zijn. De computer gaat langs alle mogelijkheden die er zijn van alle peppers. Stel alle peppers zijn het alfabet in kleine letters en hoofdletter. Stel het wachtwoord is Mijnhondislief. Dan wordt daar een hoofdletter M aan toegevoegd. En dan wordt er een hash van gemaakt.  Als de gebruiker inlogt zal de computer eerst zoeken naar Mijnhondisliefa, gevolgd door Mijnhondisliefb etc. Dit maakt het moeilijker voor de hacker om de hash te kraken. 
+ **Pepper**: Is een korte willekeurige reeks of karakters die voor elk wachtwoord anders zijn. De computer gaat langs alle mogelijkheden die er zijn van alle peppers. Stel alle peppers zijn het alfabet in kleine letters en hoofdletter. Stel het wachtwoord is Mijnhondislief. Dan wordt daar een hoofdletter M aan toegevoegd. En dan wordt er een hash van gemaakt.  Als de gebruiker inlogt zal de computer eerst zoeken naar Mijnhondisliefa, gevolgd door Mijnhondisliefb etc. Dit maakt het moeilijker voor de hacker om de hash te kraken. Het duurt wel langer voordat de gebruiker is ingelogd. 
 
 
 A users password is hashed at login. This hash is compared to the hash in the database. When the same, the user gets access. If someone gets a hold of the passwords of a database, they cannot use the hash as it cannot be decripted.  
 
 Een paswoord wat encrypted is, kan wel decrypt worden. Daarom geeft een hash meer beveiliging. Hoe Moeilijker het wachtwoord hoe minder de kans dat de hash bekend is en in een rainbow table staat. 
-
+  
+In linux worden wachtwoorden opgeslagen in /etc/shadow file. In Windows wordt het in de SAM database opgeslagen HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users in de registry. 
 
 ## Opdracht
 ●	Find out what hashing is and why it is preferred over symmetric encryption for storing passwords.  
@@ -82,10 +83,6 @@ https://hashes.com/nl/decrypt/hash
 
 Salt en pepper:   
 https://www.youtube.com/watch?v=FvstbO787Qo
-
-
-
-
 
 ### Ervaren problemen
 

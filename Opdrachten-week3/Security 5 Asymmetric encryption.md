@@ -14,7 +14,9 @@ Private key: Dit is de sleutel die ik voor mijzelf hou, geheim hou. Hiermee kan 
 
 
 ### Gebruikte bronnen
-https://www.devglan.com/online-tools/rsa-encryption-decryption
+https://www.devglan.com/online-tools/rsa-encryption-decryption  
+
+https://www.mobilefish.com/services/steganography/steganography.php
 
 ### Ervaren problemen
 Ik vond het moeilijk om iets te verzinnen waarmee ik een bericht kon versturen in slack die iedereen kon zien maar die niet door iedereen encrypt kon worden.   
