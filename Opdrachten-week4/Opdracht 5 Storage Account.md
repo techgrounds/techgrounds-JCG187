@@ -33,7 +33,10 @@ Opdracht 2:
 ●	Upload de 4 bestanden die samen de AWS Demo Website vormen.    
 ![Alt text](Upload%204%20aws%20bestanden.png)
 
-●	Zorg dat Static Website Hosting aan staat.  
+●	Zorg dat Static Website Hosting aan staat.    
+Static website enabled:
+![Alt text](static%20website%20enabled.png)
+
 ●	Deel de URL met een teamgenoot. Zorg ervoor dat zij de website kunnen zien. 
 
 
@@ -43,10 +46,12 @@ Opdracht 2:
 https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website-how-to?tabs=azure-portal
 
 ### Ervaren problemen
-Het duurde even voordat ik doorhad dat ik de instellingen voordat ik doorhad dat ik de toestemming aan moest passen dmv wijziging naar switch to access key.
+
+Het duurde even voordat ik doorhad dat ik bij de instellingen de toestemming aan moest passen dmv wijziging naar switch to access key in de blobcontainer om zo de foto te kunnen uploaden.
 ![Alt text](wijziging%20naar%20azure%20ad%20user%20account.png)
 
 
 
+### Resultaat  
 
-### Resultaat
+Het is me niet gelukt om de website te laten zien aan de medestudenten. Ik kreeg de foto wel op mijn browser te zien. Ik heb het toen s'avonds nogmaals geprobeerd. Ik heb toen mijn telefoon gebruikt om te zien of de site daarop kwam omdat de site ook zichtbaar was toen ik in een private browser er naartoe ging. In eeste instantie lukte het niet maar na het veranderen van instelling lukte het wel. Ik heb de opdracht nogmaals in het weekend gedaan. Helaas lukte het mij toen niet meer om de website zichtbaar te krijgen op mijn telefoon. 
