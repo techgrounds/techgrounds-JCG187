@@ -103,9 +103,41 @@ systemctl restart apache2
 ○	Voeg een VM toe bij 75% CPU gebruik  
 ○	Verwijder een VM bij 30% CPU gebruik  
 
+Instellingen VM Scale Set:
+
+
+![Instellingen_Scale_Set](https://user-images.githubusercontent.com/123589199/235990092-bcc17a31-120f-46db-88ca-d83e4d41fa2d.png)
+
 Opdracht 2:  
-●	Controleer of je via het endpoint van je load balancer bij de webserver kan komen.  
+●	Controleer of je via het endpoint van je load balancer bij de webserver kan komen. 
+
+website:
+
+![website bereikbaar](https://user-images.githubusercontent.com/123589199/235990191-39bc3515-ebc2-4883-bae9-b63a7d9f26fe.png)
+
+VM:
+
+
+![VMipadres](https://user-images.githubusercontent.com/123589199/235990440-9d7f343c-82bb-4c4d-8796-a0e710947e05.png)
+
+
+
 ●	Voer een load test uit op je server(s) om auto scaling the activeren. Er kan een delay zitten in het    reëren van nieuwe VMs, afhankelijk van de settings in je VM Scale Set.
+
+
+Load test:
+
+
+![stresstest](https://user-images.githubusercontent.com/123589199/235990680-4aa58bee-c31c-4104-8bca-e014fba00d5b.png)
+
+Upscaling door tresstest:
+
+![toegevoegde_resources_upscaling](https://user-images.githubusercontent.com/123589199/235990742-aa704425-7865-4f04-8bb7-6caef1a5ccbc.png)
+
+Downscaling na stresstest:
+
+
+![afgenomen_resources_na_refresh](https://user-images.githubusercontent.com/123589199/235990938-bae084d1-3c3c-4c22-b10d-3d82092a8a0a.png)
 
 
 ### Gebruikte bronnen
