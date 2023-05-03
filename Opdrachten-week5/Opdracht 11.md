@@ -123,6 +123,6 @@ https://lindevs.com/install-stress-command-on-ubuntu/
 ### Ervaren problemen
 In eeste instantie had ik eerst de vm scale set aangemaakt en daarna de load balancer toegevoegd. Ik had wel gezien dat je die bij het aanmaken van de vm scale set gelijk toe kon voegen maar zo had ik de opdracht niet begrepen. De koppeling tussen de load balancer en de vm scale set is daardoor niet goed gegaan. Ik heb daarna de vm scale set opnieuw aangemaakt en gelijk de loadbalancer tijdens het opmaken toegevoegd. 
 
-Bij het doen van de stresstest had ik 100% voor de CPU gedaan. Hierdoor werd ik uit de VM gegooid. Toen de test klaar was, bestond de VM niet meer en moest ik op een andere overgebleven VM opnieuw inloggen om de test nogmaals te doen. Ik heb toen voor 80% CPU gekozen. 
+Ik heb voor de stresstest als eerst de Azure load tester gebruikt. Daar kreeg ik geen goed resultaat. Ik had begrepen dat andere de test op de vm zelf deden via de CLI. Dit daarna ook gedaan. Op de vm ingelogd en de app stress toegvoegd in de Ubuntu server. Bij het doen van de stresstest had ik 100% voor de CPU gedaan. Hierdoor werd ik uit de VM gegooid. Toen de test klaar was, bestond de VM niet meer en moest ik op een andere overgebleven VM opnieuw inloggen om de test nogmaals te doen. Ik heb toen voor 80% CPU gekozen. 
 
 ### Resultaat
