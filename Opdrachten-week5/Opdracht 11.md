@@ -78,12 +78,51 @@ Pings the instance. If ping fails the scale set knows not to use that instance.
 
 
 ## Opdracht
-.
+Opdracht 1:  
+●	Maak een Virtual Machine Scale Set met devolgende   vereisten:  
+○	Ubuntu Server 20.04 LTS - Gen1  
+○	Size: Standard_B1ls  
+○	Allowed inbound ports:  
+■	SSH (22)  
+■	HTTP (80)  
+○	OS Disk type: Standard SSD  
+○	Networking: defaults  
+○	Boot diagnostics zijn niet nodig  
+○	Custom data:
+
+#!/bin/bash  
+sudo su  
+apt update  
+apt install apache2 -y  
+ufw allow 'Apache'  
+systemctl enable apache2  
+systemctl restart apache2  
+○	Initial Instance Count: 2  
+○	Scaling Policy: Custom  
+■	Aantal VMs: minimaal 1 en maximaal 4  
+○	Voeg een VM toe bij 75% CPU gebruik  
+○	Verwijder een VM bij 30% CPU gebruik  
+
+Opdracht 2:  
+●	Controleer of je via het endpoint van je load balancer bij de webserver kan komen.  
+●	Voer een load test uit op je server(s) om auto scaling the activeren. Er kan een delay zitten in het    reëren van nieuwe VMs, afhankelijk van de settings in je VM Scale Set.
+
 
 ### Gebruikte bronnen
 
+https://learn.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-create-vmss    
+
+https://learn.microsoft.com/en-us/azure/load-balancer/load-balancer-overview  
+
+https://learn.microsoft.com/en-us/training/paths/intro-to-azure-application-delivery-services/
+
+https://www.youtube.com/watch?v=wJvmXM81tEI&t=1771s  
+
+https://lindevs.com/install-stress-command-on-ubuntu/
 
 ### Ervaren problemen
+In eeste instantie had ik eerst de vm scale set aangemaakt en daarna de load balancer toegevoegd. Ik had wel gezien dat je die bij het aanmaken van de vm scale set gelijk toe kon voegen maar zo had ik de opdracht niet begrepen. De koppeling tussen de load balancer en de vm scale set is daardoor niet goed gegaan. Ik heb daarna de vm scale set opnieuw aangemaakt en gelijk de loadbalancer tijdens het opmaken toegevoegd. 
 
+Bij het doen van de stresstest had ik 100% voor de CPU gedaan. Hierdoor werd ik uit de VM gegooid. Toen de test klaar was, bestond de VM niet meer en moest ik op een andere overgebleven VM opnieuw inloggen om de test nogmaals te doen. Ik heb toen voor 80% CPU gekozen. 
 
 ### Resultaat
