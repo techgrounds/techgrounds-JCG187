@@ -75,6 +75,15 @@ Bestudeer:
 Opdracht:  
 ●	Azure Files 
 Storage account aangemaakt en een fileshare gecreerd en aan pc gekoppeld.
+![Azure file storage](https://user-images.githubusercontent.com/123589199/236883564-66b9b52c-65f3-4fd9-9430-8c082b8afeef.png)
+
+Data toegevoegd via PC. 
+![Data toegevoegd via pc](https://user-images.githubusercontent.com/123589199/236883736-342217af-24b1-4b73-8e05-a63abaf33483.png)
+
+File upload via Azure portaal.
+![file upload portal](https://user-images.githubusercontent.com/123589199/236883812-67ce30af-59db-4ce9-872c-6858b89fa213.png)
+
+![Toegevoegde data zichtbaar in portaal](https://user-images.githubusercontent.com/123589199/236883876-0917b431-cfed-40a5-bd18-3562eb391160.png)
 
 ●	Azure Database (+ managed instance) 	
 
