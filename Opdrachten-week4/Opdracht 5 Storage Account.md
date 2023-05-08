@@ -2,7 +2,9 @@
 
 
 ## Key-terms  
-
+Structured data: relational database 
+Unstructured data: blob storage  
+semi stuctured data: file share 
 
 
 ## Opdracht  
@@ -54,4 +56,4 @@ Het duurde even voordat ik doorhad dat ik bij de instellingen de toestemming aan
 
 ### Resultaat  
 
-Het is me niet gelukt om de website te laten zien aan de medestudenten. Ik kreeg de foto wel op mijn browser te zien. Ik heb het toen s'avonds nogmaals geprobeerd. Ik heb toen mijn telefoon gebruikt om te zien of de site daarop kwam omdat de site ook zichtbaar was toen ik in een private browser er naartoe ging. In eeste instantie lukte het niet maar na het veranderen van instelling lukte het wel. Ik heb de opdracht nogmaals in het weekend gedaan. Helaas lukte het mij toen niet meer om de website zichtbaar te krijgen op mijn telefoon. 
+Het is me niet gelukt om de website te laten zien aan de medestudenten. Ik kreeg de foto wel op mijn browser te zien. Ik heb het toen s'avonds nogmaals geprobeerd. Ik heb toen mijn telefoon gebruikt om te zien of de site daarop kwam omdat de site ook zichtbaar was toen ik in een private browser er naartoe ging. In eeste instantie lukte het niet maar na het veranderen van instelling lukte het wel. Ik heb de opdracht nogmaals in het weekend gedaan. Helaas lukte het mij toen niet meer om de website zichtbaar te krijgen op mijn telefoon. Zodra ik tijd heb ga ik het nogmaals proberen. 

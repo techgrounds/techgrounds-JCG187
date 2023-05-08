@@ -3,7 +3,7 @@
 
 ## Key-terms
 Managed disk: Is a disk that is managed by Azure. 
-Unmanaged disk:  
+Unmanaged disk: Is managed by user/creator 
 Snapshot: Is a picture of a disk  
 
 
