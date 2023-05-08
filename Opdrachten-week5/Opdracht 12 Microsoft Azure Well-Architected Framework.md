@@ -52,7 +52,13 @@ You use **Azure Advisor** and **Advisor Score** to identify and prioritize oppor
 ### Gebruikte bronnen
 https://learn.microsoft.com/en-us/azure/well-architected/
 
-https://learn.microsoft.com/en-us/training/paths/azure-well-architected-framework/
+https://learn.microsoft.com/en-us/training/paths/azure-well-architected-framework/ 
+
+Gebruiken voor aanmaken resources:  
+https://learn.microsoft.com/en-us/azure/well-architected/  
+
+cost calculator:
+https://azure.microsoft.com/en-us/pricing/calculator/
 ### Ervaren problemen
 
 
