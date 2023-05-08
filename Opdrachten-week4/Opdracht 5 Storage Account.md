@@ -6,6 +6,52 @@ Structured data: relational database
 Unstructured data: blob storage  
 semi stuctured data: file share 
 
+*Types of Storage in the storage account*
+
+**Blob Storage**:   
+Binary Large Object.  
+Designed to store any kind of files.
+Stored in Containers.  
+You can have multiple containers.
+Can be all kinds of data. .png, .exe, .mp3, .mp4 
+
+Three storage tiers: 
+1. Hot  
+2. Cool 
+3. Archive
+
+
+File Storage  
+**Table Storage**:  
+
+Designed with a semi-structure in mind so that users and apps can output the semi-structured dataform into tables.  
+Stored in table storage.
+You can have muliple table storages.
+It is a bit like a database where you can store muliple tables with your data. 
+Are called NoSQL databases.
+
+- Storage for semi-structured data (NoSQL)
+  - Use when you don't need foreign joins, foreign keys, relationships or strict schema.  
+  - Designed for fast access (even petabytes of data is accessed quickly if you use compound keys).  
+- Many programming interfaces and SDK's
+
+
+
+**Queue Storage**: 
+When an application has different tasks to complete, and each off those tasks take quite some time to complete, you can store does tasks in the queue storage as seperate *messages*. 
+The background services can take a single message and complete the task in the message before taking another message out of the queue. They task can be processed asynchronosly.  
+This will offload your front-end application but also allows you to pick more suitable services for the background processing. 
+
+- Storage for small pieces of data (messages).
+- Designed for scalable asynchronous processing.
+
+
+Types of data: 
+- Structured: Relational Databases 
+- Unstructured: Blob Storage  
+- Semi Structured: File Storage
+
+
 
 ## Opdracht  
 Opdracht 1:  

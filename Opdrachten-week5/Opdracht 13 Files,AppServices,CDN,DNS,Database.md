@@ -64,7 +64,11 @@ Multiple peered networks that need to share name resolution (like in a hub and s
  
 
  **Azure Database (+ managed instance)**
-
+- Cosmos DB  
+- SQL Database  
+- Database for MySQL  
+- Database for PostgreSQL  
+- SQL Managed Instance
 
 ## Opdracht
 Bestudeer:  
@@ -73,7 +77,8 @@ Bestudeer:
 ●	Azure DNS 					
 
 Opdracht:  
-●	Azure Files 
+●	Azure Files  
+
 Storage account aangemaakt en een fileshare gecreerd en aan pc gekoppeld.
 ![Azure file storage](https://user-images.githubusercontent.com/123589199/236883564-66b9b52c-65f3-4fd9-9430-8c082b8afeef.png)
 
