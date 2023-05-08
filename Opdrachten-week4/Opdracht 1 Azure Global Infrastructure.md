@@ -28,7 +28,11 @@ Additional advantages of region pairs:
 
 3 Data continues to reside within the same geography as its pair for tax- and law-enforcement jurisdiction purposes.*
   
+Availability set: are used to protect applications from hardware failures within an Azure data center.  
 
+Availability zone: protects appications from a complete Azure data center failure. 
+
+fault domain: a set of hardware components that share a single point of failure. To be fault tolerant to  a certain level, you need multple fault domains at that level. For example, to be rack fault tolerant, your server and your data must be distributed across multiple racks. 
                  
 
 

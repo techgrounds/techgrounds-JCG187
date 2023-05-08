@@ -44,7 +44,7 @@ General design principles:
 Every descission made will effect another pillar.   
 When you're building an Azure architecture, there are many considerations to keep in mind. You want your architecture to be secure, scalable, available, and recoverable. To make that possible, you have to make decisions based on cost, organizational priorities, and risk.
 
-
+You use **Azure Advisor** and **Advisor Score** to identify and prioritize opportunities to improve the posture of your workloads. Both services are free to all Azure users and align to the five pillars of the Well-Architected Framework:
 
 ## Opdracht
 .
