@@ -25,7 +25,15 @@ Think of it like ordering food at a restaurant: the mobile app is like the custo
 
 
 
- **Azure DNS**
+ **Azure DNS**  
+
+ Allows for translation of domain names to IP addresses that can be used to access resources in the cloud. You can use Azure DNS service to manage DNS records for your domain names. 
+
+ public zones for internet facing resources and private zones for the internal resources in a vnet are supported. The internal resources are not accessible from the internet.
+   
+
+ **CDN**  
+ 
 
 
  **Azure files** 
