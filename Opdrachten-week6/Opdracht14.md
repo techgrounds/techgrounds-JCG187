@@ -54,7 +54,44 @@ Het is een service die door Azure onderhouden wordt. Je hoeft je dus geen zorgen
 Met Azure AD connect kan je de on-prem AD verbinden met de Azure AD.  
 Dit zorgt ervoor dat accounts automatisch aangemaakt worden in Azure AD en gesynchroniseerd wordt met je on prem AD. 
 Het zorgt ervoor dat gebruikers, gebruik kunnen maken van Single Sing On (SSO). Hierdoor hoeven ze maar 1 keer in te loggen voor de Azure omgeving en de on prem omgeving. 
-Je kan dan ook gebruik maken van de 365 omgeving.
+Je kan SSO ook gebruik voo inlog in de Microsoft 365 omgeving. 
+
+Wanneer je aanmeld voor een abonnement op Azure, dan wordt er automatisch een Azure AD Tenant aangemaakt. Deze tenant is een instance/gebruiker/ van Azure AD dat wordt toegewezen aan jou.
+Voor elke nieuwe klant wordt een nieuwe tenant aangemaakt.
+Elke tenant heeft zijn eigen map voor gebruikers, groepen en apps. 
+
+Je organisatie kan meerdere abonnementen willen. Waarbij elk abonnement een eigen tenant heeft. Bijvoorbeeld een abonnement per afdeling zodat elke afdeling zijn eigen Azure resources kan beheren. Het makkelijkste is om bij meerdere abonnementen toch 1 tenant te creeeren. Dit maakt beheer makkelijker. Elke afdeling kan dan zijn eigen resources creeeren en beheren. Je kan maar één tenant per subscriptie hebben. Je kan wel de tenant wijzigen van subscripty. Dus één tenant kan meerder subscripties bevatten. 
+
+De belangrijkste taak van Azure AD is authenticatie. Voorheen bestond dat uit een inlognaam en wachtwoord maar nu bestaat dat uit meerdere checks. Dus niet alleen iets wat een gebruiker weet maar ook iets wat een gebruiker heeft (telefoon) of iets wat een gebruiker is (vingerprint)
+De belangrijkste MFA (Multi Factor Authentication methods) in Azure  voor wat je hebt zijn:  
+Access code sent by SMS  
+Access codes sent by Voice call  
+Microsoft Authentication App 
+Hardware keys  
+OATH software tokens
+
+En voor wat je bent is:
+Windows Hello for business. Dat bestaat uit gezichtsherkenning en vingerafdruk herkenning. 
+
+Je kan ook gebruik maken van inloggen zonder wachtwoord. Je maakt dan alleen gebruik van wat je hebt en wat je bent. 
+
+Je hebt  hier drie opties voor:
+Windows Hello  
+Microsoft Authencticator  
+FID02 security key 
+
+Het gebruik van deze methodes kan meer kosten in Azure. Gratis is het gebruik van alleen de Microsoft Authenticator app.   
+
+Bij een premium account kan je ook, naast alle andere opties, instellen dat gebruikers alleen met een windows 10 of hoger mogen inloggen.  
+
+Het idee erachter is, dat het identiteitsignalen gebruikt om wel of geen toegang te geven.   
+
+Een ander voorbeeld is lokatie. Je kan land, regio, IP adres ranges gebruiken om in te loggen. Komen deze niet overeen met de vooraf ingestelde bepalingen dan wordt je geblokt of moet je een MFA gebruiken. Je kan bepalen dat er een limiet is op het aantal applicaties waarop een gebruiker inlogt. Je kan een limiet stellen vanaf welk applicatie een gebruiker inlogt. De apparaten moeten aangemeld zijn in Azure AD. 
+
+Microsoft Intune: Is een apparaat management
+
+
+
 
 
 
