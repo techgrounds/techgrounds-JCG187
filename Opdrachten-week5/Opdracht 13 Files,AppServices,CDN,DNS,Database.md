@@ -14,6 +14,7 @@ High availability: 99.95% availability
                    Glabal scaling so you can scale verticaly and horizontaly
 Supports windows and linux
 enables automated deployments from GitHub, Azure DevOps or any Git repo.
+Security features: Authentication possibilities, IP address access control and more.
 
 Webb app examples: facebook, google maps, twitter, dropbox, Slack, LinkedIn. Is a website that has interactive and dynamic features beyond static websites. 
 
