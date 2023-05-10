@@ -15,7 +15,8 @@
 
  **Azure support plans**:  
  Je kan support krijgen van Azure bij het ontwikkelen van je cloudomgeving. Hiervoor zijn verschillende abonnementen.  
- Je hebt basis, ontwikkelaar, standaard en professioneel direct. Aan elk abonnement hangt een ander prijskaartje en ondersteuningsopties.
+ Je hebt basis, ontwikkelaar, standaard en professioneel direct. Aan elk abonnement hangt een ander prijskaartje en ondersteuningsopties.   
+ Deze moet je goed weten voor het examen. Basic support is de goedkoopste 24\7 optie voor support. Dit omdat je altijd de documentatie kan nalezen op internet. 
 
  **Azure Advisor**: 
 Een dienst die aanbevelingen doet om je te helpen je Azure-resources te optimaliseren voor een betrouwbaar, beveiligd, operationeel uitmuntend, prestatieverbeterend en kostenbewust gebruik.  
@@ -39,7 +40,12 @@ Een feature flag helpt met het implementeren van een nieuwe functie aan een appl
 **Azure Functions App**"
 Is een oplossing voor het laten uitvoeren van kleine stukjes code ofwel functies in de cloud. 
 
-Het zorgt ervoor dat je alleen de code hoeft te gebruiken voor het probleem wat je op wil lossen zonder te hoeven denken aan de algehele onderliggende applicatie of the infrastructuur om de code uit te voeren. 
+Het zorgt ervoor dat je alleen de code hoeft te gebruiken voor het probleem wat je op wil lossen zonder te hoeven denken aan de algehele onderliggende applicatie of the infrastructuur om de code uit te voeren. Het is een goedkope en schaalbare manier om scripts serverless uit te voeren. 
+
+- Betalen per gebruik. Eerste 400000GB en 1000000 executies zijn gratis. Daarna nog steeds erg goedkoop. €0.169 per miljoen executies. 
+- Je kan je eigen 
+
+
 
 ## Opdracht
 Bestudeer: 
