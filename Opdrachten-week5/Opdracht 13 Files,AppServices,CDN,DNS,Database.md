@@ -9,7 +9,7 @@
  **App Service**   
  Azure app service enables you to build and host web apps, mobile back ends and Restful IPI's in the programming language of your choice without managing infrstructure. 
 
-It offerst auto-schaling  
+It offers auto-schaling  
 High availability: 99.95% availability
                    Glabal scaling so you can scale verticaly and horizontaly
 Supports windows and linux
