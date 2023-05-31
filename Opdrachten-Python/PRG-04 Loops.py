@@ -12,7 +12,7 @@ x = 0
 while x <= 10:
    print(x)
 #Zegt dat x elke keer met 1 stap omhoog moet gaan.     
-    x +=1   
+   x +=1   
 #Zegt dat x weer van voren af aan moet beginnen.
 if x == 10:
     x -= 1
