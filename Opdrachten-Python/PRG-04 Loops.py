@@ -10,8 +10,7 @@ x = 0
 #Maak een while loop waarbij de waarde van x bij elke volgende stap met 1 stap omhoog gaat totdat het 10 bereikt.
 #Totdat x kleiner of gelijk is aan 10:
 while x <= 10:
-#Laat de uitkomst van x zien.    
-    print(x)
+   print(x)
 #Zegt dat x elke keer met 1 stap omhoog moet gaan.     
     x +=1   
 #Zegt dat x weer van voren af aan moet beginnen.
