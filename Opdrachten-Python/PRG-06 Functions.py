@@ -10,7 +10,7 @@ for n in range(5):
 def my_function():
     print("Hello, world!")
 
-# write function with that takes a string as argument. 
+# write function that takes a string as argument. 
 my_function()
 """
 """"

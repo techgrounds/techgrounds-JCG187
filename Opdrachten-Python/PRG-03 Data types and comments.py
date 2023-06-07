@@ -7,7 +7,7 @@
 #Een getal met een j, waarbij de j altijd gebruikt wordt als "imaginair" getal. Het type is, een complex (20j)?
 #Een list zijn opsommingen van woorden of getallen. Deze opsommingen staan tussen [] en kunnen veranderd worden.
 #Een tuple zijn opsommingen van woorden of getallen. Deze opsommingen staan tussen (). Deze opsommingen kunnen niet veranderd worden.
-
+"""
 #OPDRACHT 1.1
 #Zoek uit wat de datatype is van onderstaande gegevens in a t/m d. 
 a = 'int'
@@ -38,3 +38,4 @@ age = input("What is your age?: ")
 print(type(name))
 print(type(age))
 
+"""
