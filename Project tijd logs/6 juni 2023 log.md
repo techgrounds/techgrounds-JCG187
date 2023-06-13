@@ -19,6 +19,8 @@ Voor de postdeploymentscripts kan denk ik gewoon gebruik gemaakt worden van de s
 
 DDos protectie staat niet in de omschrijving. Als ik het red zal ik dat toevoegen. Afhankelijk van de prijs. 
 
+## oplossingen
+
 ## Learnings    
 Het was geen foutmelding die ik kreeg bij het aanmaken van de storage account,  maar een melding dat het niet best practise was. De kleur van het golvende lijntje was niet rood maar oranje. Daar dus beter op letten. 
 
