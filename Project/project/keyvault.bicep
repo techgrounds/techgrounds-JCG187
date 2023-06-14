@@ -1,6 +1,5 @@
 param location string = 'westeurope'
 
-
 resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: 'project1keyvault2468'
   location: location
