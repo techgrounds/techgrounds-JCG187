@@ -6,6 +6,7 @@ subnetbescherming met firewall (nsg)
 
 
 **VM scaleset met webserver:**
+Het wordt in eerste instantie een vm met website. Mocht het lukken dan een vm scaleset.
 
 Hiervoor gekozen omdat deze voordeliger is dan een webapp. 
 - in scale set en azure loadbalancer (port) o
@@ -31,13 +32,13 @@ Hiervoor gekozen omdat deze voordeliger is dan een webapp.
 - Op deze manier kan alleen poort 80 of 443 op de webserver opengezet worden zodat de site bereikbaar is maar niet de VM zelf.
 - implementeren in subnet
 - moet bereikbaar zijn met een publiek IP adres hebben die bereikbaar is voor beperkt publiek. Voor nu mijn eigen ip - moet alleen bereikbaar zijn vanaf vertrouwde locaties (office/admin’s huis) conditional access via Azure AD?
-- moet via peer netwerk verbonden worden aan subnet 10.10.20.0/24
+- moet via peer netwerk verbonden worden aan subnet 10.0.1.0/27. Subnet heet AzureBastionSubnet!!
 - werkt als een soort proxy naar de andere machines toe in het netwerk. 
 - 99% SLA
-- Hoe zorg ik ervoor dat deze niet uitvalt?
+- Hoe zorg ik ervoor dat deze niet uitvalt? (het is een soort RDP connectie, maar dan veiliger. Valt alleen uit als je netwerk uitvalt.)
 - maakt gebruik van een html5-based web client over TLS via port 443. Hoe ziet die web client eruit?
 - private keys opslaan in Azure key vault. 
-- The NSG protecting the VM subnet allows RDP and SSH traffic from the Azure Bastion subnet.
+- The NSG protecting the VM subnet allows RDP and SSH traffic from the Azure Bastion subnet. 
 - Azure Bastion supports communications only through TCP port 443 from the Azure portal.
 
 The typical connection process in Azure Bastion is as follows:
