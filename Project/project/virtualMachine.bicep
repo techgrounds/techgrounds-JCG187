@@ -1,5 +1,5 @@
-param location string = 'westeurope'
-param virtualMachineName = 'project1vm'
+param location string = resourceGroup().location
+param virtualMachineName string = 'practisevm1${uniqueString(resourceGroup().id)}'
 
 
 resource virtualMachine 'Microsoft.Compute/virtualMachines@2020-12-01' = {
