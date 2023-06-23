@@ -8,7 +8,7 @@ resource vnet_1 'Microsoft.Network/virtualNetworks@2022-11-01' = {
   properties: {
     addressSpace: {
        addressPrefixes: [
-        '10.10.0.0/16'                        
+        '10.10.0.0/24'                        
        ]  
     }           
   }
@@ -19,7 +19,7 @@ resource websubnet 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
   parent: vnet_1 //hiermee vertel je dat het een subnet is van vnet1
   name: 'websubnet1' //naam van de subnet
   properties: {
-     addressPrefix: '10.10.10.0/24'//subnetadres
+     addressPrefix: '10.10.10.0/25'//subnetadres
      networkSecurityGroup: {
        id: nsg1sub1.id
      }
@@ -32,3 +32,4 @@ resource nsg1sub1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
  }
      
 
+output webSubnet string = websubnet.id

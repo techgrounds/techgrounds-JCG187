@@ -5,7 +5,7 @@ param vm string = 'win-web-vm'
 param location string = resourceGroup().location
 
 @description('wachtwoord voor inlog')
-@minLength(12)
+@minLength(8)
 @secure()
 param adminPassword string
 
@@ -25,26 +25,41 @@ param networkInterfaceName string = 'man-nic'
 param nicName string = 'man-server-nic'
 
 
+//Nog nodig: ip adres. 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////Public Ip adres//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+resource publicIp 'Microsoft.Network/publicIPAddresses@2022-11-01' = {
+  name: 'WinIP'
+   dependsOn: [
+     manNic
+   ]
+}
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////Network interface Card////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 resource manNic 'Microsoft.Network/networkInterfaces@2022-11-01' = {
   name: networkInterfaceName
   location: location
    properties: {
      ipConfigurations: [
-       {
-        id:
-        name: nicName
-        properties: {
-           publicIPAddress: {
-             properties: {
-               publicIPPrefix: {
-                 
-               }
-             }
-           }
-        }
-       }
+       
      ]
    }
+   
 }
 
 
@@ -84,16 +99,6 @@ resource winVm 'Microsoft.Compute/virtualMachines@2023-03-01' = {
           sku: '2019-datacenter-gensecond'
           version: 'latest'
         }
-     }
-     networkProfile: {
-       networkInterfaces: [
-         {
-           id: 
-            properties: {
-               
-            }
-         }
-       ]
-     }
-   }      
+     }     
+    }      
 }

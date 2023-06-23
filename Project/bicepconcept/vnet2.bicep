@@ -8,7 +8,7 @@ resource vnet_2 'Microsoft.Network/virtualNetworks@2022-11-01' = {
   properties: {
     addressSpace: {
        addressPrefixes: [
-        '10.20.0.0/16'                        
+        '10.20.0.0/24'                        
        ]  
     }      
   }
@@ -19,7 +19,7 @@ resource managementsubnet2 'Microsoft.Network/virtualNetworks/subnets@2022-11-01
   parent: vnet_2 //hiermee vertel je dat het een subnet is van vnet2
   name: 'managementsubnet2' //naam van de subnet
   properties: {
-     addressPrefix: '10.20.20.0/24'//subnetadres
+     addressPrefix: '10.20.20.0/25'//subnetadres
      networkSecurityGroup: {
        id: nsg2sub2.id 
      }
@@ -35,4 +35,17 @@ resource nsg2sub2 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
   name: 'nsg2'
  }
 
+
+resource peering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01' = {
+  name: 'virtualNetwork/name'
+  properties: {
+    allowVirtualNetworkAccess: true
+    allowForwardedTraffic: true
+    allowGatewayTransit: true
+    useRemoteGateways: true
+    remoteVirtualNetwork: {
+      id: websubnet.id
+    }
+  }
+}
 

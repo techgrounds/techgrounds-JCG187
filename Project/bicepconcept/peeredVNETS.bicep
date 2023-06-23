@@ -1,5 +1,5 @@
 param location string = resourceGroup().location //de locatie die gekoppeld is aan de resourcegroup
-param peeringName string = 'peeringWinMan'
+
 
 
 
@@ -115,23 +115,12 @@ resource nsg1sub1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
 
   @description('peering vnet1 met vnet2')
   resource peeringWinwithMan 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01' = {
-    name: '${Vnet1Web}-To-${Vnet2Man}'
+    name: 'vnet1-to-vnet2'
     parent: Vnet1Web
     properties: {            
-      allowVirtualNetworkAccess: true
       allowForwardedTraffic: true
-      allowGatewayTransit: true
-      useRemoteGateways: false      
-      peeringState:'Connected'       
-      remoteAddressSpace: {
-         addressPrefixes: [
-           '10.10.0.0/24'
-                      
-         ]
-      }    
-    
-      
-    remoteVirtualNetwork: {
+      allowGatewayTransit: true     
+      remoteVirtualNetwork: {
        id: Vnet2Man.id
      }    
  }  
@@ -139,31 +128,18 @@ resource nsg1sub1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
  
 
 
-resource peeredNetwork 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-01' = {
-  name: peeringName
-  parent: Vnet1Web
+resource peeringmanwithwin 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-07-01' = {
+  name: 'vnet2-to-vnet1'
+  parent: Vnet2Man
   properties: {
     allowForwardedTraffic: true
-    allowGatewayTransit: false
-    allowVirtualNetworkAccess: true
-    doNotVerifyRemoteGateways: false
-    peeringState:  'Connected'
-    peeringSyncLevel:  'FullyInSync'
-    remoteAddressSpace: {
-      addressPrefixes: [
-        '10.20.20.0/24'
-      ]
-    }
-    
+    allowGatewayTransit: true   
     remoteVirtualNetwork: {
-      id: Vnet2Man.id
+      id: Vnet1Web.id
     }
-    remoteVirtualNetworkAddressSpace: {
-      addressPrefixes: [
-        '10.20.20.0/24'
-      ]
-    }
-    useRemoteGateways: false
   }
 }
+
+
+
 
