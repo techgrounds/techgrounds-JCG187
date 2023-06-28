@@ -41,7 +41,7 @@ param VMName string = 'win-man-vm'
 param adminUsername string 
 
 @description('password for VM')
-@minLength(12)
+@minLength(8)
 @secure()
 param adminPassword string  
 

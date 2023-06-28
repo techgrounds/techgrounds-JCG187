@@ -31,7 +31,7 @@ param nicName string = 'man-server-nic'
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 resource publicIp 'Microsoft.Network/publicIPAddresses@2022-11-01' = {
   name: 'WinIP'
-   dependsOn: [
+   dependsOn:  [
      manNic
    ]
 }
