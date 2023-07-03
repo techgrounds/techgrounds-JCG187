@@ -22,7 +22,41 @@ Hiervoor gekozen omdat deze voordeliger is dan een webapp.
 - koppelen aan azure key vault
 - koppelen aan recover service vault
 - SLA 99%
-- poort via nsg openen voor bastion zodat rdp/ssh sessies via de prive ip adres van bastion gehouden kunnen worden.
+
+
+**nieuwe eisen voor webserver**:  
+- het moet een scaleset worden. Maximaal 3 servers moeten aangemaakt worden via de scale set.  
+- er moet en proxy tussen de webserver en het internet komen.   
+- de webserver mag geen publieke ip adres hebben.  
+- de webserver moet regelmatig een 'health check'ondergaan.  
+- mocht de health check van de webserver falen dan zou deze automatisch hersteld moeten worden.    
+- je moet een zelf signed certificate gebruiken zodat de website via https bereikt kan worden.  
+- de website mag alleen via https bereikt worden. Ook al voeren klanten dat niet in. 
+
+
+**scaleset en loadbalancer**  
+- vanwege de nieuw eisen is een scaleset noodzakelijk met daarbij een loadbalancer om het aanbod eerlijk te verdelen naar de webservers bij drukte.  
+- de loadbalancer moet verbonden worden met een proxy.    
+- de loadbalancer heeft een publieke ip adres nodig als het verbonden is met een proxy? Nee.  
+- verkeer wat via http verbinding zoekt met de loadbalancer moet automatisch omgezet worden naar https.   
+- de load balancer heeft een gratis basic versie en een standaard versie. Bij de basic versie is er geen SLA waardoor er geen garantie is dat deze service altijd werkt.   
+- de standaard versie wordt per uur gefactureerd.   
+- de loadbalancer heeft een health probe voor de vm's dit gaat via de prive IP adressen van de vms.   
+
+
+
+**proxy**  
+- wat voor proxy moet er komen?   
+- Ik heb snel gezien dat je voor forward proxies gebruik kan maken van azure firewall of NAT gateway.   
+- ik heb gezien dat je voor reverse proxy gebruik kan maken van application gateway of azure front door. De ene is regionaal gebruik en de andere voor global gebruik. Vragen wat nodig is aan product owner.    
+- verkeer moet van http naar https omgezet worden. Die mogelijkheid heeft application gateway.  
+- 2 versies van application gateway v2 heeft de meeste mogelijkheden. En WAF zit er ook in.   
+- versie v2 heeft ook health probes. 
+- application gateway v2 kan http headers omzetten naar https. 
+
+
+
+
 
 **management server**
 
@@ -47,7 +81,8 @@ Hiervoor gekozen omdat deze voordeliger is dan een webapp.
 - dit kan via blob storage
 - blob storage koppelen aan de webserver
 - storage koppelen aan Key Vault
-- Data at rest moet veilig zijn
+- Data at rest moet veilig zijn. Dit gaat via de key vault
+- Toegankelijk maken via private endpoints zodat communicatie via het netwerk van microsoft verloopt tussen webserver en storage account
 
 **Key vault:**
 
@@ -63,7 +98,8 @@ Hiervoor gekozen omdat deze voordeliger is dan een webapp.
 - deploymentscript moet in verbinding staan met SQL database om die te deployen. Houdt dat in dat de SQL database ook een vm moet zijn?
 - database hoeft alleen maar aan te staan. Je hoeft er niks in te configureren
 - data in motion moet veilig zijn.
-- SLA 99%
+- SLA 99%  
+- verbinden met de webserver. 
 
 **Recovery service vault:**
 
