@@ -1,21 +1,21 @@
 # log  
-3-7-2023
+4 juli 2023
 
 
 ## dagverslag
-Vandaag de nieuwe vereiste onderzocht en verder gegaan met leren over child en parent resources. 
+Vandaag gelezen over en geprobeerd om de application gateway met een vmss te deployen. 
 
 
 ## obstakels  
-Ik ben bezig met de peering. De peering wil ik als losse module. Ik wil weten hoe ik beide netwerken die ook in losse modules staan 
-kan aanroepen in de peering module. 
+Hoe ga ik de application gateway en de vmss koppelen aan elkaar en het netwerk? Hoe ga ik de regels instellen? Het is weer zo ontzetten veel wat er gedaan moet worden. Het is lastig om de bomen door het bos te zien. 
+
+Daarnaast heb ik ook nog geen key vault, recovery vault en sql database. En dan de certifacte, de inlog voor de klant etc, etc. Ik weet niet hoe ik dit alles voor elkaar ga krijgen. Ik zie het somber in. 
 
 
 
 ## oplossing  
-
+Proberen om zoveel mogelijk stap voor stap te doen. Maar zelfs dan weet ik niet of ik het ga redden. 
 
 
 
 ## learnings
-Er zijn verschillende manieren om een child resource te gebruiken met de parent resource. Je kan het doen door de child resource te nesten in de parent resource of je kan de parent resource als eigenschap toevoegen aan de childresource door de symbolische naam van de parent resource te gebruiken. 
