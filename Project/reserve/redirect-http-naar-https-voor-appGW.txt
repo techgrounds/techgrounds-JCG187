@@ -1,0 +1,94 @@
+resource httpListener 'Microsoft.Network/applicationGateways/httpListeners@2021-02-01' = {
+  name: 'httpListener'
+  properties: {
+    frontendIPConfiguration: {
+      id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', 'myApplicationGateway/frontendIPConfigurations/frontendIpConfig')
+    }
+    frontendPort: {
+      id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', 'myApplicationGateway/frontendPorts/http')
+    }
+    protocol: 'Http'
+    requireServerNameIndication: false
+    redirectConfiguration: {
+      redirectType: 'Permanent'
+      targetListener: {
+        id: resourceId('Microsoft.Network/applicationGateways/httpListeners', 'myApplicationGateway/httpListeners/httpsListener')
+      }
+    }
+  }
+}
+
+resource httpsListener 'Microsoft.Network/applicationGateways/httpListeners@2021-02-01' = {
+  name: 'httpsListener'
+  properties: {
+    frontendIPConfiguration: {
+      id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', 'myApplicationGateway/frontendIPConfigurations/frontendIpConfig')
+    }
+    frontendPort: {
+      id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', 'myApplicationGateway/frontendPorts/https')
+    }
+    protocol: 'Https'
+    requireServerNameIndication: false
+    sslCertificate: {
+      id: resourceId('Microsoft.Network/applicationGateways/sslCertificates', 'myApplicationGateway/sslCertificates/sslCert')
+    }
+  }
+}
+
+resource redirectRule 'Microsoft.Network/applicationGateways/redirectConfigurations@2021-02-01' = {
+  name: 'httpToHttpsRedirect'
+  properties: {
+    redirectType: 'Permanent'
+    targetListener: {
+      id: resourceId('Microsoft.Network/applicationGateways/httpListeners', 'myApplicationGateway/httpListeners/httpsListener')
+    }
+  }
+}
+
+resource appGateway 'Microsoft.Network/applicationGateways@2021-02-01' = {
+  name: 'myApplicationGateway'
+  // Andere eigenschappen van de Application Gateway-configuratie
+  // ...
+
+  properties: {
+    frontendIPConfigurations: [
+      {
+        name: 'frontendIpConfig'
+        properties: {
+          // Eigenschappen van het frontend-IP-configuratie-object
+          // ...
+        }
+      }
+    ]
+    frontendPorts: [
+      {
+        name: 'http'
+        properties: {
+          port: 80
+        }
+      }
+      {
+        name: 'https'
+        properties: {
+          port: 443
+        }
+      }
+    ]
+    backendAddressPools: [
+      {
+        name: 'backendPool'
+        properties: {
+          // Eigenschappen van het backend-adrespool-object
+          // ...
+        }
+      }
+    ]
+    httpListeners: [
+      httpListener
+      httpsListener
+    ]
+    redirectConfigurations: [
+      redirectRule
+    ]
+  }
+}

@@ -355,7 +355,25 @@ resource WebVm 'Microsoft.Compute/virtualMachines@2023-03-01' = {
    }
 
    
-
+  //  resource recoveryServicesVault 'Microsoft.RecoveryServices/vaults@2020-02-02' = {
+  //   name: vaultName
+  //   location: location
+  //   sku: {
+  //     name: 'RS0'
+  //     tier: 'Standard'
+  //   }
+  //   properties: {}
+  // }
+  
+  // resource vaultName_backupFabric_protectionContainer_protectedItem 'Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems@2020-02-02' = {
+  //   name: '${vaultName}/${backupFabric}/${protectionContainer}/${protectedItem}'
+  //   properties: {
+  //     protectedItemType: 'Microsoft.Compute/virtualMachines'
+  //     policyId: '${recoveryServicesVault.id}/backupPolicies/${backupPolicyName}'
+  //     sourceResourceId: virtualMachine.id
+  //   }
+  // } 
+  
 
    output hostname string = publicIpAddress.properties.dnsSettings.fqdn
    output nic2Id string = networkInterface.id

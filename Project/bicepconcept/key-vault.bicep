@@ -131,41 +131,13 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-02-01' = {
     sku: {
       family:  'A'
       name:  'standard'
-
+    }
   }
 }
-resource keyVaultsKeys 'Microsoft.KeyVault/vaults/accessPolicies@2023-02-01' = {
-  parent:keyVault
-  name:  'add'
-  properties: {
-    accessPolicies:  [
-       {
-        objectId: objectID
-        permissions: {
-          storage: [
-             'all'
-          ]
-          secrets: [
-             'all'
-          ]
-          keys: [
-             'all'
-          ]
-          certificates: [
-             'all'           
-              
-          ]
-        }
-        tenantId: tenantID
-       }
-    ]
-  }
-}
+resource keyVaultsKeys  
 
 
-resource keys key
 
-}
 
 
 output keyVaultId string = keyVault.id

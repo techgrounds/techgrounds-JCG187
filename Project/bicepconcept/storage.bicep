@@ -13,6 +13,14 @@ resource storeAcc 'Microsoft.Storage/storageAccounts@2022-09-01' = {
     accessTier: 'Hot'
     allowBlobPublicAccess: true
      publicNetworkAccess: 'Enabled'
+     networkAcls:{
+      defaultAction: 'Allow'
+      resourceAccessRules: [
+         {
+           resourceId: 
+         }
+      ]
+     }
      encryption: {
      services:{
       blob:{
@@ -43,6 +51,15 @@ resource folder 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-
     publicAccess:'Blob'
    }   
 }
+
+
+
+
+
+
+
+
+
 
 
 

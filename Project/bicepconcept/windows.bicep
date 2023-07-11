@@ -1,234 +1,278 @@
-@description('resource deployment region')
+// gebuikersnaam voor de windows vm
+param adminUsername string = 'Jennifer'
+
+// wachtwoord voor de windows vm  ww = JaH00rW33r33n23456
+@minLength(12)
+@secure()
+param adminPassword string
+
+// unieke DMS naam voor het publieke Ip die wordt gebruikt om de virtuele machine te benaderen om in te loggen
+param dnsLabelPrefix string = toLower('${vmName}-${uniqueString(resourceGroup().id, vmName)}')
+
+// naam voor de publieke Ip adres wat gebruikt kan worden om toegang tot de vm te krijgen
+param publicIpName string = 'myPublicIP'
+
+// de methode waarop het publieke IP adres wordt gegeven. In dit geval dynamisch
+@allowed([
+  'Dynamic'
+  'Static'
+])
+param publicIPAllocationMethod string = 'Dynamic'
+
+@description('SKU for the Public IP used to access the Virtual Machine.')
+@allowed([
+  'Basic'
+  'Standard'
+])
+param publicIpSku string = 'Basic'
+
+// de windows server versies die gebruikt mogen worden. Dit zal een volledig gepatchte image kiezen van de opgegeven Windows-versie.')
+@allowed([
+  '2022-datacenter-azure-edition'
+  '2022-datacenter-azure-edition-core'
+  '2022-datacenter-azure-edition-core-smalldisk'
+  '2022-datacenter-azure-edition-smalldisk'
+  '2022-datacenter-core-g2'
+  '2022-datacenter-core-smalldisk-g2'
+  '2022-datacenter-g2'
+  '2022-datacenter-smalldisk-g2'
+])
+param OSVersion string = '2022-datacenter-azure-edition'
+
+// de grote van de virtuele machine
+param vmSize string = 'Standard_B2s'
+
+// locatie voor alle resources
 param location string = resourceGroup().location
 
-@description('naam van de NIC')
-param NICname string = 'win-man-NIC'
+// de naam van de v machine
+param vmName string = 'Man1-vm'
 
-@description('name of NSG')
-param networkSecurityGroupName string = 'win-man-nsg'
+// het soort beveiliging wat gebruikt kan worden voor de virtuele Machine
+@allowed([
+  'Standard'
+  'TrustedLaunch'
+])
+param securityType string = 'Standard'
 
-@description('network security group rules')
-param networkSecurityGroupRules array 
+var storageAccountName = 'bootdiags${uniqueString(resourceGroup().id)}'
+var nicName = 'Man1-Nic1'
+var addressPrefix = '10.10.10.0/24'
+var subnetName = 'Man1-Subnet1'
+var subnetPrefix = '10.10.10.0/24'
+var virtualNetworkName = 'Man1-Vnet1'
+var networkSecurityGroupName = 'Man1-Nsg1'
+var securityProfileJson = {
+  uefiSettings: {
+    secureBootEnabled: true
+    vTpmEnabled: true
+  }
+  securityType: securityType
+}
+// var extensionName = 'GuestAttestation'
+// var extensionPublisher = 'Microsoft.Azure.Security.WindowsAttestation'
+// var extensionVersion = '1.0'
+// var maaTenantName = 'GuestAttestation'
+// var maaEndpoint = substring('emptyString', 0, 0)
 
-@description('naam van virtuele network')
-param virtualNetworkName string = 'win-man-network'
-
-@description('prefix van de vnet')
-param addressPrefixes array = ['10.20.0.0/16']
-
-@description('prefix van subnet?')
-param subnets array = [  '10.20.20.0/24']
-
-@description('naam van de subnet')
-param subnetName string = 'win-man-subnet2'
-
-@description('naam van de public IP adres')
-param publicIpAddressName string = 'win-man-public-ip'
-
-@description('public address type')
-param publicIpAddressType string = 'Dynamic'
-
-@description('public IP address SKU')
-param publicIpAddressSku string = 'Basic'
-
-@description('naam van VM')
-param VMName string = 'win-man-vm'
-
-//@description('naam van datadisk')
-//param dataDiskName string = 'win-man-datadisk'
-
-@description('Admin user name')
-param adminUsername string 
-
-@description('password for VM')
-@minLength(8)
-@secure()
-param adminPassword string  
-
-//@description('enable acceleratednetworking')
-//param enableAcceleratedNetworking bool = true
-
-var nsgId = resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', networkSecurityGroupName)
-var vnetId = resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', networkSecurityGroupName)
-var subnetRef = '${vnetId}/subnets/${subnetName}'
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////NETWORKINTERFACE//////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-resource WindowsAdminNic 'Microsoft.Network/networkInterfaces@2022-11-01' = {
-  name: NICname
-  location:location
-  properties: {
-     ipConfigurations: [
-       {
-         name:'vnet_2'
-         properties: {
-           subnet: {
-             id: 'subnetRef'
-           }
-           privateIPAllocationMethod: 'Dynamic'
-           publicIPAddress: {
-             id: resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', publicIpAddressName)
-           }
-         }
-       }
-      ]   
-  }   
+resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
+  name: storageAccountName
+  location: location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'Storage'
 }
 
+resource publicIp 'Microsoft.Network/publicIPAddresses@2022-05-01' = {
+  name: publicIpName
+  location: location
+  sku: {
+    name: publicIpSku
+  }
+  properties: {
+    publicIPAllocationMethod: publicIPAllocationMethod
+    dnsSettings: {
+      domainNameLabel: dnsLabelPrefix
+    }
+  }
+}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////VNET///////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2022-05-01' = {
+  name: networkSecurityGroupName
+  location: location
+  properties: {
+    securityRules: [
+      {
+        name: 'default-allow-3389'
+        properties: {
+          priority: 1000
+          access: 'Allow'
+          direction: 'Inbound'
+          destinationPortRange: '3389'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+        }
+      }
+    ]
+  }
+}
 
-@description('aanmaken van vnet2 voor management server')
-resource vnet_2 'Microsoft.Network/virtualNetworks@2022-11-01' = {
+resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-05-01' = {
   name: virtualNetworkName
   location: location
   properties: {
     addressSpace: {
-       addressPrefixes: [
-        '10.20.0.0/16'                        
-       ]      
-    }          
-  }
-}  
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////SUBNET/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-@description('aanmaken van subnet2 voor de managementserver')
-resource managementsubnet2 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
-  parent: vnet_2 //hiermee vertel je dat het een subnet is van het vnet
-  name: subnetName //naam van de subnet
-  properties: {
-     addressPrefix: '10.20.20.0/24'//subnetadres
-     networkSecurityGroup: {
-       id: nsgId
-     }
+      addressPrefixes: [
+        addressPrefix
+      ]
     }
+    subnets: [
+      {
+        name: subnetName
+        properties: {
+          addressPrefix: subnetPrefix
+          networkSecurityGroup: {
+            id: networkSecurityGroup.id
+          }
+        }
+      }
+    ]
+  }
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////NETWORKSECURITYGROUP////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-@description('netwerksecuritygroup voor subnet1')
-resource nsg 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
-  name: networkSecurityGroupName
+resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
+  name: nicName
   location: location
   properties: {
-     securityRules: networkSecurityGroupRules
-  } 
- }
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////PUBLIC-IP-ADDRESS////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-resource publicIpAddress  'Microsoft.Network/publicIPAddresses@2022-11-01' = {
-  name: publicIpAddressName
-  location: location
-  properties: {
-    publicIPAllocationMethod: publicIpAddressType
+    ipConfigurations: [
+      {
+        name: 'ipconfig1'
+        properties: {
+          privateIPAllocationMethod: 'Dynamic'
+          publicIPAddress: {
+            id: publicIp.id
+          }
+          subnet: {
+            id: resourceId('Microsoft.Network/virtualNetworks/subnets', virtualNetworkName, subnetName)
+          }
+        }
+      }
+    ]
   }
-  sku: {
-    name: publicIpAddressSku
-  }
-  zones: [
-    
+  dependsOn: [
+
+    virtualNetwork
   ]
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////VIRTUAL-MACHINE-DATA-DISK////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//resource winManDataDisk 'Microsoft.Compute/disks@2022-07-02' = {
-//  name: dataDiskName
-//  location: location
-//  properties:  {
-//    creationData: {
-//      createOption: 'FromImage'
-//    }
-//  }
-//  sku: {
-//    name:'Standard_LRS'   
-//  }
-//  zones: 
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////WINDOWS VM////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-resource WindowsManVM  'Microsoft.Compute/virtualMachines@2023-03-01' = {
-  name: VMName
+resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
+  name: vmName
   location: location
- properties: {
-  hardwareProfile: {
-     vmSize:  'Standard_B2s'    
-  }
-  osProfile: {
-    adminPassword: adminPassword
-    adminUsername: adminUsername 
-    computerName:'adminVM'
-    
-    windowsConfiguration: { 
-       additionalUnattendContent: [
-         {
-           
-         }
-       ]
+  properties: {
+    hardwareProfile: {
+      vmSize: vmSize
     }
-  }
-  storageProfile: {
-     osDisk: {
-      createOption: 'FromImage'
-      managedDisk: {
-        storageAccountType: 'Standard_LRS'
+    osProfile: {
+      computerName: vmName
+      adminUsername: adminUsername
+      adminPassword: adminPassword
+    }
+    storageProfile: {
+      imageReference: {
+        publisher: 'MicrosoftWindowsServer'
+        offer: 'WindowsServer'
+        sku: OSVersion
+        version: 'latest'
       }
-      deleteOption: 'Delete'
-     }
-     imageReference:  {
-       publisher: 'MicrosoftWindowsServer'
-       offer: 'WindowsServer'
-       sku: '2019-datacenter-gensecond'
-       version: 'latest'
-     }
+      osDisk: {
+        createOption: 'FromImage'
+        managedDisk: {
+          storageAccountType: 'Standard_LRS'
+        }
+      }
+      dataDisks: [
+        {
+          diskSizeGB: 1023
+          lun: 0
+          createOption: 'Empty'
+        }
+      ]
     }
+    networkProfile: {
+      networkInterfaces: [
+        {
+          id: nic.id
+        }
+      ]
+    }
+    diagnosticsProfile: {
+      bootDiagnostics: {
+        enabled: true
+        storageUri: storageAccount.properties.primaryEndpoints.blob
+      }
+    }
+    securityProfile: ((securityType == 'TrustedLaunch') ? securityProfileJson : null)
   }
 }
+
+// resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = if ((securityType == 'TrustedLaunch') && ((securityProfileJson.uefiSettings.secureBootEnabled == true) && (securityProfileJson.uefiSettings.vTpmEnabled == true))) {
+//   parent: vm
+//   name: extensionName
+//   location: location
+//   properties: {
+//     publisher: extensionPublisher
+//     type: extensionName
+//     typeHandlerVersion: extensionVersion
+//     autoUpgradeMinorVersion: true
+//     enableAutomaticUpgrade: true
+//     settings: {
+//       AttestationConfig: {
+//         MaaSettings: {
+//           maaEndpoint: maaEndpoint
+//           maaTenantName: maaTenantName
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+
+
+// resource peering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-11-01' = {
+//   name: 
+//    parent: virtualNetwork
+//     properties: {
+//        allowForwardedTraffic:
+//         allowGatewayTransit:
+//          allowVirtualNetworkAccess:
+//           doNotVerifyRemoteGateways:
+//            peeringState:
+//             peeringSyncLevel:
+//              remoteAddressSpace:
+//               remoteBgpCommunities:
+//                remoteVirtualNetwork:
+//                 remoteVirtualNetworkAddressSpace:
+//                  useRemoteGateways:
+//     }
+//      dependsOn: [
+       
+//      ]
+      
+// }
+
+
+
+
+
+
+
+
+
+
+
+output hostname string = publicIp.properties.dnsSettings.fqdn
+output windowsVnetName string = virtualNetwork.name
