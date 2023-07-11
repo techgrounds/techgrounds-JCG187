@@ -32,7 +32,8 @@ param location string = resourceGroup().location
 var namingInfix = toLower(substring('${vmssName}${uniqueString(resourceGroup().id)}', 0, 9))
 var longNamingInfix = toLower(vmssName)
 var addressPrefix = '10.20.20.0/24'
-var subnetPrefix = '10.20.20.0/24'
+var subnet1Prefix = '10.20.20.0/25'
+var subnet2Prefix = '10.20.20.128/25'
 
 var virtualNetworkName = '${namingInfix}vnet'
 var publicIPAddressName = '${namingInfix}pip'
@@ -69,12 +70,18 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-02-01' = {
     }
     subnets: [
       {
-        name: subnetName
+        name: 'subnet1'
         properties: {
-          addressPrefix: subnetPrefix
+          addressPrefix: subnet1Prefix
+        }                
+      }  
+      {
+        name: 'subnet2'
+        properties:{
+          addressPrefix:subnet2Prefix
         }
-      }
-    ]
+      }          
+    ]    
   }
 }
 
