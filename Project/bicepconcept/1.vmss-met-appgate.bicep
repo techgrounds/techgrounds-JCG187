@@ -440,13 +440,13 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
             id: resourceId('Microsoft.Network/publicIPAddresses', '${publicIPAddressName}')
           }
           subnet: {
-            id: virtualNetwork.properties.subnets[0].id                         //resourceId('Microsoft.Network/virtualNetworks/subnets', 'NetName', 'myBackendSubnet')
+            id: resourceId('Microsoft.Network/virtualNetworks/subnets', vNetName, 'myBackendSubnet')
           }
           primary: true
           privateIPAddressVersion: 'IPv4'
           applicationGatewayBackendAddressPools: [
             {
-              id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', 'applicationGateWayName', 'myBackendPool')
+              id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName, 'myBackendPool')
             }
           ]
         }
