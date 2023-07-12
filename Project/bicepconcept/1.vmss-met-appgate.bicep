@@ -7,10 +7,10 @@ param location string = resourceGroup().location
 // @description('Size of the virtual machine.')
 // param vmSize string = 'Standard_B2ms'
 
-@description('Size of VMs in the VM Scale Set.')
-param vmSku string = 'Standard_A1_v2'
+//Size of VMs in the VM Scale Set
+param vmSku string = 'Standard_B2s'
 
-@description('Number of VM instances (100 or less).')
+//Number of VM instances (100 or less)
 @minValue(1)
 @maxValue(100)
 param instanceCount int = 2
@@ -19,7 +19,7 @@ param instanceCount int = 2
 @description('When true this limits the scale set to a single placement group, of max size 100 virtual machines. NOTE: If singlePlacementGroup is true, it may be modified to false. However, if singlePlacementGroup is false, it may not be modified to true.')
 param singlePlacementGroup bool = true
 
-@description('Fault Domain count for each placement group.')
+//Fault Domain count for each placement group
 param platformFaultDomainCount int = 1
 
 var osType = {
@@ -32,17 +32,16 @@ var imageReference = osType
 
 
 
-var vmScaleSetName = 'vmssproject1${uniqueString(resourceGroup().id)}'
+param vmScaleSetName string = 'vmssWebApp'
 var vNetName = 'vnet'
 var publicIPAddressName = 'pip'
-var subnetName = 'subnet'
 //var publicIPAddressID = publicIPAddress.id
 var nicName = 'nic'
 var ipConfigName = 'ipconfig'
 var nsgName = 'vm-nsg'
 var applicationGateWayName = 'myAppGateway'
 var virtualNetworkPrefix = '10.10.10.0/24'
-var subnetPrefix = '10.10.10.0/25'
+var FrontsubnetPrefix = '10.10.10.0/25'
 var backendSubnetPrefix = '10.10.10.128/25'
 var customdata = loadFileAsBase64('install_apache.sh')
 
@@ -78,6 +77,9 @@ resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
     publicIPAddressVersion: 'IPv4'
     publicIPAllocationMethod: 'Static'
     idleTimeoutInMinutes: 4
+    dnsSettings:{
+      domainNameLabel:'webproject1'
+    }
   }
 }
 
@@ -92,19 +94,22 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {
     }
     subnets: [
       {
-        name: 'myfrontendAGSubnet'
+        name: '${vNetName}-frontsubnet'
         properties: {
-          addressPrefix: subnetPrefix
-          privateEndpointNetworkPolicies: 'Enabled'
-          privateLinkServiceNetworkPolicies: 'Enabled'
+          addressPrefix: FrontsubnetPrefix
+          // privateEndpointNetworkPolicies: 'Enabled'
+          // privateLinkServiceNetworkPolicies: 'Enabled'
         }
       }
       {
-        name: 'myBackendwebSubnet'
+        name: '${vNetName}-backsubnet'
         properties: {
           addressPrefix: backendSubnetPrefix
-          privateEndpointNetworkPolicies: 'Enabled'
-          privateLinkServiceNetworkPolicies: 'Enabled'
+          // privateEndpointNetworkPolicies: 'Enabled'
+          // privateLinkServiceNetworkPolicies: 'Enabled'
+          networkSecurityGroup: {
+            id:nsg.id
+          }
         }
       }
     ]
@@ -113,76 +118,12 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   }
 }
 
-// resource virtualMachine 'Microsoft.Compute/virtualMachines@2021-11-01' = {
-//   name: 
-//   location: location
-//   properties: {
-//     hardwareProfile: {
-//       vmSize: vmSize
-//     }
-//     storageProfile: {
-//       imageReference: {
-//         publisher: 'MicrosoftWindowsServer'
-//         offer: 'WindowsServer'
-//         sku: '2016-Datacenter'
-//         version: 'latest'
-//       }
-//       osDisk: {
-//         osType: 'Windows'
-//         createOption: 'FromImage'
-//         caching: 'ReadWrite'
-//         managedDisk: {
-//           storageAccountType: 'StandardSSD_LRS'
-//         }
-//         diskSizeGB: 127
-//       }
-//     }
-//     osProfile: {
-//       computerName: '${virtualMachineName}${i + 1}'
-//       adminUsername: adminUsername
-//       adminPassword: adminPassword
-//       windowsConfiguration: {
-//         provisionVMAgent: true
-//         enableAutomaticUpdates: true
-//       }
-//       allowExtensionOperations: true
-//     }
-//     networkProfile: {
-//       networkInterfaces: [
-//         {
-//           id: resourceId('Microsoft.Network/networkInterfaces', '${networkInterfaceName}${i + 1}')
-//         }
-//       ]
-//     }
-//   }
-//   dependsOn: [
-//     networkInterface
-//   ]
-// }]
-
-// resource virtualMachine_IIS 'Microsoft.Compute/virtualMachines/extensions@2021-11-01' = {
-//   name: '${virtualMachineName}${(i + 1)}/IIS'
-//   location: location
-//   properties: {
-//     autoUpgradeMinorVersion: true
-//     publisher: 'Microsoft.Compute'
-//     type: 'CustomScriptExtension'
-//     typeHandlerVersion: '1.4'
-//     settings: {
-//       commandToExecute: 'powershell Add-WindowsFeature Web-Server; powershell Add-Content -Path "C:\\inetpub\\wwwroot\\Default.htm" -Value $($env:computername)'
-//     }
-//   }
-//   dependsOn: [
-//     virtualMachine
-//   ]
-// }]
-
 resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
   name: vmScaleSetName
   location: location  
-  zones:[
-   '2' 
-  ]
+  // zones:[
+  //  '2' 
+  // ]
   sku: {
     name: vmSku
     tier: 'Standard'
@@ -208,6 +149,9 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
         osDisk:{
           createOption: 'FromImage'
           caching:'ReadWrite'
+          managedDisk:{
+           storageAccountType:'StandardSSD_ZRS' 
+          }
         }
         imageReference:imageReference
       }
@@ -217,22 +161,34 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
             name: nicName
             properties:{
               primary:true
+              networkSecurityGroup:{
+                id:nsg.id
+              }
               ipConfigurations:[
                 {
                   name:ipConfigName
                   properties:{
                     subnet:{
-                      id:virtualNetwork.properties.subnets[1].id
+                       id:virtualNetwork.properties.subnets[1].id
                     }
+                    privateIPAddressVersion: 'IPv4'
+                     applicationGatewayBackendAddressPools: [
+                       {
+                         id:resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName, 'appGatewayBackendPool')
+                       }
+                     ]
                   }
                 }
               ]
             }
           }
         ]
-      }      
-    }
+      }            
+    }    
   }  
+  dependsOn:[
+    applicationGateWay
+  ]
 } 
 
 resource autoscalehost 'Microsoft.Insights/autoscalesettings@2022-10-01' = {  
@@ -254,13 +210,14 @@ resource autoscalehost 'Microsoft.Insights/autoscalesettings@2022-10-01' = {
           {
             metricTrigger: {
               metricName: 'Percentage CPU'
+              metricNamespace:''
               metricResourceUri: vmss.id
               timeGrain: 'PT1M'
               statistic: 'Average'
               timeWindow: 'PT5M'
               timeAggregation: 'Average'
               operator: 'GreaterThan'
-              threshold: 50
+              threshold: 80
             }
             scaleAction: {
               direction: 'Increase'
@@ -290,6 +247,9 @@ resource autoscalehost 'Microsoft.Insights/autoscalesettings@2022-10-01' = {
         ]
       }
     ]
+    predictiveAutoscalePolicy:{
+      scaleMode: 'Disabled'     
+    }
   }
 }
 
@@ -307,7 +267,7 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
         name: 'appGatewayIpConfig'
         properties: {
           subnet: {
-            id:   virtualNetwork.properties.subnets[0].id    // resourceId('Microsoft.Network/virtualNetworks/subnets', vNetName, subnetName)                             
+            id: virtualNetwork.properties.subnets[0].id                             
           }
         }
       }
@@ -318,14 +278,14 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
         properties: {
           privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
-            id: resourceId('Microsoft.Network/publicIPAddresses', '${publicIPAddressName}0')
+            id: publicIPAddress.id
           }
         }
       }
     ]
     frontendPorts: [
       {
-        name: 'port_80'
+        name: 'frontendport1'
         properties: {
           port: 80
         }
@@ -333,15 +293,8 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
     ]
     backendAddressPools: [
       {
-        name: 'myBackendPool'
-        properties: {
-          backendAddresses:[
-            {
-              ipAddress:backendSubnetPrefix //////kijken of dit goed is
-            }
-          ]
-        }
-      }
+        name: 'myBackendPool'        
+        }      
     ]
     backendHttpSettingsCollection: [
       {
@@ -363,7 +316,7 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
             id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', applicationGateWayName, 'appGwPublicFrontendIp')
           }
           frontendPort: {
-            id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', applicationGateWayName, 'port_80')
+            id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', applicationGateWayName,'frontendport1')
           }
           protocol: 'Http'
           requireServerNameIndication: false
@@ -393,9 +346,7 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
       maxCapacity: 3
     }
   }
-  dependsOn: [
-      publicIPAddress      
-  ]
+ 
 }
 
 resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
@@ -435,14 +386,3 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
     nsg
   ]
 }
-
-
-
-
-output vmssName string = vmss.name
-output vmssID string = vmss.id
-output vnetName string = virtualNetwork.name
-output vnetID string = virtualNetwork.id
-output subnet1Name string = virtualNetwork.name
-output subnet1ID string = virtualNetwork.id
-

@@ -59,7 +59,8 @@ var storageAccountName = 'bootdiags${uniqueString(resourceGroup().id)}'
 var nicName = 'Man1-Nic1'
 var addressPrefix = '10.10.10.0/24'
 var subnetName = 'Man1-Subnet1'
-var subnetPrefix = '10.10.10.0/24'
+var subnet1Prefix = '10.10.10.0/25'
+var subnet2Prefix = '10.10.10.128/25'
 var virtualNetworkName = 'Man1-Vnet1'
 var networkSecurityGroupName = 'Man1-Nsg1'
 var securityProfileJson = {
@@ -142,6 +143,9 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-05-01' = {
     ]
   }
 }
+
+
+resource subnet2 'Microsoft.Network/virtualNetworks/subnets@2022-11-01'
 
 resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
   name: nicName

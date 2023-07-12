@@ -1,9 +1,9 @@
 // maat van de vmscale set
 param vmSku string = 'Standard_B2s'
 
-// naam van de vmss
-@maxLength(61)
-param vmssName string = 'Webvmss'
+// // naam van de vmss
+// @maxLength(61)
+// param vmssName string = 'webservers-project1'
 
 //@description('Number of VM instances (100 or less).')
 @minValue(1)
@@ -20,30 +20,24 @@ param adminPassword string // JGO123488J1fi456
 @description('Location for all resources.')
 param location string = resourceGroup().location
 
-// @description('Fault Domain count for each placement group.')
-// param platformFaultDomainCount int = 1
-
-// var vmScaleSetName = toLower(substring('${vmssName}${uniqueString(resourceGroup().id)}', 0, 9))
-var longvmScaleSet = toLower(vmssName)
+var vmScaleSetName = 'webvmssproject1'
 var addressPrefix = '10.20.20.0/24'
 var subnet1Prefix = '10.20.20.0/25'
 var subnet2Prefix = '10.20.20.128/25'
 
-var virtualNetworkName = '${vmssName}vnet'
-var publicIPAddressName = '${vmssName}pip'
-var subnetName = '${vmssName}subnet'
-var subnet1Name = '${vmssName}subnet1'
-var subnet2Name = '${vmssName}subnet2'
-var loadBalancerName = '${vmssName}lb'
-var natPoolName = '${vmssName}natpool'
-var bePoolName = '${vmssName}bepool'
-var nsgName = '${vmssName}nsg'
+var virtualNetworkName = 'webvmssvnet'
+var publicIPAddressName = 'webvmsspip'
+var subnetName = 'webvmsssubnet'
+var subnet1Name = 'webvmsssubnet1'
+var loadBalancerName = 'webvmsslb'
+var natPoolName = 'webvmssnatpool'
+var bePoolName = 'webvmssbepool'
 
 var natStartPort = 50000
 var natEndPort = 50119
 var natBackendPort = 3389
-var nicName = '${vmssName}nic'
-var ipConfigName = '${vmssName}ipconfig'
+var nicName = 'webvmssnic'
+var ipConfigName = 'webvmssipconfig'
 
 
 var customdatascript = loadFileAsBase64('install_apache.sh')
@@ -58,7 +52,7 @@ var imageReference = osType
 
 
 resource nsg 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
-  name: nsgName
+  name: 'nsgweb'
   location: location
   properties:{
     securityRules:[
@@ -92,7 +86,7 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-02-01' = {
     }
     subnets: [
       {
-        name: subnet1Name
+        name: 'subnet1'
         properties: {
           addressPrefix: subnet1Prefix
           networkSecurityGroup:{
@@ -105,15 +99,16 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-02-01' = {
 }
 
 
-  resource subnet2 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
-    parent: virtualNetwork
-    name: subnet2Name
-    properties:{
-      addressPrefixes:[
-        subnet2Prefix
-      ]
-    }
+resource subnet2 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
+  parent: virtualNetwork
+  name: subnet1Name
+  properties:{
+    addressPrefixes:[
+      subnet2Prefix
+    ]
   }
+}
+
 
 resource publicIP 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
   name: publicIPAddressName
@@ -121,7 +116,7 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
   properties: {
     publicIPAllocationMethod: 'Dynamic'
     dnsSettings: {
-      domainNameLabel: longvmScaleSet
+      domainNameLabel: vmScaleSetName
     }
   }
 }
@@ -163,7 +158,7 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-02-01' = {
 }
 
 resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
-  name: vmssName
+  name: vmScaleSetName
   location: location
   sku: {
     name: vmSku
@@ -175,6 +170,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
     upgradePolicy: {
       mode: 'Manual'
     }
+    singlePlacementGroup: true
     virtualMachineProfile: {
       storageProfile: {
         osDisk: {
@@ -184,7 +180,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
         imageReference: imageReference
       }
       osProfile: {
-        computerNamePrefix: vmssName
+        computerNamePrefix: vmScaleSetName
         adminUsername: adminUsername
         adminPassword: adminPassword
         customData: customdatascript
@@ -217,12 +213,11 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
               ]
             }
           }
-        ]   
-        
-      }     
+        ]
+      }
     }
   }
- }
+}
 
 resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
   name: 'cpuautoscale1'
@@ -281,9 +276,3 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
     ]
   }
 }
-
-
-output scalesetName string = vmss.name
-output virtualNetworkName string = virtualNetwork.name
-output scalesetID string = vmss.id
-output virtualNetworkID string = virtualNetwork.id
