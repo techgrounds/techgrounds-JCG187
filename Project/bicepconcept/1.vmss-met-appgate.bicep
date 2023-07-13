@@ -251,7 +251,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
                     privateIPAddressVersion: 'IPv4'
                      applicationGatewayBackendAddressPools: [
                        {
-                         id:resourceId('Microsoft.Network/applicationGateways/backendAddressPools', 'applicationGateWay','myBackendPool')
+                         id:resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName,'myBackendPool')
                        }
                      ]
                   }
@@ -437,7 +437,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
         properties: {
           privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
-            id: resourceId('Microsoft.Network/publicIPAddresses', '${publicIPAddressName}')
+            id: resourceId('Microsoft.Network/publicIPAddresses', publicIPAddressName)
           }
           subnet: {
             id: resourceId('Microsoft.Network/virtualNetworks/subnets', vNetName, 'myBackendSubnet')
@@ -455,7 +455,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
     enableAcceleratedNetworking: false
     enableIPForwarding: false
     networkSecurityGroup: {
-      id: resourceId('Microsoft.Network/networkSecurityGroups', '${nsgName}')
+      id: resourceId('Microsoft.Network/networkSecurityGroups', nsgName)
     }
   }
   dependsOn: [

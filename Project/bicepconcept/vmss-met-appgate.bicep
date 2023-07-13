@@ -1,5 +1,5 @@
 
-param adminUsername string = 'Jennifer'
+param adminUsername string = 'adminproject1'
 @secure()
 param adminPassword string // JGO89HNG9Hiyn
 param location string = resourceGroup().location
@@ -8,7 +8,7 @@ param location string = resourceGroup().location
 // param vmSize string = 'Standard_B2ms'
 
 @description('Size of VMs in the VM Scale Set.')
-param vmSku string = 'Standard_A1_v2'
+param vmSku string = 'Standard_B2ms'
 
 @description('Number of VM instances (100 or less).')
 @minValue(1)
@@ -32,7 +32,7 @@ var imageReference = osType
 
 
 
-var vmScaleSetName = 'vmssproject1${uniqueString(resourceGroup().id)}'
+var vmScaleSetName = 'scalesetwebserver'
 var vNetName = 'vnet'
 var publicIPAddressName = 'pip'
 var subnetName = 'subnet'
@@ -231,7 +231,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
           }
         ]
       }      
-    }
+    }    
   }  
 } 
 
