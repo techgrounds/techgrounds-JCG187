@@ -2,15 +2,21 @@ param location string = resourceGroup().location //de locatie die gekoppeld is a
 param vnet1Name string = 'Vnet1-WebServer'
 param subnet1Name string = 'Subnet1-WebServer'
 param subnet2Name string = 'Subnet2-WebServer'
-param subnet3Name string = 'Subnet3-WebServer'
 param nsg1Sub1Name string = 'nsg1-sub1'
 param nsg2Sub2Name string = 'nsg1-sub2'
-param nsg3Sub3Name string = 'nsg1-sub3'
+param serviceEndPoints array = [
+  {
+      locations: [
+        'westeurope'                   
+               ]
+      service: 'Microsoft.Storage'
+           }
+]
 
 var Vnet1AddressPrefix = '10.10.10.0/24'
-var Subnet1AddressPrefix = '10.10.10.0/26'
-var Subnet2AddressPrefix = '10.10.10.64/26'
-var Subnet3AddresPrefix = '10.10.10.128/26'
+var Subnet1AddressPrefix = '10.10.10.0/25'
+var Subnet2AddressPrefix = '10.10.10.128/25'
+
 
 
 param Vnet2Name string = 'Vnet2-ManServer'
@@ -20,7 +26,7 @@ var Vnet2AddressPrefix = '10.20.20.0/24'
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////VnetA WINDOWS WEBSERVER/////////////////////////////////////////////////
+/////////////////////////Vnet1 WINDOWS WEBSERVER/////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -51,21 +57,24 @@ resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
   name: subnet1Name //naam van de subnet
   properties: {
      addressPrefix: Subnet1AddressPrefix//subnetadres
+     serviceEndpoints: serviceEndPoints
      networkSecurityGroup: {
        id: nsg1sub1.id
      }
     }
   }
 
-
-
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////Vnet1 SUBNET2////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+  
 
   @description('aanmaken van subnet2 voor de webserver')
   resource Subnet2Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
     parent: Vnet1Web //hiermee vertel je dat het een subnet is van vnet_1
     name: subnet2Name //naam van de subnet
     properties: {
-       addressPrefix:Subnet2AddressPrefix //subnetadres
+       addressPrefix:Subnet2AddressPrefix //subnetadres cidr
        networkSecurityGroup: {
          id: nsg1sub2.id
        }
@@ -73,23 +82,10 @@ resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
     }
 
 
-    @description('aanmaken van subnet3 voor de webserver')
-    resource Subnet3Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
-      parent: Vnet1Web //hiermee vertel je dat het een subnet is van vnet_1
-      name: subnet3Name //naam van de subnet
-      properties: {
-         addressPrefix: Subnet3AddresPrefix//CIDR block
-         networkSecurityGroup: {
-           id: nsg1sub3.id
-         }
-        }
-      }
-  
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////Vnet1 NSG's voor alle subnets gelijk/////////////////////////////////////
+/////////////////////////Vnet1 NSG's Subnet 1 voor alle subnets gelijk/////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -146,31 +142,6 @@ dependsOn: [
  ]
   }
      
-  @description('netwerksecuritygroup voor subnet1')
-  resource nsg1sub3 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
-    location: location
-    name:  nsg3Sub3Name      
-    properties: {
-      securityRules:[
-        {
-          properties:{
-            description: 'SSH'
-            access: 'Allow'
-            direction: 'Inbound'
-            priority: 1000
-            protocol: 'Tcp'
-            destinationAddressPrefix:'*'
-            destinationPortRange:'22'
-            sourceAddressPrefix:'*'
-            sourcePortRange:'*'          
-          }
-        }
-      ]    
-    }
-  dependsOn: [
-      Vnet1Web
-  ]
-   }
         
 /////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////VNET2////////////////////////////////////////////////////////
