@@ -1,26 +1,17 @@
 // maat van de vmscale set
 param vmSku string = 'Standard_B2s'
 
-// @description('The Windows version for the VM. This will pick a fully patched image of this given Windows version.')
-// @allowed([
-//   '2019-Datacenter'
-//   '2016-Datacenter'
-//   '2012-R2-Datacenter'
-//   '2012-Datacenter'
-// ])
-// param windowsOSVersion string = '2019-Datacenter'
-
 // naam van de vmss
 @maxLength(61)
-param vmssName string = 'web2-vmss2'
+param vmssName string = 'Webvmss'
 
 //@description('Number of VM instances (100 or less).')
 @minValue(1)
 @maxValue(3)
-param instanceCount int
+param instanceCount int = 2
 
 @description('Admin username on all VMs.')
-param adminUsername string = 'Jennifer'
+param adminUsername string = 'vmssadmin'
 
 @description('Admin password on all VMs.')
 @secure()
@@ -29,23 +20,30 @@ param adminPassword string // JGO123488J1fi456
 @description('Location for all resources.')
 param location string = resourceGroup().location
 
-var namingInfix = toLower(substring('${vmssName}${uniqueString(resourceGroup().id)}', 0, 9))
-var longNamingInfix = toLower(vmssName)
-var addressPrefix = '10.20.20.0/24'
-var subnetPrefix = '10.20.20.0/24'
+// @description('Fault Domain count for each placement group.')
+// param platformFaultDomainCount int = 1
 
-var virtualNetworkName = '${namingInfix}vnet'
-var publicIPAddressName = '${namingInfix}pip'
-var subnetName = '${namingInfix}subnet'
-var loadBalancerName = '${namingInfix}lb'
-var natPoolName = '${namingInfix}natpool'
-var bePoolName = '${namingInfix}bepool'
+// var vmScaleSetName = toLower(substring('${vmssName}${uniqueString(resourceGroup().id)}', 0, 9))
+var longvmScaleSet = toLower(vmssName)
+var addressPrefix = '10.20.20.0/24'
+var subnet1Prefix = '10.20.20.0/25'
+var subnet2Prefix = '10.20.20.128/25'
+
+var virtualNetworkName = '${vmssName}vnet'
+var publicIPAddressName = '${vmssName}pip'
+var subnetName = '${vmssName}subnet'
+var subnet1Name = '${vmssName}subnet1'
+var subnet2Name = '${vmssName}subnet2'
+var loadBalancerName = '${vmssName}lb'
+var natPoolName = '${vmssName}natpool'
+var bePoolName = '${vmssName}bepool'
+var nsgName = '${vmssName}nsg'
 
 var natStartPort = 50000
 var natEndPort = 50119
 var natBackendPort = 3389
-var nicName = '${namingInfix}nic'
-var ipConfigName = '${namingInfix}ipconfig'
+var nicName = '${vmssName}nic'
+var ipConfigName = '${vmssName}ipconfig'
 
 
 var customdatascript = loadFileAsBase64('install_apache.sh')
@@ -58,6 +56,31 @@ var osType = {
 }
 var imageReference = osType
 
+
+resource nsg 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
+  name: nsgName
+  location: location
+  properties:{
+    securityRules:[
+      {
+        name:'Allow-HTTP-InboundRule'
+        properties:{
+          access:'Allow'
+          priority: 500
+          direction: 'Inbound'
+          protocol:'tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '80'
+          sourceAddressPrefix:'*'
+          destinationAddressPrefix: subnet1Prefix
+          description: 'Inbound access to vmss website'
+
+        }
+      }
+    ]
+  }
+}
+
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-02-01' = {
   name: virtualNetworkName
   location: location
@@ -69,14 +92,28 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-02-01' = {
     }
     subnets: [
       {
-        name: subnetName
+        name: subnet1Name
         properties: {
-          addressPrefix: subnetPrefix
-        }
-      }
-    ]
+          addressPrefix: subnet1Prefix
+          networkSecurityGroup:{
+            id:nsg.id
+          }
+        }                
+      }                 
+    ]    
   }
 }
+
+
+  resource subnet2 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
+    parent: virtualNetwork
+    name: subnet2Name
+    properties:{
+      addressPrefixes:[
+        subnet2Prefix
+      ]
+    }
+  }
 
 resource publicIP 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
   name: publicIPAddressName
@@ -84,53 +121,46 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2021-02-01' = {
   properties: {
     publicIPAllocationMethod: 'Dynamic'
     dnsSettings: {
-      domainNameLabel: longNamingInfix
+      domainNameLabel: longvmScaleSet
     }
   }
 }
 
-
-
-resource nsg
-
-
-
-
-// resource loadBalancer 'Microsoft.Network/loadBalancers@2021-02-01' = {
-//   name: loadBalancerName
-//   location: location
-//   properties: {
-//     frontendIPConfigurations: [
-//       {
-//         name: 'LoadBalancerFrontEnd'
-//         properties: {
-//           publicIPAddress: {
-//             id: publicIP.id
-//           }
-//         }
-//       }
-//     ]
-//     backendAddressPools: [
-//       {
-//         name: bePoolName
-//       }
-//     ]
-//     inboundNatPools: [
-//       {
-//         name: natPoolName
-//         properties: {
-//           frontendIPConfiguration: {
-//             id: resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', loadBalancerName, 'loadBalancerFrontEnd')
-//           }
-//           protocol: 'Tcp'
-//           frontendPortRangeStart: natStartPort
-//           frontendPortRangeEnd: natEndPort
-//           backendPort: natBackendPort
-//         }
-//       }
-//     ]
-//   }
-// }
+resource loadBalancer 'Microsoft.Network/loadBalancers@2021-02-01' = {
+  name: loadBalancerName
+  location: location
+  properties: {
+    frontendIPConfigurations: [
+      {
+        name: 'LoadBalancerFrontEnd'
+        properties: {
+          publicIPAddress: {
+            id: publicIP.id
+          }
+        }
+      }
+    ]
+    backendAddressPools: [
+      {
+        name: bePoolName
+      }
+    ]
+    inboundNatPools: [
+      {
+        name: natPoolName
+        properties: {
+          frontendIPConfiguration: {
+            id: resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', loadBalancerName, 'loadBalancerFrontEnd')
+          }
+          protocol: 'Tcp'
+          frontendPortRangeStart: natStartPort
+          frontendPortRangeEnd: natEndPort
+          backendPort: natBackendPort
+        }
+      }
+    ]
+  }
+}
 
 resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
   name: vmssName
@@ -154,7 +184,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
         imageReference: imageReference
       }
       osProfile: {
-        computerNamePrefix: namingInfix
+        computerNamePrefix: vmssName
         adminUsername: adminUsername
         adminPassword: adminPassword
         customData: customdatascript
@@ -187,11 +217,12 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
               ]
             }
           }
-        ]
-      }
+        ]   
+        
+      }     
     }
   }
-}
+ }
 
 resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
   name: 'cpuautoscale1'
@@ -250,3 +281,9 @@ resource autoScaleSettings 'microsoft.insights/autoscalesettings@2015-04-01' = {
     ]
   }
 }
+
+
+output scalesetName string = vmss.name
+output virtualNetworkName string = virtualNetwork.name
+output scalesetID string = vmss.id
+output virtualNetworkID string = virtualNetwork.id

@@ -22,6 +22,9 @@ param singlePlacementGroup bool = true
 //Fault Domain count for each placement group
 param platformFaultDomainCount int = 1
 
+param vmScaleSetName string = 'vmssWebApp'
+
+
 var osType = {
   publisher: 'Canonical'
   offer: 'UbuntuServer'
@@ -30,15 +33,13 @@ var osType = {
 }
 var imageReference = osType
 
-
-
-param vmScaleSetName string = 'vmssWebApp'
 var vNetName = 'vnet'
 var publicIPAddressName = 'pip'
 //var publicIPAddressID = publicIPAddress.id
 var nicName = 'nic'
 var ipConfigName = 'ipconfig'
 var nsgName = 'vm-nsg'
+var nsg1Name = 'vm-nsg1'
 var applicationGateWayName = 'myAppGateway'
 var virtualNetworkPrefix = '10.10.10.0/24'
 var FrontsubnetPrefix = '10.10.10.0/25'
@@ -59,13 +60,89 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
           access: 'Allow'
-          priority: 300
+          priority: 500
           direction: 'Inbound'
         }        
-      }      
+      }  
+      {
+        name:'HTTPS'
+        properties:{
+          protocol:'Tcp'
+          sourcePortRange:'*'
+          destinationPortRange:'443'
+          sourceAddressPrefix:'*'
+          destinationAddressPrefix: '*'
+          access:'Allow'
+          priority:501
+          direction:'Inbound'
+        }
+      }    
+      {
+        name:'SSH'
+        properties:{
+          protocol:'Tcp'
+          sourcePortRange:'*'
+          destinationPortRange:'22'
+          sourceAddressPrefix:'*'
+          destinationAddressPrefix: '*'
+          access:'Allow'
+          priority:600
+          direction:'Inbound'
+       }
+     }
     ]    
   }  
 }
+
+// resource nsg1 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
+//   name: nsg1Name
+//   location: location
+//   properties: {
+//     securityRules: [
+//       {
+//         name: 'HTTP'
+//         properties: {
+//           protocol: 'Tcp'
+//           sourcePortRange: '*'
+//           destinationPortRange: '80'
+//           sourceAddressPrefix: '*'
+//           destinationAddressPrefix: '*'
+//           access: 'Allow'
+//           priority: 500
+//           direction: 'Inbound'
+//         }        
+//       }  
+//       {
+//         name:'HTTPS'
+//         properties:{
+//           protocol:'Tcp'
+//           sourcePortRange:'*'
+//           destinationPortRange:'443'
+//           sourceAddressPrefix:'*'
+//           destinationAddressPrefix: '*'
+//           access:'Allow'
+//           priority:501
+//           direction:'Inbound'
+//         }
+//       }    
+//       {
+//         name:'SSH'
+//         properties:{
+//           protocol:'Tcp'
+//           sourcePortRange:'*'
+//           destinationPortRange:'22'
+//           sourceAddressPrefix:'*'
+//           destinationAddressPrefix: '*'
+//           access:'Allow'
+//           priority:501
+//           direction:'Inbound'
+//        }
+//      }
+//     ]    
+//   }  
+// }
+
+
 
 resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
   name: publicIPAddressName
@@ -174,7 +251,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
                     privateIPAddressVersion: 'IPv4'
                      applicationGatewayBackendAddressPools: [
                        {
-                         id:resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName, 'appGatewayBackendPool')
+                         id:resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName,'myBackendPool')
                        }
                      ]
                   }
@@ -188,6 +265,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
   }  
   dependsOn:[
     applicationGateWay
+    networkInterface
   ]
 } 
 
@@ -267,8 +345,8 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
         name: 'appGatewayIpConfig'
         properties: {
           subnet: {
-            id: virtualNetwork.properties.subnets[0].id                             
-          }
+            id: virtualNetwork.properties.subnets[0].id                                         
+          }          
         }
       }
     ]
@@ -359,7 +437,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
         properties: {
           privateIPAllocationMethod: 'Dynamic'
           publicIPAddress: {
-            id: resourceId('Microsoft.Network/publicIPAddresses', '${publicIPAddressName}')
+            id: resourceId('Microsoft.Network/publicIPAddresses', publicIPAddressName)
           }
           subnet: {
             id: resourceId('Microsoft.Network/virtualNetworks/subnets', vNetName, 'myBackendSubnet')
@@ -377,7 +455,7 @@ resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
     enableAcceleratedNetworking: false
     enableIPForwarding: false
     networkSecurityGroup: {
-      id: resourceId('Microsoft.Network/networkSecurityGroups', '${nsgName}')
+      id: resourceId('Microsoft.Network/networkSecurityGroups', nsgName)
     }
   }
   dependsOn: [

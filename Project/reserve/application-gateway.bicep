@@ -40,8 +40,8 @@ var subnetPrefix = '10.0.0.0/24'
 var backendSubnetPrefix = '10.0.1.0/24'
 var customData = loadFileAsBase64('install_apache.sh')
 
-resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
-  name: nsgName
+resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = [for i in range(0, 2): {
+  name: '${nsgName}${i + 1}'
   location: location
   properties: {
     securityRules: [
@@ -60,10 +60,10 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
       }
     ]
   }
-}
+}]
 
-resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
-  name: publicIPAddressName
+resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' = [for i in range(0, 3): {
+  name: '${publicIPAddressName}${i}'
   location: location
   sku: {
     name: 'Standard'
@@ -73,7 +73,7 @@ resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' = {
     publicIPAllocationMethod: 'Static'
     idleTimeoutInMinutes: 4
   }
-}
+}]
 
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {
   name: virtualNetworkName
@@ -145,13 +145,21 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2021-03-01' = {
                   name: publicIPAddressName
                   properties: {
                     subnet: {
-                      id: resourceId('Microsoft.Network/virtualNetworks/subnets', virtualNetwork.name, subnetPrefix)                  
-                   
-                   }  
-                 }                 
+                      id: resourceId('Microsoft.Network/virtualNetworks/subnets', virtualNetwork.name, subnetPrefix)
+                    }
+                    loadBalancerBackendAddressPools: [
+                      {
+                        id: resourceId('Microsoft.Network/loadBalancers/backendAddressPools', applicationGateWay.name, backendSubnetPrefix)
+                      }
+                    ]
+                    loadBalancerInboundNatPools: [
+                      {
+                        id: resourceId('Microsoft.Network/loadBalancers/inboundNatPools', loadBalancer.name, natPoolName)
+                      }
+                    ]
+                  }
                 }
-              ]  
-                          
+              ]
             }
           }
         ]
@@ -377,7 +385,7 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
   }
   dependsOn: [
     virtualNetwork
-    publicIPAddress
+    publicIPAddress[0]
   ]
 }
 
