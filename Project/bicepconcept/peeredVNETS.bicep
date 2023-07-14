@@ -45,7 +45,7 @@ resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
      addressPrefix: '10.10.10.0/25'
      serviceEndpoints: serviceEndPoints
      networkSecurityGroup: {
-       id: nsg1sub1vnet1.id
+       id: nsg1.id
      }
     }
   }
@@ -62,7 +62,7 @@ resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
     properties: {
        addressPrefix:'10.10.10.128/25'
        networkSecurityGroup: {
-         id: nsg2sub2vnet1.id
+         id: nsg2.id
        }
       }
     }
@@ -75,7 +75,7 @@ resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-resource nsg1sub1vnet1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
+resource nsg1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
   location: location
   name: 'nsg1web'    
   properties: {
@@ -126,7 +126,7 @@ dependsOn: [
 ]
  }
      
- resource nsg2sub2vnet1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
+ resource nsg2 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
    location: location
    name: 'nsg2web'      
    properties: {
@@ -169,24 +169,28 @@ dependsOn: [
         addressPrefixes: [
           '10.20.20.0/24'                  
         ]          
-     }     
-     subnets:[
-      {
-        name: 'sub1Man'
-        properties:{
-          addressPrefix: '10.20.20.0/25'
-          networkSecurityGroup:{
-            id: nsg1sub1man.id
-          }
-        }        
-      }    
-    ]    
+     }         
    }   
  }  
 
  
+resource subnet1Man 'Microsoft.Network/virtualNetworks/subnets@2023-02-01' = {
+  name: 'Sub1Man'
+  parent:Vnet2Man
+  properties:{
+    addressPrefix:'10.20.20.0/25'
+    networkSecurityGroup:{
+      id:nsg3.id
+    }
+  }
+}
+
+
+
+
+
 //nsg vnet2 sub1
- resource nsg1sub1man 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
+ resource nsg3 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
    location: location
    name: 'nsg1man'
    properties: {
@@ -258,7 +262,54 @@ resource peeringManwithWeb 'Microsoft.Network/virtualNetworks/virtualNetworkPeer
 
 
 
+output vnet1IDwebserverID string = Vnet1Web.id
+output vnet2IDmanserverID string = Vnet2Man.id
+
+output vnet1IDwebserverName string = Vnet1Web.name
+output vnet2IDmanserverName string = Vnet2Man.name
+
+
 
 output Subnet1webID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name, 'sub1web')
 output Subnet2webID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name,'sub2web')
 output Subnet1manID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', Vnet2Name,'sub1man')
+
+output subnet1webID string = Subnet1Web.id
+output subnet2webID string = Subnet2Web.id
+output subnet1manID string = subnet1Man.id
+
+output subnet1webName string = Subnet1Web.name
+output subnet2webName string = Subnet2Web.name
+output subnet1manName string = subnet1Man.name
+
+output nsg1ID string = nsg1.id
+output nsg2ID string = nsg2.id
+output nsg3ID string = nsg3.id
+output nsg1Name string = nsg1.name
+output nsg2Name string = nsg2.name
+output nsg3Name string = nsg3.name
+
+
+// Return the 1st subnet id
+output subnetId1 string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name, 'sub1web')
+
+// Return the 2nd subnet id
+output subnetId2 string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name, 'sub1web')
+
+
+
+
+
+
+
+// // Return as array
+// output subnetIdsArray array = [
+//   resourceId('Microsoft.Network/VirtualNetworks/subnets', vnetName, 'subnetpoc-1')
+//   resourceId('Microsoft.Network/VirtualNetworks/subnets', vnetName, 'subnetpoc-2')
+// ]
+
+// // Return as object
+// output subnetIdsObject object = {
+//   subnetId1: resourceId('Microsoft.Network/VirtualNetworks/subnets', vnetName, 'subnetpoc-1')
+//   subnetId2: resourceId('Microsoft.Network/VirtualNetworks/subnets', vnetName, 'subnetpoc-2')
+// }
