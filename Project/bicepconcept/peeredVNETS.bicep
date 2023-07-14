@@ -1,9 +1,7 @@
 param location string = resourceGroup().location //de locatie die gekoppeld is aan de resourcegroup
 param vnet1Name string = 'Vnet1-WebServer'
-param subnet1Name string = 'Subnet1-WebServer'
-param subnet2Name string = 'Subnet2-WebServer'
-param nsg1Sub1Name string = 'nsg1-sub1'
-param nsg2Sub2Name string = 'nsg1-sub2'
+param Vnet2Name string = 'Vnet2-ManServer'
+
 param serviceEndPoints array = [
   {
       locations: [
@@ -13,32 +11,20 @@ param serviceEndPoints array = [
            }
 ]
 
-var Vnet1AddressPrefix = '10.10.10.0/24'
-var Subnet1AddressPrefix = '10.10.10.0/25'
-var Subnet2AddressPrefix = '10.10.10.128/25'
-
-
-
-param Vnet2Name string = 'Vnet2-ManServer'
-param subnet1ManName string = 'Subnet1-ManServer'
-
-var Vnet2AddressPrefix = '10.20.20.0/24'
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////Vnet1 WINDOWS WEBSERVER/////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-@description('aanmaken vnet1')
+//vnet1 voor webserver
 resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
   name: vnet1Name
   location: location
   properties: {
     addressSpace: {
        addressPrefixes: [
-        Vnet1AddressPrefix                        
+        '10.10.10.0/24'                      
        ]  
     }           
   }
@@ -51,15 +37,15 @@ resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
 
 
 
-@description('aanmaken van subnet1 voor de webserver')
+//subnets voor vnet 1
 resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
-  parent: Vnet1Web //hiermee vertel je dat het een subnet is van vnet_1
-  name: subnet1Name //naam van de subnet
+  parent: Vnet1Web 
+  name: 'sub1web' 
   properties: {
-     addressPrefix: Subnet1AddressPrefix//subnetadres
+     addressPrefix: '10.10.10.0/25'
      serviceEndpoints: serviceEndPoints
      networkSecurityGroup: {
-       id: nsg1sub1.id
+       id: nsg1sub1vnet1.id
      }
     }
   }
@@ -69,14 +55,14 @@ resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
 /////////////////////////////////////////////////////////////////////////////////////////////////
   
 
-  @description('aanmaken van subnet2 voor de webserver')
+ //subnet2 voor vnet1
   resource Subnet2Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
-    parent: Vnet1Web //hiermee vertel je dat het een subnet is van vnet_1
-    name: subnet2Name //naam van de subnet
+    parent: Vnet1Web 
+    name: 'sub2web'
     properties: {
-       addressPrefix:Subnet2AddressPrefix //subnetadres cidr
+       addressPrefix:'10.10.10.128/25'
        networkSecurityGroup: {
-         id: nsg1sub2.id
+         id: nsg2sub2vnet1.id
        }
       }
     }
@@ -89,10 +75,9 @@ resource Subnet1Web 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-@description('netwerksecuritygroup voor subnet1')
-resource nsg1sub1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
+resource nsg1sub1vnet1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
   location: location
-  name: nsg1Sub1Name    
+  name: 'nsg1web'    
   properties: {
     securityRules:[
       {
@@ -108,6 +93,32 @@ resource nsg1sub1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
           sourcePortRange:'*'          
         }
       }
+      {
+        properties:{
+          description: 'HTTP'
+          access: 'Allow'
+          direction: 'Inbound'
+          priority: 500
+          protocol: 'Tcp'
+          destinationAddressPrefix:'*'
+          destinationPortRange:'80'
+          sourceAddressPrefix:'*'
+          sourcePortRange:'*'
+        }
+      }
+      {
+        properties:{
+        description: 'HTTPS'
+          access: 'Allow'
+          direction: 'Inbound'
+          priority: 501
+          protocol: 'Tcp'
+          destinationAddressPrefix:'*'
+          destinationPortRange:'443'
+          sourceAddressPrefix:'*'
+          sourcePortRange:'*'
+        }
+      }
     ]    
   }
 dependsOn: [
@@ -115,11 +126,9 @@ dependsOn: [
 ]
  }
      
-
- @description('netwerksecuritygroup voor subnet1')
- resource nsg1sub2 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
+ resource nsg2sub2vnet1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {  
    location: location
-   name: nsg2Sub2Name       
+   name: 'nsg2web'      
    properties: {
      securityRules:[
        {
@@ -158,36 +167,58 @@ dependsOn: [
    properties: {
      addressSpace: {
         addressPrefixes: [
-          Vnet2AddressPrefix                    
-        ]  
-     }      
-   }
+          '10.20.20.0/24'                  
+        ]          
+     }     
+     subnets:[
+      {
+        name: 'sub1Man'
+        properties:{
+          addressPrefix: '10.20.20.0/25'
+          networkSecurityGroup:{
+            id: nsg1sub1man.id
+          }
+        }        
+      }    
+    ]    
+   }   
  }  
 
-
- /////////////////////////////////////////////////////////////////////////////////////
-////////////////////////SUBNET2////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////
  
- @description('aanmaken van subnet2 voor de managementserver')
- resource Subnet1Man 'Microsoft.Network/virtualNetworks/subnets@2022-11-01' = {
-   parent: Vnet2Man //hiermee vertel je dat het een subnet is van vnet2
-   name: subnet1ManName //naam van de subnet
-   properties: {
-      addressPrefix: '10.20.20.0/25'//subnetadres
-      networkSecurityGroup: {
-        id: nsg2sub2.id 
-      }
-     }
- }
- 
- @description('netwerksecuritygroup voor subnet2')
- resource nsg2sub2 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
+//nsg vnet2 sub1
+ resource nsg1sub1man 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
    location: location
-   name: 'nsg2'
-   dependsOn: [
-      Vnet2Man
-   ]   
+   name: 'nsg1man'
+   properties: {
+    securityRules:[
+      {
+        properties:{
+          description: 'SSH'
+          access: 'Allow'
+          direction: 'Inbound'
+          priority: 1000
+          protocol: 'Tcp'
+          destinationAddressPrefix:'*'
+          destinationPortRange:'22'
+          sourceAddressPrefix:'*'
+          sourcePortRange:'*'          
+        }
+      }
+      {
+        properties:{
+        description: 'RDP'
+          access: 'Allow'
+          direction: 'Inbound'
+          priority: 600
+          protocol: 'Tcp'
+          destinationAddressPrefix:'*'
+          destinationPortRange:'3389'
+          sourceAddressPrefix:'*'
+          sourcePortRange:'*'  
+        }    
+      }
+    ]    
+  }
   }
 
 
@@ -228,3 +259,6 @@ resource peeringManwithWeb 'Microsoft.Network/virtualNetworks/virtualNetworkPeer
 
 
 
+output Subnet1webID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name, 'sub1web')
+output Subnet2webID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name,'sub2web')
+output Subnet1manID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', Vnet2Name,'sub1man')

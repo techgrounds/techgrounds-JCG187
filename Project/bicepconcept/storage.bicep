@@ -67,13 +67,13 @@ resource SAproject 'Microsoft.Storage/storageAccounts@2022-09-01' = {
     //     }
     //   }
     // }
-    immutableStorageWithVersioning: { //dit zorgt ervoor dat bestanden niet verwijderd of gewijzigd kunnen worden. Met versiebeheer kan je meerdere versies van 1 bestand bewaren. Alle wijzigingen aan een bestand worden als nieuwe versie gezien, oude versies blijven bestaan.
-      enabled: false  // ik heb dit voor nu uitgezet anders kan je de storage account niet deleten. 
-      immutabilityPolicy: {
-        allowProtectedAppendWrites: true
-        immutabilityPeriodSinceCreationInDays: 7
-        state: 'Disabled' 
-      }
+    // immutableStorageWithVersioning: { //dit zorgt ervoor dat bestanden niet verwijderd of gewijzigd kunnen worden. Met versiebeheer kan je meerdere versies van 1 bestand bewaren. Alle wijzigingen aan een bestand worden als nieuwe versie gezien, oude versies blijven bestaan.
+    //   enabled: false  // ik heb dit voor nu uitgezet anders kan je de storage account niet deleten. 
+    //   immutabilityPolicy: {
+    //     allowProtectedAppendWrites: true                     // uitgezet omdat je anders geen large file share kan doen.
+    //     immutabilityPeriodSinceCreationInDays: 7
+    //     state: 'Disabled' 
+    //   }
     // }
     // isHnsEnabled: true // zorgt ervoor dat je een structuur of mappen voor de bestanden hierarchisch kan aanmaken in de blobstorage. Dit is niet nodig voor het project.
     // isLocalUserEnabled: false
@@ -85,12 +85,12 @@ resource SAproject 'Microsoft.Storage/storageAccounts@2022-09-01' = {
     largeFileSharesState: 'Enable'
     minimumTlsVersion: 'TLS1-2'
     networkAcls: {
-      bypass: 'string'
-      defaultAction: 'string'
+      bypass: 'AzureServices'
+      defaultAction: 'Allow'
       ipRules: [
         {
           action: 'Allow'
-          value: 'string'
+          value: 
         }
       ]
       resourceAccessRules: [
@@ -139,7 +139,7 @@ resource folder 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-
 
 
 
-output blobContainerResourceId string = storeAcc.id
+output blobContainerResourceId string = .id
 output blobResourceId string = blobservice.id
 output folderResourceId string = folder.id
 

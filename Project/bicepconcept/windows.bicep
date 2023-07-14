@@ -57,12 +57,7 @@ param securityType string = 'Standard'
 
 var storageAccountName = 'bootdiags${uniqueString(resourceGroup().id)}'
 var nicName = 'Man1-Nic1'
-var addressPrefix = '10.10.10.0/24'
-var subnetName = 'Man1-Subnet1'
-var subnet1Prefix = '10.10.10.0/25'
-var subnet2Prefix = '10.10.10.128/25'
-var virtualNetworkName = 'Man1-Vnet1'
-var networkSecurityGroupName = 'Man1-Nsg1'
+
 var securityProfileJson = {
   uefiSettings: {
     secureBootEnabled: true
@@ -75,6 +70,11 @@ var securityProfileJson = {
 // var extensionVersion = '1.0'
 // var maaTenantName = 'GuestAttestation'
 // var maaEndpoint = substring('emptyString', 0, 0)
+
+resource virtualnetwork 'Microsoft.Network/virtualNetworks@2022-11-01' existing = {
+  name: 'Vnet2-ManServer'
+ 
+}
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
   name: storageAccountName
@@ -99,53 +99,9 @@ resource publicIp 'Microsoft.Network/publicIPAddresses@2022-05-01' = {
   }
 }
 
-resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2022-05-01' = {
-  name: networkSecurityGroupName
-  location: location
-  properties: {
-    securityRules: [
-      {
-        name: 'default-allow-3389'
-        properties: {
-          priority: 1000
-          access: 'Allow'
-          direction: 'Inbound'
-          destinationPortRange: '3389'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-        }
-      }
-    ]
-  }
-}
-
-resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-05-01' = {
-  name: virtualNetworkName
-  location: location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        addressPrefix
-      ]
-    }
-    subnets: [
-      {
-        name: subnetName
-        properties: {
-          addressPrefix: subnetPrefix
-          networkSecurityGroup: {
-            id: networkSecurityGroup.id
-          }
-        }
-      }
-    ]
-  }
-}
 
 
-resource subnet2 'Microsoft.Network/virtualNetworks/subnets@2022-11-01'
+
 
 resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
   name: nicName
@@ -160,7 +116,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
             id: publicIp.id
           }
           subnet: {
-            id: resourceId('Microsoft.Network/virtualNetworks/subnets', virtualNetworkName, subnetName)
+            id: 'Vnet2-ManServer'
           }
         }
       }
@@ -168,7 +124,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
   }
   dependsOn: [
 
-    virtualNetwork
+    virtualnetwork
   ]
 }
 
@@ -246,27 +202,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 
 
 
-// resource peering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-11-01' = {
-//   name: 
-//    parent: virtualNetwork
-//     properties: {
-//        allowForwardedTraffic:
-//         allowGatewayTransit:
-//          allowVirtualNetworkAccess:
-//           doNotVerifyRemoteGateways:
-//            peeringState:
-//             peeringSyncLevel:
-//              remoteAddressSpace:
-//               remoteBgpCommunities:
-//                remoteVirtualNetwork:
-//                 remoteVirtualNetworkAddressSpace:
-//                  useRemoteGateways:
-//     }
-//      dependsOn: [
-       
-//      ]
-      
-// }
+
 
 
 
@@ -279,4 +215,4 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 
 
 output hostname string = publicIp.properties.dnsSettings.fqdn
-output windowsVnetName string = virtualNetwork.name
+
