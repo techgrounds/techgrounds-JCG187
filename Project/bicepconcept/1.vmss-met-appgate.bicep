@@ -34,29 +34,16 @@ var osType = {
 }
 var imageReference = osType
 
-//var vNetName = 'vnet'
-
 //var publicIPAddressID = publicIPAddress.id
 var nicName = 'nic'
 var ipConfigName = 'ipconfig'
-// var nsgName = 'vm-nsg'
-// var nsg1Name = 'vm-nsg1'
 var applicationGateWayName = 'myAppGateway'
-// var virtualNetworkPrefix = '10.10.10.0/24'
-// var FrontsubnetPrefix = '10.10.10.0/25'
-// var backendSubnetPrefix = '10.10.10.128/25'
 var customdata = loadFileAsBase64('install_apache.sh')
 
 
 resource Vnet1Web 'Microsoft.Network/virtualNetworks@2023-02-01' existing = {
    name:'existingVnet1'
 }
-
-
-resource Vnet2Man 'Microsoft.Network/virtualNetworks@2023-02-01' existing = {
-   name: 'existingVnet2'
-}
-
 
 
 resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
@@ -70,7 +57,7 @@ resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
     publicIPAllocationMethod: 'Static'
     idleTimeoutInMinutes: 4
     dnsSettings:{
-      domainNameLabel:'webproject1'
+      domainNameLabel:'webproject1jgo2023'
     }
   }
 }
@@ -124,7 +111,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
                   name:ipConfigName
                   properties:{
                     subnet:{
-                       id:Vnet2Man.properties.subnets[0].id
+                       id:Vnet1Web.properties.subnets[1].id
                     }
                     privateIPAddressVersion: 'IPv4'
                      applicationGatewayBackendAddressPools: [
