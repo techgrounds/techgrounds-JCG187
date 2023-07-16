@@ -274,9 +274,9 @@ output Subnet1webID string = resourceId('Microsoft.Network/VirtualNetworks/subne
 output Subnet2webID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name,'sub2web')
 output Subnet1manID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', Vnet2Name,'sub1man')
 
-output subnet1webID string = Subnet1Web.id
-output subnet2webID string = Subnet2Web.id
-output subnet1manID string = subnet1Man.id
+output subnet1webID string = Vnet1Web.properties.subnets[0].id
+output subnet2webID string = Vnet1Web.properties.subnets[1].id
+output subnet1manID string = Vnet2Man.properties.subnets[0].id
 
 output subnet1webName string = Subnet1Web.name
 output subnet2webName string = Subnet2Web.name

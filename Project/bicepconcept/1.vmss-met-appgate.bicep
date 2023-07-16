@@ -4,7 +4,6 @@ param adminUsername string = 'Jennifer'
 param adminPassword string // JGO89HNG9Hiyn
 param location string = resourceGroup().location
 
-param backendIpAddress string = '10.10.10.128/25'
 
 // @description('Size of the virtual machine.')
 // param vmSize string = 'Standard_B2ms'
@@ -54,7 +53,9 @@ resource Vnet1Web 'Microsoft.Network/virtualNetworks@2023-02-01' existing = {
 }
 
 
-
+resource Vnet2Man 'Microsoft.Network/virtualNetworks@2023-02-01' existing = {
+   name: 'existingVnet2'
+}
 
 
 
@@ -117,15 +118,13 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
             name: nicName
             properties:{
               primary:true
-              networkSecurityGroup:{
-                id:nsg
-              }
+          
               ipConfigurations:[
                 {
                   name:ipConfigName
                   properties:{
                     subnet:{
-                       id:resourceId('Microsoft.Network/VirtualNetworks/subnets', 'Vnet1Web','sub2web')
+                       id:Vnet2Man.properties.subnets[0].id
                     }
                     privateIPAddressVersion: 'IPv4'
                      applicationGatewayBackendAddressPools: [

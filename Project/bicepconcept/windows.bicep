@@ -93,9 +93,7 @@ resource publicIp 'Microsoft.Network/publicIPAddresses@2022-05-01' = {
   }
   properties: {
     publicIPAllocationMethod: publicIPAllocationMethod
-    dnsSettings: {
-      domainNameLabel: dnsLabelPrefix
-    }
+   
   }
 }
 
