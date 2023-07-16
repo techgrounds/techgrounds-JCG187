@@ -1,6 +1,11 @@
 param location string = resourceGroup().location //de locatie die gekoppeld is aan de resourcegroup
 param vnet1Name string = 'Vnet1-WebServer'
 param Vnet2Name string = 'Vnet2-ManServer'
+param vnet1Prefix string = '10.10.10.0/24'
+param vnet2Prefix string = '10.20.20.0/24'
+param subnet1prefix string = '10.10.10.0/25'
+param subnet2prefix string = '10.10.10.128/25'
+param subnet3prefix string = '10.20.20.0/25'
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -16,14 +21,14 @@ resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
   properties: {
     addressSpace: {
        addressPrefixes: [
-        '10.10.10.0/24'                      
+        vnet1Prefix                      
        ]  
     }    
     subnets:[
       {
         name:'sub1web'
         properties:{
-          addressPrefix:'10.10.10.0/25'
+          addressPrefix:subnet1prefix
           networkSecurityGroup:{
             id:nsg1.id
           }
@@ -32,7 +37,7 @@ resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
       {
         name:'sub2web'
         properties:{
-          addressPrefix:'10.10.10.128/25'
+          addressPrefix:subnet2prefix
           networkSecurityGroup:{
             id:nsg2.id              
             }
@@ -134,14 +139,14 @@ resource Vnet2Man 'Microsoft.Network/virtualNetworks@2022-11-01' = {
   properties: {
     addressSpace: {
      addressPrefixes:[
-       '10.20.20.0/24'
+      vnet2Prefix
      ]     
     }
     subnets:[
       {
         name:'Sub1Man'
         properties:{
-          addressPrefix:'10.20.20.0/25'
+          addressPrefix:subnet3prefix
           networkSecurityGroup:{
             id:nsg3.id
           }
@@ -238,13 +243,13 @@ output Subnet1webID string = resourceId('Microsoft.Network/VirtualNetworks/subne
 output Subnet2webID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name,'sub2web')
 output Subnet1manID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', Vnet2Name,'sub1man')
 
-output subnet1webID string = Vnet1Web.properties.subnets[0].id
-output subnet2webID string = Vnet1Web.properties.subnets[1].id
-output subnet1manID string = Vnet2Man.properties.subnets[0].id
+// output subnet1webID string = Vnet1Web.properties.subnets[0].id
+// output subnet2webID string = Vnet1Web.properties.subnets[1].id
+// output subnet1manID string = Vnet2Man.properties.subnets[0].id
 
-output subnet1webName string = Vnet1Web.properties.subnets[0].name
-output subnet2webName string = Vnet1Web.properties.subnets[1].name
-output subnet1manName string = Vnet1Web.properties.subnets[2].name
+// output subnet1webName string = Vnet1Web.properties.subnets[0].name
+// output subnet2webName string = Vnet1Web.properties.subnets[1].name
+// output subnet1manName string = Vnet2Man.properties.subnets[0].name
 
 output nsg1ID string = nsg1.id
 output nsg2ID string = nsg2.id

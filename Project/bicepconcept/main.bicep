@@ -24,7 +24,7 @@ param OSVersion string = '2022-datacenter-azure-edition'
 param vmName string = 'Man1-vm'
 
 //module vnet
-module virtualnetwork 'peeredVNETS.bicep'={
+module virtualnetwork 'peeringvnets.bicep'={
   name: 'deploymentvnet'
   params:{
     location:location
