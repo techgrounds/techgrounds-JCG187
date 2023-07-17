@@ -24,6 +24,8 @@ param singlePlacementGroup bool = true
 param platformFaultDomainCount int = 1
 
 param vmScaleSetName string = 'vmssWebApp'
+// param vnet1Name string 
+
 
 
 var osType = {
@@ -42,7 +44,12 @@ var customdata = loadFileAsBase64('install_apache.sh')
 
 
 resource Vnet1Web 'Microsoft.Network/virtualNetworks@2023-02-01' existing = {
-   name:'existingVnet1'
+   name: 'Vnet1WebServer'
+}
+
+
+resource nsg1 'Microsoft.Network/networkSecurityGroups@2023-02-01' existing = {
+   name:'nsg1web'
 }
 
 
@@ -52,14 +59,17 @@ resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
   sku: {
     name: 'Standard'
   }
-  properties: {
+  properties: {    
     publicIPAddressVersion: 'IPv4'
     publicIPAllocationMethod: 'Static'
     idleTimeoutInMinutes: 4
     dnsSettings:{
-      domainNameLabel:'webproject1jgo2023'
-    }
+      domainNameLabel:'webproject1jgo2023'      
+    }    
   }
+  dependsOn:[
+    Vnet1Web
+  ]
 }
 
 resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
@@ -75,6 +85,9 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
   }
   properties:{
     overprovision: true
+    // automaticRepairsPolicy:{
+    //   enabled:true
+    // }
     upgradePolicy:{
       mode:'Automatic'
     }      
@@ -116,7 +129,7 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
                     privateIPAddressVersion: 'IPv4'
                      applicationGatewayBackendAddressPools: [
                        {
-                         id:resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName,'appGatewayBackendAddressPool')
+                         id: applicationGateWay.properties.backendAddressPools[0].id                                   //resourceId('Microsoft.Network/applicationGateways/backendAddressPools', 'myAppGateway','appGatewayBackendAddressPool') 
                        }
                      ]
                   }
@@ -129,8 +142,9 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
     }    
   }  
   dependsOn:[
-    applicationGateWay
-    networkInterface
+    //  applicationGateWay
+    // networkInterface
+    nsg1
   ]
 } 
 
@@ -204,25 +218,32 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
     sku: {
       name: 'Standard_v2'
       tier: 'Standard_v2'
-    }       
+    }         
+    backendAddressPools: [
+      {
+        name: 'appGatewayBackendAddressPool'
+        properties:{                               
+        }     
+        }      
+    ]        
     gatewayIPConfigurations: [
       {
         name: 'appGatewayIpConfig'
         properties: {
           subnet: {
-            id: resourceId('Microsoft.Network/VirtualNetworks/subnets', 'Vnet1Web', 'sub1web')                                 
-          }          
-        }
-      }
-    ]    
+            id: Vnet1Web.properties.subnets[0].id //resourceId('Microsoft.Network/VirtualNetworks/subnets', Vnet1Web.name, 'sub1web')                                 
+          }                    
+        }        
+      }      
+    ]        
     frontendIPConfigurations: [
       {
         name: 'appGwPublicFrontendIp'
         properties: {
-          privateIPAllocationMethod: 'Dynamic'
-          publicIPAddress: {
-            id: publicIPAddress.id
-          }
+          privateIPAllocationMethod: 'Dynamic'   
+          publicIPAddress:{
+            id: publicIPAddress.id    //resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName, 'appGatewayBackendAddressPool')
+          }       
         }
       }
     ]
@@ -233,21 +254,14 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
           port: 80
         }        
       }
-      {
-        name:'appGatewayFrontPorthttps'
-        properties:{
-          port: 443
-        }
-      }
+      // {
+      //   name:'appGatewayFrontPorthttps'
+      //   properties:{
+      //     port: 443
+      //   }
+      // }
     ]
-    backendAddressPools: [
-      {
-        name: 'appGatewayBackendAddressPool'
-        properties:{
-                            
-        }     
-        }      
-    ]
+    
     backendHttpSettingsCollection: [
       {
         name: 'appGatewayBackendHttpSettings'
@@ -256,9 +270,9 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
           protocol: 'Http'
           cookieBasedAffinity: 'Disabled'
           pickHostNameFromBackendAddress: false
-          requestTimeout: 20
+          requestTimeout: 20          
         }
-      }
+      }      
     ]
     httpListeners: [
       {
@@ -270,13 +284,30 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
           frontendPort: {
             id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', applicationGateWayName,'appGatewayFrontporthttp')
           }
-          protocol: 'Http'      
+          protocol: 'Http' 
+          requireServerNameIndication:false     
         }
       }
+      // {
+      //   name: 'myListenerHTTPS'
+      //   properties: {
+      //     frontendIPConfiguration: {
+      //       id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', applicationGateWayName, 'appGwPublicFrontendIp')
+      //     }
+      //     frontendPort: {
+      //       id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', applicationGateWayName, 'appGatewayFrontPorthttps')
+      //     }
+      //     protocol: 'Https'
+      //     requireServerNameIndication: false
+      //     sslCertificate: {
+      //       id: resourceId('Microsoft.Network/applicationGateways/authenticationCertificates', applicationGateWayName, 'myCertificate')
+      //     }
+      //   }
+      // }
     ]
     requestRoutingRules: [
       {
-        name: 'rule1'
+        name: 'rule1HTTP'
         properties: {
           ruleType: 'Basic'
           httpListener: {
@@ -290,6 +321,21 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
           }
         }
       }
+      // {
+      //   name: 'myRoutingRuleHTTPS'
+      //   properties: {
+      //     ruleType: 'Basic'
+      //     httpListener: {
+      //       id: resourceId('Microsoft.Network/applicationGateways/httpListeners', appGatewayName, 'myListenerHTTPS')
+      //     }
+      //     backendAddressPool: {
+      //       id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', appGatewayName, 'myBackendPool')
+      //     }
+      //     backendHttpSettings: {
+      //       id: resourceId('Microsoft.Network/applicationGateways/backendHttpSettingsCollection', appGatewayName, 'myHTTPSSetting')
+      //     }
+      //   }
+      // }
     ]
     enableHttp2: false
     autoscaleConfiguration: {
@@ -297,44 +343,46 @@ resource applicationGateWay 'Microsoft.Network/applicationGateways@2021-05-01' =
       maxCapacity: 3
     }
   }
- 
+ dependsOn:[
+  Vnet1Web
+ ]
 }
 
-resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
-  name: nicName
-  location: location
-  properties: {
-    ipConfigurations: [
-      {
-        name: ipConfigName
-        properties: {
-          // privateIPAllocationMethod: 'Dynamic'
-          publicIPAddress: {
-            id: publicIPAddress.id       ///////resourceId('Microsoft.Network/publicIPAddresses', publicIPAddress, 'gatewaypublicIP')
-          }
-          subnet: {
-            id: resourceId('Microsoft.Network/VirtualNetworks/subnets', 'Vnet1Web','sub2web')
-          }
-          primary: true
-          privateIPAddressVersion: 'IPv4'
-          applicationGatewayBackendAddressPools: [
-            {
-              id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName, 'appGatewayBackendAddressPool')
-            }
-          ]
-        }
-      }
-    ]
-    enableAcceleratedNetworking: false
-    enableIPForwarding: false
-    networkSecurityGroup: {
-      id: resourceId('Microsoft.Network/networkSecurityGroup', 'Vnet1Web', 'sub1web')
-    }
-  }
-  dependsOn: [
-   
-    applicationGateWay
-    Vnet1Web
+// resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' =  {
+//   name: nicName
+//   location: location
+//   properties: {
+//     ipConfigurations: [
+//       {
+//         name: ipConfigName
+//         properties: {
+//           privateIPAllocationMethod: 'Dynamic'
+//           // publicIPAddress: {
+//           //   id: publicIPAddress.id       ///////resourceId('Microsoft.Network/publicIPAddresses', publicIPAddress, 'gatewaypublicIP')
+//           // }
+//           subnet: {
+//             id:  Vnet1Web.properties.subnets[1].id  //resourceId('Microsoft.Network/VirtualNetworks/subnets', 'Vnet1Web','sub1web')
+//           }
+//           primary: true
+//           privateIPAddressVersion: 'IPv4'
+//           // applicationGatewayBackendAddressPools: [
+//           //   {
+//           //     id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', applicationGateWayName, 'appGatewayBackendAddressPool')
+//           //  }
+//           //]
+//         }
+//       }
+//     ]
+//     enableAcceleratedNetworking: false
+//     enableIPForwarding: false
+//     networkSecurityGroup: {
+//       id:nsg1.id                                   // resourceId('Microsoft.Network/networkSecurityGroup','nsg1') //Vnet1Web.properties.subnets[0].id
+//     }
+//   }
+//   dependsOn: [    
+//     applicationGateWay
+//     Vnet1Web
+//     // nsg1
     
-  ]
-}
+//   ]
+// }

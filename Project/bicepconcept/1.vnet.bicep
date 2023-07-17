@@ -169,10 +169,10 @@ resource nsg2vnet1 'Microsoft.Network/networkSecurityGroups@2023-02-01' = {
 resource nsg1vnet2 'Microsoft.Network/networkSecurityGroups@2023-02-01' = {
   location:location
   name: 'nsg3'
-  properties:{
+  properties:{  
     securityRules:[
       {
-        properties:{  
+        properties:{                     
           description: 'RDP'
           access: 'Allow'
           direction: 'Inbound'
@@ -183,6 +183,7 @@ resource nsg1vnet2 'Microsoft.Network/networkSecurityGroups@2023-02-01' = {
           sourceAddressPrefix:'*'
           sourcePortRange:'*'          
         }
+        name: 'managementaccess'
       }
       // {
       //   properties:{

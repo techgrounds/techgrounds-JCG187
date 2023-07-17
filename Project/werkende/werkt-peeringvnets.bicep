@@ -1,6 +1,7 @@
 param location string = resourceGroup().location //de locatie die gekoppeld is aan de resourcegroup
-param vnet1Name string = 'Vnet1-WebServer'
-param Vnet2Name string = 'Vnet2-ManServer'
+
+param vnet1Name string = 'Vnet1WebServer'
+param Vnet2Name string = 'Vnet2ManServer'
 param vnet1Prefix string = '10.10.10.0/24'
 param vnet2Prefix string = '10.20.20.0/24'
 param subnet1prefix string = '10.10.10.0/25'
@@ -16,7 +17,7 @@ param subnet3prefix string = '10.20.20.0/25'
 
 //vnet1 voor webserver
 resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
-  name: vnet1Name
+  name: 'Vnet1WebServer'
   location: location
   properties: {
     addressSpace: {
@@ -31,6 +32,7 @@ resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
           addressPrefix:subnet1prefix
           networkSecurityGroup:{
             id:nsg1.id
+          
           }
         }      
       }
@@ -48,6 +50,20 @@ resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
   }
  
 
+
+  // @description('peering vnet1 met vnet2')
+resource peeringWebwithMan 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01' = {  
+  name: 'vnet1-to-vnet2'
+  parent: Vnet1Web
+  properties: {            
+    allowForwardedTraffic: true
+    allowGatewayTransit: true     
+    remoteVirtualNetwork: {
+       id: Vnet2Man.id
+    }        
+  }  
+  }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////Vnet1 NSG's Subnet 1 voor alle subnets gelijk/////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +71,7 @@ resource Vnet1Web 'Microsoft.Network/virtualNetworks@2022-11-01' = {
 
 resource nsg1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {    
   location: location  
-  name: 'nsg1web'    
+  name: 'nsg1web'      
   properties: {
     securityRules:[
       {
@@ -69,7 +85,8 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
           destinationPortRange:'22'
           sourceAddressPrefix:'*'
           sourcePortRange:'*'          
-        }
+        }    
+        name: 'SSH-inbound'    
       }
       {
         properties:{
@@ -83,7 +100,8 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
           sourceAddressPrefix:'*'
           sourcePortRange:'*'
         }
-      }
+        name: 'HTTP-inbound' 
+      }      
       {
         properties:{
         description: 'HTTPS'
@@ -95,6 +113,20 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
           destinationPortRange:'443'
           sourceAddressPrefix:'*'
           sourcePortRange:'*'
+        }
+        name: 'HTTPS-inbound'
+      }
+      {
+        name: 'allowport'
+        properties:{
+          access: 'Allow'
+          direction: 'Inbound'
+          priority: 300
+          protocol: 'Tcp'
+          sourceAddressPrefix:'GatewayManager'
+          sourcePortRange:'*'
+          destinationPortRange:'65200-65535'
+          destinationAddressPrefix:'*'          
         }
       }
     ]    
@@ -118,6 +150,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
           sourceAddressPrefix:'*'
           sourcePortRange:'*'          
         }
+        name: 'SSH-inbound'
       }
     ]    
   }
@@ -176,6 +209,7 @@ resource nsg3 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
          sourceAddressPrefix:'*'
          sourcePortRange:'*'          
        }
+       name:'SSH-Inbound'
      }
      {
        properties:{
@@ -188,7 +222,8 @@ resource nsg3 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
          destinationPortRange:'3389'
          sourceAddressPrefix:'*'
          sourcePortRange:'*'  
-       }    
+       }   
+       name:'RDP-Inbound' 
      }
    ]        
  }
@@ -202,18 +237,7 @@ resource nsg3 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
 
 
 
-@description('peering vnet1 met vnet2')
-resource peeringWebwithMan 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01' = {  
-  name: 'vnet1-to-vnet2'
-  parent: Vnet1Web
-  properties: {            
-    allowForwardedTraffic: true
-    allowGatewayTransit: true     
-    remoteVirtualNetwork: {
-       id: Vnet2Man.id
-    }        
-  }  
-  }
+
  
 
 
@@ -243,13 +267,13 @@ output Subnet1webID string = resourceId('Microsoft.Network/VirtualNetworks/subne
 output Subnet2webID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vnet1Name,'sub2web')
 output Subnet1manID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', Vnet2Name,'sub1man')
 
-// output subnet1webID string = Vnet1Web.properties.subnets[0].id
-// output subnet2webID string = Vnet1Web.properties.subnets[1].id
-// output subnet1manID string = Vnet2Man.properties.subnets[0].id
+output subnet1webID string = Vnet1Web.properties.subnets[0].id
+output subnet2webID string = Vnet1Web.properties.subnets[1].id
+output subnet1manID string = Vnet2Man.properties.subnets[0].id
 
-// output subnet1webName string = Vnet1Web.properties.subnets[0].name
-// output subnet2webName string = Vnet1Web.properties.subnets[1].name
-// output subnet1manName string = Vnet2Man.properties.subnets[0].name
+output subnet1webName string = Vnet1Web.properties.subnets[0].name
+output subnet2webName string = Vnet1Web.properties.subnets[1].name
+output subnet1manName string = Vnet2Man.properties.subnets[0].name
 
 output nsg1ID string = nsg1.id
 output nsg2ID string = nsg2.id
@@ -258,7 +282,8 @@ output nsg1Name string = nsg1.name
 output nsg2Name string = nsg2.name
 output nsg3Name string = nsg3.name
 
-
+output Namevnet1 string = vnet1Name
+output Namevnet2 string = Vnet2Name
 
 
 
