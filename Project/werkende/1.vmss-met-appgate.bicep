@@ -23,9 +23,8 @@ param singlePlacementGroup bool = true
 //Fault Domain count for each placement group
 param platformFaultDomainCount int = 1
 
+//scale set name
 param vmScaleSetName string = 'vmssWebApp'
-// param vnet1Name string 
-
 
 
 var osType = {

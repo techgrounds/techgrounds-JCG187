@@ -74,20 +74,20 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
   name: 'nsg1web'      
   properties: {
     securityRules:[
-      {
-        properties:{
-          description: 'SSH'
-          access: 'Allow'
-          direction: 'Inbound'
-          priority: 1000
-          protocol: 'Tcp'
-          destinationAddressPrefix:'*'
-          destinationPortRange:'22'
-          sourceAddressPrefix:'*'
-          sourcePortRange:'*'          
-        }    
-        name: 'SSH-inbound'    
-      }
+      // {
+      //   properties:{
+      //     description: 'SSH'
+      //     access: 'Allow'
+      //     direction: 'Inbound'
+      //     priority: 1000
+      //     protocol: 'Tcp'
+      //     destinationAddressPrefix:'*'
+      //     destinationPortRange:'22'
+      //     sourceAddressPrefix:'*'
+      //     sourcePortRange:'*'          
+      //   }    
+      //   name: 'SSH-inbound'    
+      // }
       {
         properties:{
           description: 'HTTP'
@@ -152,6 +152,20 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
         }
         name: 'SSH-inbound'
       }
+      {
+      properties:{
+        description: 'HTTPInboundAllow'
+        access: 'Allow'
+        direction: 'Inbound'
+        priority: 500
+        protocol: 'Tcp'
+        destinationAddressPrefix:'*'
+        destinationPortRange:'80'
+        sourceAddressPrefix:'*'
+        sourcePortRange:'*'          
+      }
+      name: 'HTTP-inbound'
+    }
     ]    
   }
 }
@@ -167,7 +181,7 @@ resource nsg2 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
 
 @description('aanmaken van vnet2 voor management server')
 resource Vnet2Man 'Microsoft.Network/virtualNetworks@2022-11-01' = {
-  name: Vnet2Name
+  name: 'Vnet2ManServer'
   location: location
   properties: {
     addressSpace: {

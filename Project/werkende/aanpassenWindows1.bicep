@@ -1,5 +1,5 @@
 // gebuikersnaam voor de windows vm
-param adminUsername string = 'Jennifer'
+param adminUsername string = 'adminserver'
 
 // wachtwoord voor de windows vm  ww = JaH00rW33r33n23456
 @minLength(12)
@@ -55,13 +55,13 @@ param vmName string = 'Man1-vm'
 ])
 param securityType string = 'Standard'
 
-var storageAccountName = 'bootdiags${uniqueString(resourceGroup().id)}'
+// var storageAccountName = 'bootdiags${uniqueString(resourceGroup().id)}'
 var nicName = 'Man1-Nic1'
-var addressPrefix = '10.10.10.0/24'
-var subnetName = 'Man1-Subnet1'
-var subnetPrefix = '10.10.10.0/24'
-var virtualNetworkName = 'Man1-Vnet1'
-var networkSecurityGroupName = 'Man1-Nsg1'
+// var addressPrefix = '10.10.10.0/24'
+// var subnetName = 'Man1-Subnet1'
+// var subnetPrefix = '10.10.10.0/24'
+// var virtualNetworkName = 'Man1-Vnet1'
+// var networkSecurityGroupName = 'Man1-Nsg1'
 var securityProfileJson = {
   uefiSettings: {
     secureBootEnabled: true
@@ -84,6 +84,14 @@ var securityProfileJson = {
 //   kind: 'Storage'
 // }
 
+
+resource Vnet2Man 'Microsoft.Network/virtualNetworks@2022-11-01' existing = {
+  name: 'Vnet2ManServer'
+}
+
+resource nsg3 'Microsoft.Network/networkSecurityGroups@2022-11-01' existing = {  
+  name: 'nsg1man'
+}
 resource publicIp 'Microsoft.Network/publicIPAddresses@2022-05-01' = {
   name: publicIpName
   location: location
@@ -96,6 +104,9 @@ resource publicIp 'Microsoft.Network/publicIPAddresses@2022-05-01' = {
       domainNameLabel: dnsLabelPrefix
     }
   }
+  dependsOn:[
+    Vnet2Man
+  ]
 }
 
 // resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2022-05-01' = {
@@ -156,7 +167,7 @@ resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
             id: publicIp.id
           }
           subnet: {
-            id: resourceId('Microsoft.Network/virtualNetworks/subnets', virtualNetworkName, subnetName)
+            id: Vnet2Man.properties.subnets[0].id
           }
         }
       }
@@ -164,7 +175,8 @@ resource nic 'Microsoft.Network/networkInterfaces@2022-05-01' = {
   }
   dependsOn: [
 
-    virtualNetwork
+    Vnet2Man
+    nsg3
   ]
 }
 
@@ -208,12 +220,12 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
         }
       ]
     }
-    diagnosticsProfile: {
-      bootDiagnostics: {
-        enabled: true
-        storageUri: storageAccount.properties.primaryEndpoints.blob
-      }
-    }
+    // diagnosticsProfile: {
+    //   bootDiagnostics: {
+    //     enabled: true
+    //     storageUri: storageAccount.properties.primaryEndpoints.blob
+    //   }
+    // }
     securityProfile: ((securityType == 'TrustedLaunch') ? securityProfileJson : null)
   }
 }
@@ -228,4 +240,4 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 
 
 output hostname string = publicIp.properties.dnsSettings.fqdn
-output windowsVnetName string = virtualNetwork.name
+
