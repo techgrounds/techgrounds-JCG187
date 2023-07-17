@@ -1,5 +1,5 @@
 
-param adminUsername string = 'Jennifer'
+param adminUsername string = 'adminwebserver'
 @secure()
 param adminPassword string // JGO89HNG9Hiyn
 param location string = resourceGroup().location

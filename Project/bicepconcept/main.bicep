@@ -2,14 +2,6 @@
 param vnet1Name string = 'Vnet1-WebServer'
 param Vnet2Name string = 'Vnet2-ManServer'
 param location string = resourceGroup().location
-// param serviceEndPoints array = [
-//   {
-//       locations: [
-//         'westeurope'                   
-//                ]
-//       service: 'Microsoft.Storage'
-//            }
-// ]
 
 
 //parameters vmssgateway
@@ -23,16 +15,6 @@ param vmSize string = 'Standard_B2s'
 param OSVersion string = '2022-datacenter-azure-edition'
 param vmName string = 'Man1-vm'
 
-//module vnet
-module virtualnetwork 'peeringvnets.bicep'={
-  name: 'deploymentvnet'
-  params:{
-    location:location
-    vnet1Name:vnet1Name
-    Vnet2Name:Vnet2Name
-    // serviceEndPoints:serviceEndPoints
-  }
-}
 
 
 
