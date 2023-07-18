@@ -52,7 +52,7 @@ resource kv 'Microsoft.KeyVault/vaults@2021-11-01-preview' = {
     enabledForTemplateDeployment: enabledForTemplateDeployment
     tenantId: tenantId
     enableSoftDelete: true
-    softDeleteRetentionInDays: 90
+    softDeleteRetentionInDays: 1
     accessPolicies: [
       {
         objectId: objectId

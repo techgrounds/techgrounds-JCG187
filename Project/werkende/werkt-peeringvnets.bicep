@@ -117,7 +117,7 @@ resource nsg1 'Microsoft.Network/networkSecurityGroups@2022-11-01' = {
         name: 'HTTPS-inbound'
       }
       {
-        name: 'allowport'
+        name: 'backendAllowGateway'
         properties:{
           access: 'Allow'
           direction: 'Inbound'

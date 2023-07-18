@@ -29,8 +29,8 @@ param vmScaleSetName string = 'vmssWebApp'
 
 var osType = {
   publisher: 'Canonical'
-  offer: '0001-com-ubuntu-server-jammy'                     //'UbuntuServer'
-  sku: '20_04-lts-gen2'                            //'16.04-LTS'
+  offer: 'UbuntuServer'
+  sku: '16.04-LTS'
   version: 'latest'
 }
 var imageReference = osType
@@ -40,6 +40,7 @@ var nicName = 'nic'
 var ipConfigName = 'ipconfig'
 var applicationGateWayName = 'myAppGateway'
 var customdata = loadFileAsBase64('install_apache.sh')
+
 
 
 resource Vnet1Web 'Microsoft.Network/virtualNetworks@2023-02-01' existing = {
@@ -83,12 +84,12 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
     capacity: instanceCount
   }
   properties:{    
-    overprovision: true        
-    automaticRepairsPolicy:{
-      enabled:true
-      gracePeriod:'PT10M'
-      repairAction:'Replace'           
-    }    
+    overprovision: true    
+    // automaticRepairsPolicy:{
+    //   enabled:true
+    //   gracePeriod:'PT10M'
+    //   repairAction:'Replace'     
+    // }
     upgradePolicy:{
       mode:'Automatic'      
     }     
@@ -102,38 +103,20 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
         computerNamePrefix:vmScaleSetName
         adminUsername:adminUsername
         adminPassword:adminPassword
-        customData:customdata                
-      }          
-      extensionProfile:{
-        extensions:[
-          {
-            name:'healthy-vmss'
-            properties:{              
-              autoUpgradeMinorVersion:false
-              enableAutomaticUpgrade:true
-              publisher:'Microsoft.ManagedServices'
-              type:'ApplicationHealthLinux'
-              typeHandlerVersion:'1.0'
-              settings:{
-                port: 80
-                protocol: 'http'           // http of tcp
-                requestPath: ''
-              }              
+        customData:customdata
 
-            }
-          }
-        ]
-      }
+       
+            
+      }          
       storageProfile:{
         osDisk:{
           createOption: 'FromImage'
           caching:'ReadWrite'
           managedDisk:{
-           storageAccountType:'StandardSSD_LRS' 
+           storageAccountType:'StandardSSD_ZRS' 
           }
         }
         imageReference:imageReference
-
       }
       networkProfile:{
         networkInterfaceConfigurations:[
@@ -162,13 +145,13 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
           }
         ]       
       }            
-    }        
-  }    
+    }    
+  }  
   dependsOn:[
-      // applicationGateWay
+    //  applicationGateWay
     // networkInterface
     nsg1
-  ]  
+  ]
 } 
 
 resource autoscalehost 'Microsoft.Insights/autoscalesettings@2022-10-01' = {  

@@ -1,17 +1,16 @@
 # log  
-12 juli 2023
+17 + 18 juli 2023
 
 
 ## dagverslag
 
-Vandaag geprobeerd om een vmss aan te maken met een load balancer. Ook dat lukte niet. Nogmaals gekeken naar de vmss met app gateway maar wat ik ook probeerde, de app gateway deployed maar de vmss niet. Ik heb zelfs de code van Akram naast die van mij gehouden. Het lijkt hetzelfde maar blijkbaar is het dat niet.  Ik ben er klaar mee. Ik ga geen vmss meer deployen. Het is een te grote stap voor mij om van vm naar vmss en app gateway. Ik ga terug naar af. De losse vm's aan elkaar koppelen via het netwerk. En dan morgen kijken of ik de endpoints kan realiseren. 
-## obstakels  
+Het is gisteren (17-7) in de avond eindelijk gelukt om de vmss scaleset werkende te krijgen. Vandaag gekeken naar de private links en hoe het werkt. 
 
 
 
 
 ## oplossing  
-  
+ Ik had de resource networkinterface 
 
 
 
