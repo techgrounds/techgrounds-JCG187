@@ -14,7 +14,7 @@ param vmSku string = 'Standard_B2s'
 //Number of VM instances (100 or less)
 @minValue(1)
 @maxValue(100)
-param instanceCount int = 2
+param instanceCount int = 1
 
 // param computerNamePrefix string = 'webServer${uniqueString(resourceGroup().id)}'
 @description('When true this limits the scale set to a single placement group, of max size 100 virtual machines. NOTE: If singlePlacementGroup is true, it may be modified to false. However, if singlePlacementGroup is false, it may not be modified to true.')
@@ -29,8 +29,8 @@ param vmScaleSetName string = 'vmssWebApp'
 
 var osType = {
   publisher: 'Canonical'
-  offer: '0001-com-ubuntu-server-jammy'                     //'UbuntuServer'
-  sku: '20_04-lts-gen2'                            //'16.04-LTS'
+  offer:'UbuntuServer'                   //'0001-com-ubuntu-server-jammy'
+  sku: '16.04-LTS'  //'20_04-lts-gen2'
   version: 'latest'
 }
 var imageReference = osType
@@ -63,7 +63,7 @@ resource publicIPAddress 'Microsoft.Network/publicIPAddresses@2021-05-01' =  {
     publicIPAllocationMethod: 'Static'
     idleTimeoutInMinutes: 4
     dnsSettings:{
-      domainNameLabel:'webproject1jgo2023new'      
+      domainNameLabel:'webproject1jgo2023old'      
     }    
   }
   dependsOn:[
@@ -85,9 +85,9 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
   properties:{    
     overprovision: true        
     automaticRepairsPolicy:{
-      enabled:true
-      gracePeriod:'PT10M'
-      repairAction:'Replace'           
+      enabled:false
+      // gracePeriod:'PT10M'
+      // repairAction:'Replace'          
     }    
     upgradePolicy:{
       mode:'Automatic'      
@@ -104,26 +104,26 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
         adminPassword:adminPassword
         customData:customdata                
       }          
-      extensionProfile:{
-        extensions:[
-          {
-            name:'healthy-vmss'
-            properties:{              
-              autoUpgradeMinorVersion:false
-              enableAutomaticUpgrade:true
-              publisher:'Microsoft.ManagedServices'
-              type:'ApplicationHealthLinux'
-              typeHandlerVersion:'1.0'
-              settings:{
-                port: 80
-                protocol: 'http'           // http of tcp
-                requestPath: ''
-              }              
+      // extensionProfile:{
+      //   extensions:[
+      //     {
+      //       name:'healthy-vmss'
+      //       properties:{              
+      //         autoUpgradeMinorVersion:false
+      //         enableAutomaticUpgrade:true
+      //         publisher:'Microsoft.ManagedServices'
+      //         type:'ApplicationHealthLinux'
+      //         typeHandlerVersion:'1.0'
+      //         settings:{
+      //           port: 80
+      //           protocol: 'http'           // http of tcp
+      //           requestPath: ''
+      //         }              
 
-            }
-          }
-        ]
-      }
+      //       }
+      //     }
+      //   ]
+      // }
       storageProfile:{
         osDisk:{
           createOption: 'FromImage'
@@ -171,11 +171,11 @@ resource vmss 'Microsoft.Compute/virtualMachineScaleSets@2023-03-01'= {
   ]  
 } 
 
-resource autoscalehost 'Microsoft.Insights/autoscalesettings@2022-10-01' = {  
-  name: 'autoscalehost2'
+resource autoscalehost 'Microsoft.Insights/autoscalesettings@2022-10-01' = {    
+  name: 'autoscalehost1'
   location: location
   properties: {
-    name: 'autoscalehost2'
+    name: 'autoscalehost1'
     targetResourceUri: vmss.id
     enabled: true
     profiles: [
